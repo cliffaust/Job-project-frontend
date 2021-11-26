@@ -7,6 +7,7 @@ module.exports = {
       fontFamily: {
         muli: ["Mulish", "sans-serif"],
         lobster: ["Lobster", "sans-serif"],
+        openSans: ["Open Sans", "sans-serif"],
       },
     },
   },

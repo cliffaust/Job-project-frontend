@@ -5,9 +5,11 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <div className="flex px-20 py-4 justify-between items-center">
-      <Link href="/">
-        <Logo type="small"></Logo>
+    <navbar className="flex px-20 py-4 justify-between items-center">
+      <Link href={{ pathname: "/" }}>
+        <a>
+          <Logo type="small"></Logo>
+        </a>
       </Link>
       <div className="flex items-center gap-8">
         <div className="text-base cursor-pointer">Find jobs</div>
@@ -17,7 +19,7 @@ const Navbar = () => {
         <ButtonPrimary className="!px-6 !py-1">Find an intern</ButtonPrimary>
         <ButtonPrimaryOpen className="!px-6 !py-1">Sign up</ButtonPrimaryOpen>
       </div>
-    </div>
+    </navbar>
   );
 };
 
