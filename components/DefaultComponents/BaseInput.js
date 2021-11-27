@@ -5,7 +5,10 @@ export default function BaseInput({
   errorStyle,
   name,
   value,
+  type,
   handleChange,
+  placeholder,
+  className,
 }) {
   return (
     <div className="flex flex-col">
@@ -21,8 +24,12 @@ export default function BaseInput({
           onChange={handleChange}
           name={name}
           value={value}
+          type={type}
+          placeholder={placeholder}
           className={
-            "appearance-none leading-tight border-2 border-gray-400 focus:outline-none py-3 px-2 text-gray-700 w-full text-base"
+            "appearance-none leading-tight border border-black focus:outline-none py-2 px-4 w-full text-base " +
+            className +
+            (errorStyle ? "border-red-300" : "")
           }
         />
       </div>
