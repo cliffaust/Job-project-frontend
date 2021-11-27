@@ -8,18 +8,19 @@ module.exports = {
         muli: ["Mulish", "sans-serif"],
         lobster: ["Lobster", "sans-serif"],
         openSans: ["Open Sans", "sans-serif"],
+        standardTT: ["Old Standard TT", "sans-serif"],
       },
 
       height: {
         325: "325px",
         500: "500px",
-        700: "700px",
+        600: "600px",
       },
 
       width: {
         325: "325px",
         500: "500px",
-        700: "700px",
+        600: "600px",
       },
     },
   },
