@@ -2,3 +2,12 @@ body {
   font-family: "Mulish", sans-serif;
   color: #002333;
 }
+
+.circle-gradient {
+  background: rgb(39, 24, 126);
+  background: linear-gradient(
+    303deg,
+    rgba(39, 24, 126, 1) 0%,
+    rgba(117, 139, 253, 1) 44%
+  );
+}
