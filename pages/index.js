@@ -1,6 +1,7 @@
 import Navbar from "../components/HomeNavbar/Navbar";
 import Hero from "../components/HeroSection/Hero";
 import Section from "../components/HomeSections/Section";
+import Form from "../components/HomeSignin/Form";
 
 export default function Home() {
   return (
@@ -80,8 +81,8 @@ export default function Home() {
                 gradientTransform="matrix(1 0 0 -1.1282 0 138.298)"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset=".794" stop-color="#444140" stop-opacity="0" />
-                <stop offset="1" stop-color="#444140" />
+                <stop offset=".794" stopColor="#444140" stopOpacity="0" />
+                <stop offset="1" stopColor="#444140" />
               </radialGradient>
               <path
                 d="M100.15 55.17s9.31-49.9-36.13-50.14h-.04c-.71 0-1.4.02-2.08.05c-1.35.06-2.66.16-3.92.31h-.04c-.09.01-.17.03-.26.04c-38.25 4.81-29.84 49.74-29.84 49.74l2.98 7.68c.13.34.62.31.7-.05c.98-4.39 4.46-19.71 6.22-24.37a6.08 6.08 0 0 1 6.8-3.83c4.46.8 11.55 1.8 19.38 1.8h.16c7.82 0 14.92-1 19.37-1.81c2.9-.53 5.76 1.08 6.79 3.83c1.76 4.68 5.25 20.1 6.21 24.42c.08.36.57.39.7.05c.94-2.35 3-7.72 3-7.72z"
@@ -125,9 +126,9 @@ export default function Home() {
                 y2="98.71"
                 gradientTransform="matrix(1 0 0 -1 0 128)"
               >
-                <stop offset=".003" stop-color="#424242" />
-                <stop offset=".472" stop-color="#353535" />
-                <stop offset="1" stop-color="#212121" />
+                <stop offset=".003" stopColor="#424242" />
+                <stop offset=".472" stopColor="#353535" />
+                <stop offset="1" stopColor="#212121" />
               </linearGradient>
               <path
                 d="M116 12.98c-30.83-7.75-52-8-52-8s-21.17.25-52 8v.77c0 1.33.87 2.5 2.14 2.87c3.72 1.1 13.13 3.53 18.18 4.54c-.08.08-1.1 1.87-1.83 3.53c0 0 8.14 5.72 33.52 8.28c25.38-2.56 33.76-7.58 33.76-7.58c-.88-1.81-1.79-3.49-1.79-3.49c4.5-.74 14.23-4.07 17.95-5.26c1.25-.4 2.09-1.55 2.09-2.86v-.8z"
@@ -142,10 +143,10 @@ export default function Home() {
                 y2="96.184"
                 gradientTransform="matrix(1 0 0 -1 0 128)"
               >
-                <stop offset=".003" stop-color="#616161" />
-                <stop offset=".324" stop-color="#505050" />
-                <stop offset=".955" stop-color="#242424" />
-                <stop offset="1" stop-color="#212121" />
+                <stop offset=".003" stopColor="#616161" />
+                <stop offset=".324" stopColor="#505050" />
+                <stop offset=".955" stopColor="#242424" />
+                <stop offset="1" stopColor="#212121" />
               </linearGradient>
               <path
                 d="M64 4.98s-21.17.25-52 8c0 0 35.41 9.67 52 9.38c16.59.29 52-9.38 52-9.38c-30.83-7.75-52-8-52-8z"
@@ -160,10 +161,10 @@ export default function Home() {
                 y2="109.017"
                 gradientTransform="matrix(1 0 0 -1 0 128)"
               >
-                <stop offset=".001" stop-color="#bfbebe" />
-                <stop offset=".3" stop-color="#212121" stop-opacity="0" />
-                <stop offset=".7" stop-color="#212121" stop-opacity="0" />
-                <stop offset="1" stop-color="#bfbebe" />
+                <stop offset=".001" stopColor="#bfbebe" />
+                <stop offset=".3" stopColor="#212121" stopOpacity="0" />
+                <stop offset=".7" stopColor="#212121" stopOpacity="0" />
+                <stop offset="1" stopColor="#bfbebe" />
               </linearGradient>
               <path
                 d="M116 12.98c-30.83-7.75-52-8-52-8s-21.17.25-52 8v.77c0 1.33.87 2.5 2.14 2.87c3.72 1.1 13.13 3.69 18.18 4.71c0 0-.96 1.56-1.83 3.53c0 0 8.14 5.55 33.52 8.12c25.38-2.56 33.76-7.58 33.76-7.58c-.88-1.81-1.79-3.49-1.79-3.49c4.5-.74 14.23-4.07 17.95-5.26c1.25-.4 2.09-1.55 2.09-2.86v-.81z"
@@ -184,8 +185,8 @@ export default function Home() {
                 gradientTransform="matrix(1 0 0 -.5247 0 125.435)"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset=".598" stop-color="#212121" />
-                <stop offset="1" stop-color="#616161" />
+                <stop offset=".598" stopColor="#212121" />
+                <stop offset="1" stopColor="#616161" />
               </radialGradient>
               <path
                 d="M114.5 120.99c0-14.61-21.75-21.54-40.72-23.1l-8.6 11.03c-.28.36-.72.58-1.18.58c-.46 0-.9-.21-1.18-.58L54.2 97.87c-10.55.81-40.71 4.75-40.71 23.12V124h101l.01-3.01z"
@@ -214,6 +215,9 @@ export default function Home() {
             />
           </svg>
         </Section>
+      </div>
+      <div className="w-500 px-5">
+        <Form></Form>
       </div>
     </main>
   );

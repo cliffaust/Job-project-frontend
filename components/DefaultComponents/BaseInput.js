@@ -22,10 +22,7 @@ export default function BaseInput({
           name={name}
           value={value}
           className={
-            "appearance-none leading-tight border-2 border-gray-400 focus:outline-none py-3 px-2 text-gray-700 w-full text-base " +
-            errorStyle
-              ? "border-red-300"
-              : ""
+            "appearance-none leading-tight border-2 border-gray-400 focus:outline-none py-3 px-2 text-gray-700 w-full text-base"
           }
         />
       </div>
