@@ -10,3 +10,7 @@ body {
     rgba(117, 139, 253, 0) 114.28%
   );
 }
+
+.social-icon {
+  @apply w-6 h-6 mr-4 last:mr-0;
+}

@@ -216,7 +216,7 @@ export default function Home() {
           </svg>
         </Section>
       </div>
-      <div className="px-20 my-20">
+      <div className="px-20 my-40">
         <Form></Form>
       </div>
     </main>
