@@ -11,7 +11,7 @@ export default function BaseInput({
   className,
 }) {
   return (
-    <div className="flex flex-col">
+    <>
       {label ? (
         <label className="block text-gray-700 text-sm font-bold mb-2">
           {label}
@@ -27,12 +27,12 @@ export default function BaseInput({
           type={type}
           placeholder={placeholder}
           className={
-            "appearance-none leading-tight border border-black focus:outline-none py-2 px-4 w-full text-base " +
+            "appearance-none leading-tight border border-black focus:outline-none py-3 px-4 w-full text-base " +
             className +
             (errorStyle ? "border-red-300" : "")
           }
         />
       </div>
-    </div>
+    </>
   );
 }

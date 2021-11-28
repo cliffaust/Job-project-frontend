@@ -17,7 +17,13 @@ const Navbar = () => {
         <div className="text-base cursor-pointer">Contact us</div>
         <ButtonPrimary className="!px-6 !py-1">Join us</ButtonPrimary>
         <ButtonPrimary className="!px-6 !py-1">Find an intern</ButtonPrimary>
-        <ButtonPrimaryOpen className="!px-6 !py-1">Sign up</ButtonPrimaryOpen>
+        <Link href="/signup">
+          <a>
+            <ButtonPrimaryOpen className="!px-6 !py-1">
+              Sign up
+            </ButtonPrimaryOpen>
+          </a>
+        </Link>
       </div>
     </navbar>
   );

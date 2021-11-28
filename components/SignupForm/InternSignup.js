@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
+import Logo from "../HomeNavbar/Logo";
 
-export default function Form() {
+export default function InternSignup() {
   const [state, setState] = useState({
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   });
@@ -13,11 +16,36 @@ export default function Form() {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
-    <div className="flex gap-20">
-      <div className="w-2/5">
-        <h1 className="text-3xl font-standardTT mb-5 text-center">
-          A new way of finding a job
-        </h1>
+    <div className="flex flex-col items-center py-10">
+      <Logo type="large"></Logo>
+      <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
+        <h3 className="font-bold mb-2">
+          What account are you creating? Please choose one
+        </h3>
+        <div className="p-2 w-full flex items-center mb-4 rounded-full bg-white">
+          <div className="w-2/4 bg-purple-800 cursor-pointer text-center py-2 text-white font-bold rounded-full">
+            Intern
+          </div>
+          <div className="w-2/4 text-black cursor-pointer font-bold bg-white text-center py-2 rounded-full">
+            Company
+          </div>
+        </div>
+        <BaseInput
+          name="first_name"
+          type="text"
+          value={state.first_name}
+          placeholder="First name"
+          className="mb-6"
+          handleChange={handleChange}
+        ></BaseInput>
+        <BaseInput
+          name="last_name"
+          type="text"
+          value={state.last_name}
+          placeholder="Last name"
+          className="mb-6"
+          handleChange={handleChange}
+        ></BaseInput>
         <BaseInput
           name="email"
           type="email"
@@ -33,12 +61,15 @@ export default function Form() {
           value={state.password}
           handleChange={handleChange}
         ></BaseInput>
-        <h3 className="mt-3 font-bold">Forgot password?</h3>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>
-        <div class="mt-10 flex gap-4 items-center">
-          <div class="flex-grow h-px bg-black"></div>
-          <div class="text-sm font-bold text-center">Or</div>
-          <div class="flex-grow h-px bg-black"></div>
+        <h3 className="mt-3 font-bold text-center">
+          By clicking sign up, you agree to the job finder{" "}
+          <span className="text-blue-500">Terms and condition</span>.
+        </h3>
+        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign up</ButtonPrimary>
+        <div className="mt-10 flex gap-4 items-center">
+          <div className="flex-grow h-px bg-black"></div>
+          <div className="text-sm font-bold text-center">Or</div>
+          <div className="flex-grow h-px bg-black"></div>
         </div>
         <ButtonPrimaryOpen className="mt-8 w-full px-5 py-2 flex justify-center !border !border-black items-center gap-2">
           <svg
@@ -68,11 +99,11 @@ export default function Form() {
               d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
             />
           </svg>
-          <span>Sign in with Google</span>
+          <span>Sign up with Google</span>
         </ButtonPrimaryOpen>
-      </div>
-      <div>
-        <img className="w-full" src="./images/image2.svg" alt="" />
+        <h3 className="mt-6 font-bold text-center">
+          Already on Job finder? <span className="text-blue-500">Sign in</span>.
+        </h3>
       </div>
     </div>
   );
