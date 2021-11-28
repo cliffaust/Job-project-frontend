@@ -2,6 +2,7 @@ import Navbar from "../components/HomeNavbar/Navbar";
 import Hero from "../components/HeroSection/Hero";
 import Section from "../components/HomeSections/Section";
 import Form from "../components/HomeSignin/Form";
+import Footer from "../components/HomeFooter/Footer";
 
 export default function Home() {
   return (
@@ -218,6 +219,9 @@ export default function Home() {
       </div>
       <div className="px-20 my-40">
         <Form></Form>
+      </div>
+      <div>
+        <Footer></Footer>
       </div>
     </main>
   );

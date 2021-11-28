@@ -3,11 +3,11 @@ import Logo from "../HomeNavbar/Logo";
 
 export default function Footer() {
   return (
-    <div className="bg-gray-100 flex flex-col items-center">
+    <div className="bg-gray-100 flex flex-col py-8 items-center">
       <div className="mb-10">
         <Logo type="large"></Logo>
       </div>
-      <div className="flex gap-5">
+      <div className="flex gap-16">
         <div>
           <h1 className="font-bold mb-8">Job finder</h1>
           <h3>About</h3>
@@ -36,11 +36,11 @@ export default function Footer() {
           <h3>Careers</h3>
         </div>
       </div>
-      <div class="flex self-center">
+      <div class="flex self-center mt-10">
         <svg
           class="social-icon"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           width="24px"
           height="24px"
           viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ export default function Footer() {
         <svg
           class="social-icon"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           width="24px"
           height="24px"
           viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ export default function Footer() {
         <svg
           class="social-icon"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           width="24px"
           height="24px"
           viewBox="0 0 24 24"
