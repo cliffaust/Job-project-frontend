@@ -4,10 +4,8 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import Logo from "../HomeNavbar/Logo";
 
-export default function InternSignup(props) {
+export default function Signin(props) {
   const [state, setState] = useState({
-    first_name: "",
-    last_name: "",
     email: "",
     password: "",
   });
@@ -15,7 +13,6 @@ export default function InternSignup(props) {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
-
   return (
     <div className="flex flex-col items-center py-10">
       <Logo type="large"></Logo>
@@ -26,35 +23,17 @@ export default function InternSignup(props) {
         <div className="p-2 w-full flex gap-2 items-center mb-4 rounded-full bg-white">
           <div
             onClick={props.changeToInternSignup}
-            className="w-2/4 cursor-pointer text-center bg-purple-800 py-2 text-white font-bold rounded-full"
+            className="w-2/4 cursor-pointer bg-gray-100 text-center py-2 text-black font-bold rounded-full"
           >
             Intern
           </div>
           <div
             onClick={props.changeToCompanySignup}
-            className="w-2/4 text-black cursor-pointer font-bold bg-gray-100 text-center py-2 rounded-full"
+            className="w-2/4 cursor-pointer bg-purple-800 text-white font-bold text-center py-2 rounded-full"
           >
             Company
           </div>
         </div>
-        <BaseInput
-          name="first_name"
-          type="text"
-          value={state.first_name}
-          placeholder="First name"
-          className="mb-6"
-          label="First name"
-          handleChange={handleChange}
-        ></BaseInput>
-        <BaseInput
-          name="last_name"
-          type="text"
-          value={state.last_name}
-          placeholder="Last name"
-          label="Last name"
-          className="mb-6"
-          handleChange={handleChange}
-        ></BaseInput>
         <BaseInput
           name="email"
           type="email"
