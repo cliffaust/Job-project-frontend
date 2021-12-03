@@ -4,6 +4,8 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import Logo from "../HomeNavbar/Logo";
 
+import Link from "next/link";
+
 export default function InternSignup(props) {
   const [state, setState] = useState({
     first_name: "",
@@ -113,7 +115,11 @@ export default function InternSignup(props) {
           <span>Sign up with Google</span>
         </ButtonPrimaryOpen>
         <h3 className="mt-6 font-bold text-center">
-          Already on Job finder? <span className="text-blue-500">Sign in</span>.
+          Already on Job finder?{" "}
+          <Link href="/signin">
+            <a className="text-blue-500">Sign in</a>
+          </Link>
+          .
         </h3>
       </div>
     </div>

@@ -17,23 +17,6 @@ export default function Signin(props) {
     <div className="flex flex-col items-center py-10">
       <Logo type="large"></Logo>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
-        <h3 className="font-bold mb-2">
-          What account are you creating? Please choose one
-        </h3>
-        <div className="p-2 w-full flex gap-2 items-center mb-4 rounded-full bg-white">
-          <div
-            onClick={props.changeToInternSignup}
-            className="w-2/4 cursor-pointer bg-gray-100 text-center py-2 text-black font-bold rounded-full"
-          >
-            Intern
-          </div>
-          <div
-            onClick={props.changeToCompanySignup}
-            className="w-2/4 cursor-pointer bg-purple-800 text-white font-bold text-center py-2 rounded-full"
-          >
-            Company
-          </div>
-        </div>
         <BaseInput
           name="email"
           type="email"
@@ -89,7 +72,7 @@ export default function Signin(props) {
               d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
             />
           </svg>
-          <span>Sign up with Google</span>
+          <span>Sign in with Google</span>
         </ButtonPrimaryOpen>
         <h3 className="mt-6 font-bold text-center">
           Already on Job finder? <span className="text-blue-500">Sign in</span>.
