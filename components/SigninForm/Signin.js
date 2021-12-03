@@ -4,6 +4,8 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import Logo from "../HomeNavbar/Logo";
 
+import Link from "next/link";
+
 export default function Signin(props) {
   const [state, setState] = useState({
     email: "",
@@ -34,11 +36,7 @@ export default function Signin(props) {
           value={state.password}
           handleChange={handleChange}
         ></BaseInput>
-        <h3 className="mt-3 font-bold text-center">
-          By clicking sign up, you agree to the job finder{" "}
-          <span className="text-blue-500">Terms and condition</span>.
-        </h3>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign up</ButtonPrimary>
+        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-black"></div>
           <div className="text-sm font-bold text-center">Or</div>
@@ -75,7 +73,11 @@ export default function Signin(props) {
           <span>Sign in with Google</span>
         </ButtonPrimaryOpen>
         <h3 className="mt-6 font-bold text-center">
-          Already on Job finder? <span className="text-blue-500">Sign in</span>.
+          Don't have an account?{" "}
+          <Link href="/signup">
+            <a className="text-blue-500">Sign up</a>
+          </Link>
+          .
         </h3>
       </div>
     </div>
