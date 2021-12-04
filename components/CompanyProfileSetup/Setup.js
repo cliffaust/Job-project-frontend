@@ -17,14 +17,12 @@ import SwiperCore, { EffectCreative } from "swiper";
 SwiperCore.use([EffectCreative]);
 
 function ProfileSetup() {
-  const navigationPrevRef = React.useRef(null);
-  const navigationNextRef = React.useRef(null);
-
   const [state, setState] = useState({
     companyName: "",
     employeeNumbers: "",
     yearStarted: "",
     aboutCompany: "",
+    companyValues: "",
     swiperIndex: 0,
   });
 
@@ -78,7 +76,7 @@ function ProfileSetup() {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-60"
+          className="!h-2/4 !overflow-visible"
         >
           <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
@@ -137,6 +135,21 @@ function ProfileSetup() {
               name="aboutCompany"
               placeholder="About Company"
               value={state.aboutCompany}
+              handleChange={handleChange}
+            ></BaseTextArea>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Company values</h3>
+            </div>
+            <BaseTextArea
+              name="companyValues"
+              placeholder="Company Values"
+              value={state.companyValues}
               handleChange={handleChange}
             ></BaseTextArea>
             <div className="mt-4 font-medium">
