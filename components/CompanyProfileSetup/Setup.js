@@ -1,13 +1,31 @@
 import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
+import BaseTextArea from "../DefaultComponents/BaseTextArea";
 import NextLink from "../DefaultComponents/NextLink";
+import PreviousLink from "../DefaultComponents/PreviousLink";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
-import "swiper/swiper.min.css";
+import { Navigation } from "swiper";
+
+import "swiper/css/effect-creative";
+import "swiper/css";
+
+SwiperCore.use([Navigation]);
+
+import SwiperCore, { EffectCreative } from "swiper";
+
+// install Swiper modules
+SwiperCore.use([EffectCreative]);
 
 function ProfileSetup() {
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
+
   const [state, setState] = useState({
     companyName: "",
+    employeeNumbers: "",
+    yearStarted: "",
+    aboutCompany: "",
+    swiperIndex: 0,
   });
 
   const handleChange = (event) => {
@@ -31,106 +49,114 @@ function ProfileSetup() {
           />
         </div>
       </div>
-      <div className="flex-grow">
-        <div className="h-2/6 flex flex-col items-center justify-center border-b border-gray-300">
-          <div className="text-4xl px-20 font-standardTT">
+      <div className="w-2/5">
+        <div className="h-40 flex flex-col items-center justify-center border-b border-gray-300">
+          <div className="text-4xl px-10 font-standardTT">
             Build your profile to attract more Interns.
           </div>
         </div>
         <Swiper
-          spaceBetween={50}
-          slidesPerView={3}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          // spaceBetween={50}
+          slidesPerView={1}
+          effect={"creative"}
+          onSlideChange={(swiper) =>
+            setState({ ...state, swiperIndex: swiper.realIndex })
+          }
+          pagination={{
+            el: ".swiper-pagination",
+            clickable: true,
+          }}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }}
+          creativeEffect={{
+            prev: {
+              translate: [0, 0, -400],
+            },
+            next: {
+              translate: ["100%", 0, 0],
+            },
+          }}
+          className="!h-60"
         >
-          <SwiperSlide>
-            <div className="h-2/3 flex-grow px-20 flex flex-col justify-center relative">
-              <div className="flex items-center">
-                <h3 className="font-bold">Company Name&nbsp;</h3>
-                <span className="text-red-500 font-bold mt-2">*</span>
-              </div>
-              <BaseInput
-                name="companyName"
-                type="text"
-                placeholder="Company Name"
-                value={state.companyName}
-                handleChange={handleChange}
-              ></BaseInput>
-              <div className="mt-4 font-medium">
-                Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-                maecenas, egestas urna vel ultrices risus, maecenas
-              </div>
-              <div className="mt-6 cursor-pointer float-right absolute right-20 bottom-32">
-                <NextLink>Next</NextLink>
-              </div>
+          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Company name&nbsp;</h3>
+              <span className="text-red-500 font-bold mt-2">*</span>
+            </div>
+            <BaseInput
+              name="companyName"
+              type="text"
+              placeholder="Company Name"
+              value={state.companyName}
+              handleChange={handleChange}
+            ></BaseInput>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide>
-            <div className="h-2/3 flex-grow px-20 flex flex-col justify-center relative">
-              <div className="flex items-center">
-                <h3 className="font-bold">Company Name&nbsp;</h3>
-                <span className="text-red-500 font-bold mt-2">*</span>
-              </div>
-              <BaseInput
-                name="companyName"
-                type="text"
-                placeholder="Company Name"
-                value={state.companyName}
-                handleChange={handleChange}
-              ></BaseInput>
-              <div className="mt-4 font-medium">
-                Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-                maecenas, egestas urna vel ultrices risus, maecenas
-              </div>
-              <div className="mt-6 cursor-pointer float-right absolute right-20 bottom-32">
-                <NextLink>Next</NextLink>
-              </div>
+          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Number of employees&nbsp;</h3>
+            </div>
+            <BaseInput
+              name="employeeNumbers"
+              type="number"
+              placeholder="Number of Employees"
+              value={state.employeeNumbers}
+              handleChange={handleChange}
+            ></BaseInput>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide>
-            <div className="h-2/3 flex-grow px-20 flex flex-col justify-center relative">
-              <div className="flex items-center">
-                <h3 className="font-bold">Company Name&nbsp;</h3>
-                <span className="text-red-500 font-bold mt-2">*</span>
-              </div>
-              <BaseInput
-                name="companyName"
-                type="text"
-                placeholder="Company Name"
-                value={state.companyName}
-                handleChange={handleChange}
-              ></BaseInput>
-              <div className="mt-4 font-medium">
-                Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-                maecenas, egestas urna vel ultrices risus, maecenas
-              </div>
-              <div className="mt-6 cursor-pointer float-right absolute right-20 bottom-32">
-                <NextLink>Next</NextLink>
-              </div>
+          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Year started</h3>
+            </div>
+            <BaseInput
+              name="yearStarted"
+              type="number"
+              placeholder="Year Started"
+              value={state.yearStarted}
+              handleChange={handleChange}
+            ></BaseInput>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide>
-            <div className="h-2/3 flex-grow px-20 flex flex-col justify-center relative">
-              <div className="flex items-center">
-                <h3 className="font-bold">Company Name&nbsp;</h3>
-                <span className="text-red-500 font-bold mt-2">*</span>
-              </div>
-              <BaseInput
-                name="companyName"
-                type="text"
-                placeholder="Company Name"
-                value={state.companyName}
-                handleChange={handleChange}
-              ></BaseInput>
-              <div className="mt-4 font-medium">
-                Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-                maecenas, egestas urna vel ultrices risus, maecenas
-              </div>
-              <div className="mt-6 cursor-pointer float-right absolute right-20 bottom-32">
-                <NextLink>Next</NextLink>
-              </div>
+          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">About company</h3>
+            </div>
+            <BaseTextArea
+              name="aboutCompany"
+              placeholder="About Company"
+              value={state.aboutCompany}
+              handleChange={handleChange}
+            ></BaseTextArea>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
+          <div className="flex items-center px-20 justify-between">
+            <div
+              className={
+                "swiper-pagination swiper-button-prev z-10 " +
+                (state.swiperIndex === 0 ? "invisible" : "")
+              }
+            >
+              <PreviousLink>Previous</PreviousLink>
+            </div>
+            <div className="swiper-pagination swiper-button-next z-10">
+              <NextLink>Next</NextLink>
+            </div>
+          </div>
         </Swiper>
       </div>
     </div>
