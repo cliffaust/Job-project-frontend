@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import NextLink from "../DefaultComponents/NextLink";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import "swiper/css";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
 
 function ProfileSetup() {
   const [state, setState] = useState({
