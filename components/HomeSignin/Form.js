@@ -35,12 +35,12 @@ export default function Form() {
         ></BaseInput>
         <h3 className="mt-3 font-bold">Forgot password?</h3>
         <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>
-        <div class="mt-10 flex gap-4 items-center">
-          <div class="flex-grow h-px bg-black"></div>
-          <div class="text-sm font-bold text-center">Or</div>
-          <div class="flex-grow h-px bg-black"></div>
+        <div className="mt-10 flex gap-4 items-center">
+          <div className="flex-grow h-px bg-gray-300"></div>
+          <div className="text-sm font-bold text-center">Or</div>
+          <div className="flex-grow h-px bg-gray-300"></div>
         </div>
-        <ButtonPrimaryOpen className="mt-8 w-full px-5 py-2 flex justify-center !border !border-black items-center gap-2">
+        <ButtonPrimaryOpen className="mt-8 w-full px-5 py-2 flex justify-center !border !border-gray-300 items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"

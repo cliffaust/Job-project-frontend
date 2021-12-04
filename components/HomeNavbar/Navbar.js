@@ -15,7 +15,6 @@ const Navbar = () => {
         <div className="text-base cursor-pointer">Find jobs</div>
         <div className="text-base cursor-pointer">About us</div>
         <div className="text-base cursor-pointer">Contact us</div>
-        <ButtonPrimary className="!px-6 !py-1">Join us</ButtonPrimary>
         <ButtonPrimary className="!px-6 !py-1">Find an intern</ButtonPrimary>
         <Link href="/signup">
           <a>
