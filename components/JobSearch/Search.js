@@ -13,7 +13,7 @@ function JobSearchFilter() {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
-    <div className="bg-[#F3F3F3] px-20 py-6 flex flex-col justify-center">
+    <div className="bg-white shadow-sm px-20 py-6 flex flex-col justify-center">
       <div className="self-center flex items-center gap-5 mb-5">
         <FilterButton>Date Posted</FilterButton>
         <FilterButton>On-site/Remote</FilterButton>

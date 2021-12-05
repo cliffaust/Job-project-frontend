@@ -6,7 +6,7 @@ import Footer from "../components/HomeFooter/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <main className="">
       <Navbar></Navbar>
       <Hero></Hero>
       <div className="flex px-20 justify-between mt-20 mb-10">

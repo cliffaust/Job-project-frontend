@@ -6,7 +6,7 @@ import Link from "next/link";
 function ProfileSetup() {
   return (
     <div className="flex h-screen">
-      <div className="w-2/3 flex flex-col justify-center py-5 bg-gray-100">
+      <div className="w-2/3 flex flex-col justify-center py-5 bg-white">
         <div className="h-full">
           <img
             className="h-full w-full"
@@ -23,9 +23,11 @@ function ProfileSetup() {
               <PreviousLink>Back Home</PreviousLink>
             </a>
           </Link>
-          <div>
-            <NextLink>Find a job</NextLink>
-          </div>
+          <Link href="/jobs">
+            <a>
+              <NextLink>Find a job</NextLink>
+            </a>
+          </Link>
         </div>
       </div>
     </div>

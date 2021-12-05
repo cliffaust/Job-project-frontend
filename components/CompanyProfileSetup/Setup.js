@@ -31,7 +31,7 @@ function ProfileSetup() {
   };
   return (
     <div className="flex h-screen">
-      <div className="w-2/3 flex flex-col py-5 justify-between bg-gray-100">
+      <div className="w-2/3 flex flex-col py-5 justify-between bg-white">
         <div className="h-2/5">
           <img
             className="h-full w-full"
@@ -76,9 +76,9 @@ function ProfileSetup() {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-70 !relative !overflow-visible"
+          className="!h-70 !relative !overflow-visible !overflow-x-hidden"
         >
-          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Company name&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -95,7 +95,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Number of employees&nbsp;</h3>
             </div>
@@ -111,7 +111,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Year started</h3>
             </div>
@@ -127,7 +127,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">About company</h3>
             </div>
@@ -142,7 +142,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Company values</h3>
             </div>

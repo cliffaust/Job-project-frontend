@@ -5,7 +5,7 @@ function ActiveJob() {
   return (
     <div
       className={
-        "border px-6 py-4 bg-gray-100 rounded-md flex flex-col items-center"
+        "px-6 py-4 bg-white shadow-lg rounded-lg flex flex-col items-center"
       }
     >
       <div className="w-32 h-32 rounded-full">

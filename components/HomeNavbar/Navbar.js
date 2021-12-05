@@ -3,7 +3,7 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import Link from "next/link";
 
-const Navbar = () => {
+const NavbarComponent = () => {
   return (
     <navbar className="flex px-20 py-4 justify-between items-center">
       <Link href={{ pathname: "/" }}>
@@ -12,7 +12,9 @@ const Navbar = () => {
         </a>
       </Link>
       <div className="flex items-center gap-8">
-        <div className="text-base cursor-pointer">Find jobs</div>
+        <Link href="/jobs">
+          <a className="text-base cursor-pointer">Find jobs</a>
+        </Link>
         <div className="text-base cursor-pointer">About us</div>
         <div className="text-base cursor-pointer">Contact us</div>
         <ButtonPrimary className="!px-6 !py-1">Find an intern</ButtonPrimary>
@@ -28,4 +30,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarComponent;
