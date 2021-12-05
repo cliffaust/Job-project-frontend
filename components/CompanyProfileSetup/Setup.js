@@ -48,7 +48,7 @@ function ProfileSetup() {
         </div>
       </div>
       <div className="w-2/5">
-        <div className="h-40 flex flex-col items-center justify-center border-b border-gray-300">
+        <div className="h-30 flex flex-col items-center justify-center border-b border-gray-300">
           <div className="text-4xl px-10 font-standardTT">
             Build your profile to attract more Interns.
           </div>
@@ -76,7 +76,7 @@ function ProfileSetup() {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-2/4 !overflow-visible"
+          className="!h-70 !relative !overflow-visible"
         >
           <SwiperSlide className="flex flex-col !bg-white justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
@@ -157,7 +157,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <div className="flex items-center px-20 justify-between">
+          <div className="flex items-center px-20 justify-between absolute bottom-0 z-10 w-full mb-10">
             <div
               className={
                 "swiper-pagination swiper-button-prev z-10 " +
@@ -167,7 +167,7 @@ function ProfileSetup() {
               <PreviousLink>Previous</PreviousLink>
             </div>
             <div className="swiper-pagination swiper-button-next z-10">
-              <NextLink>Next</NextLink>
+              <NextLink>{state.swiperIndex === 4 ? "Done" : "Next"}</NextLink>
             </div>
           </div>
         </Swiper>
