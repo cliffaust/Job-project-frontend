@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+
+import SwiperCore from "swiper";
+
+import "swiper/css/effect-creative";
+import "swiper/css";
+
+SwiperCore.use([Navigation]);
+
 function Profile() {
+  const [state, setState] = useState({
+    swiperIndex: 0,
+  });
+
+  const settings = {
+    spaceBetween: 40,
+    slidesPerView: "auto",
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  };
   return (
     <div>
       <NavBar></NavBar>
@@ -133,6 +159,55 @@ function Profile() {
       <div className="flex flex-col mt-10 px-20">
         <div className="text-2xl mb-8 font-standardTT font-bold">
           Available jobs(2)
+        </div>
+        <Swiper
+          {...settings}
+          onSlideChange={(swiper) =>
+            setState({ ...state, swiperIndex: swiper.realIndex })
+          }
+          className="!w-full !pl-10"
+        >
+          <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
+            <h1 className="text-xl truncate mb-2 font-bold">
+              Junior Developer
+            </h1>
+            <p className="text-base truncate">
+              Tema Community 25, Accra Ghana(Remote)
+            </p>
+            <p className="text-base text-green-600">20 Applicant</p>
+            <div className="mt-10">
+              <p className="text-base mb-2">Posted 1 day ago</p>
+              <ButtonPrimary className="w-full rounded-md">
+                View Job
+              </ButtonPrimary>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
+            <h1 className="text-xl truncate mb-2 font-bold">
+              Assistant Developer
+            </h1>
+            <p className="text-base truncate">Madina, Accra Ghana</p>
+            <p className="text-base text-green-600">12 Applicant</p>
+            <div className="mt-10">
+              <p className="text-base mb-2">Posted 4 day ago</p>
+              <ButtonPrimary className="w-full rounded-md">
+                View Job
+              </ButtonPrimary>
+            </div>
+          </SwiperSlide>
+          <div
+            className={
+              "absolute top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-green-300 " +
+              (state.swiperIndex === 0 ? "invisible" : "")
+            }
+          ></div>
+          <div className="absolute top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-blue-300"></div>
+        </Swiper>
+        <div className="px-20 mt-10">
+          To read more about this company,{" "}
+          <span className="font-bold text-purple-600">
+            Go to company website
+          </span>
         </div>
       </div>
     </div>
