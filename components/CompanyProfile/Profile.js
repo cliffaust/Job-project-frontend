@@ -16,6 +16,7 @@ SwiperCore.use([Navigation]);
 function Profile() {
   const [state, setState] = useState({
     swiperIndex: 0,
+    allowSlideNext: false,
   });
 
   const settings = {
@@ -162,6 +163,9 @@ function Profile() {
         </div>
         <Swiper
           {...settings}
+          onSwiper={(swiper) =>
+            setState({ ...state, allowSlideNext: swiper.allowSlideNext })
+          }
           onSlideChange={(swiper) =>
             setState({ ...state, swiperIndex: swiper.realIndex })
           }
@@ -197,13 +201,44 @@ function Profile() {
           </SwiperSlide>
           <div
             className={
-              "absolute top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-green-300 " +
+              "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
               (state.swiperIndex === 0 ? "invisible" : "")
             }
-          ></div>
-          <div className="absolute top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-blue-300"></div>
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <div
+            className={
+              "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+              (!state.allowSlideNext ? "invisible" : "")
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
         </Swiper>
-        <div className="px-20 mt-10">
+        <div className="mt-10">
           To read more about this company,{" "}
           <span className="font-bold text-purple-600">
             Go to company website
