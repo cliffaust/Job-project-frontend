@@ -3,7 +3,7 @@ import Profile from "../../components/CompanyProfile/Profile";
 
 function CompanyProfile() {
   return (
-    <div>
+    <div className="overflow-x-hidden mb-20">
       <Profile></Profile>
     </div>
   );

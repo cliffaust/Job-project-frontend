@@ -10,92 +10,55 @@ function ImageGallery() {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 3500,
-    autoplaySpeed: 3500,
+    speed: 4500,
+    autoplaySpeed: 0,
     cssEase: "linear",
   };
   return (
     <Slider {...settings}>
-      <div className="h-80 shadow-lg">
+      <div className="shadow-lg rounded-xl">
         <img
-          src="https://media.istockphoto.com/photos/african-american-businesswoman-head-meeting-with-colleagues-picture-id1300529876?b=1&k=20&m=1300529876&s=170667a&w=0&h=1wRv855Duep9XQ23BFZChkdYVv5TFDYm8CIuZigvLQk="
-          className="h-full w-full object-cover rounded-lg"
-          alt=""
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+          alt="Image Gallery"
         />
       </div>
-      <div className="h-80 shadow-lg">
+      <div className="shadow-lg rounded-xl">
         <img
-          src="https://media.istockphoto.com/photos/african-american-businesswoman-head-meeting-with-colleagues-picture-id1300529876?b=1&k=20&m=1300529876&s=170667a&w=0&h=1wRv855Duep9XQ23BFZChkdYVv5TFDYm8CIuZigvLQk="
-          className="h-full w-full object-cover rounded-lg"
-          alt=""
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+          alt="Image Gallery"
+        />
+      </div>
+      <div className="shadow-lg rounded-xl">
+        <img
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1832&q=80"
+          alt="Image Gallery"
+        />
+      </div>
+      <div className="shadow-lg rounded-xl">
+        <img
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
+          alt="Image Gallery"
+        />
+      </div>
+      <div className="shadow-lg rounded-xl">
+        <img
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+          alt="Image Gallery"
+        />
+      </div>
+      <div className="shadow-lg rounded-xl">
+        <img
+          className="h-72 w-full object-cover rounded-xl"
+          src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+          alt="Image Gallery"
         />
       </div>
     </Slider>
-    // <Swiper
-    //   slidesPerView={2}
-    //   // loop={true}
-    //   // spaceBetween={10}
-    //   // autoplay={{
-    //   //   delay: 2500,
-    //   //   disableOnInteraction: false,
-    //   // }}
-    //   className="!h-64 !w-full"
-    // >
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://media.istockphoto.com/photos/african-american-businesswoman-head-meeting-with-colleagues-picture-id1300529876?b=1&k=20&m=1300529876&s=170667a&w=0&h=1wRv855Duep9XQ23BFZChkdYVv5TFDYm8CIuZigvLQk="
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y29tcGFueXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60"
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60"
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbXBhbnl8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://images.unsplash.com/photo-1570126618953-d437176e8c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvbXBhbnl8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full">
-    //     <div className="h-64 w-64 rounded-xl">
-    //       <img
-    //         className="w-full h-full rounded-xl object-cover"
-    //         src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGNvbXBhbnl8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
-    //         alt="Image Gallery"
-    //       />
-    //     </div>
-    //   </SwiperSlide>
-    // </Swiper>
   );
 }
 

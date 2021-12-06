@@ -15,3 +15,9 @@ body {
 .social-icon {
   @apply w-6 h-6 mr-4 last:mr-0;
 }
+
+.slick-slide {
+  padding: 0 16px;
+  margin: 0;
+  box-sizing: border-box;
+}
