@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
+import GroupPopup from "./GalleryPopup";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -17,6 +18,7 @@ function Profile() {
   const [state, setState] = useState({
     swiperIndex: 0,
     allowSlideNext: false,
+    galleryPopup: false,
   });
 
   const settings = {
@@ -31,8 +33,17 @@ function Profile() {
       prevEl: ".swiper-button-prev",
     },
   };
+  const openGalleryModal = (e) => {
+    e.stopPropagation();
+    setState({ ...state, galleryPopup: true });
+  };
+
+  const closeGalleryModal = (e) => {
+    e.stopPropagation();
+    setState({ ...state, galleryPopup: false });
+  };
   return (
-    <div>
+    <div onClick={() => setState({ ...state, galleryPopup: false })}>
       <NavBar></NavBar>
       <div className="mt-10 px-20 flex justify-between items-center">
         <div className="flex gap-4 items-center">
@@ -56,7 +67,10 @@ function Profile() {
       <div className="flex flex-col mt-10">
         <div className="flex items-center justify-between px-20 mb-8 mt-10">
           <div className="text-2xl font-standardTT font-bold"></div>
-          <div className="flex items-center gap-1 text-purple-600">
+          <div
+            onClick={openGalleryModal}
+            className="flex items-center gap-1 text-purple-600 cursor-pointer"
+          >
             <span>See all images</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -244,6 +258,16 @@ function Profile() {
             Go to company website
           </span>
         </div>
+      </div>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <GroupPopup
+          closeGalleryModal={closeGalleryModal}
+          galleryPopup={state.galleryPopup}
+        ></GroupPopup>
       </div>
     </div>
   );
