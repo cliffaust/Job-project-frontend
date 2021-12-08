@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
@@ -107,7 +106,7 @@ function ImageGalleryPicker() {
         </SwiperSlide>
         <div
           className={
-            "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-20 h-20 rounded-full bg-white shadow-lg " +
+            "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
             (gallerySwiperIndex === 0 ? "invisible" : "")
           }
         >
@@ -126,7 +125,7 @@ function ImageGalleryPicker() {
         </div>
         <div
           className={
-            "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-20 h-20 rounded-full bg-white shadow-lg " +
+            "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
             (!allowGallerySlideNext ? "invisible" : "")
           }
         >
@@ -134,7 +133,7 @@ function ImageGalleryPicker() {
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
             viewBox="0 0 20 20"
-            fill="currentColor"
+            fill="black"
           >
             <path
               fillRule="evenodd"
