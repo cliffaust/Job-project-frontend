@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
+import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -259,16 +260,12 @@ function Profile() {
           </span>
         </div>
       </div>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+      <GroupPopup
+        closeGalleryModal={closeGalleryModal}
+        galleryPopup={state.galleryPopup}
       >
-        <GroupPopup
-          closeGalleryModal={closeGalleryModal}
-          galleryPopup={state.galleryPopup}
-        ></GroupPopup>
-      </div>
+        <ImageGalleryPicker></ImageGalleryPicker>
+      </GroupPopup>
     </div>
   );
 }

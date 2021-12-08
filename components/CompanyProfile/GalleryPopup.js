@@ -1,23 +1,62 @@
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-import "animate.css";
+function GalleryPopup({ galleryPopup, closeGalleryModal, children }) {
+  const backdrop = {
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 0.2,
+      },
+    },
 
-function GalleryPopup({ galleryPopup, closeGalleryModal }) {
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
+  const container = {
+    show: {
+      y: "50px",
+      transition: {
+        type: "spring",
+        stiffness: 60,
+        delay: 0.2,
+      },
+    },
+
+    hidden: {
+      y: "-100vh",
+      transition: {
+        type: "spring",
+        stiffness: 60,
+      },
+    },
+  };
   return (
-    <div
-      onClick={closeGalleryModal}
-      className={
-        "animate__animated animate__fadeIn animate__faster backdrop " +
-        (!galleryPopup ? "hidden" : "")
-      }
-    >
-      <div
-        className={
-          "w-4/5 h-600 bg-white shadow-lg fixed top-2/4 left-2/4 right-2/4 -translate-y-2/4 -translate-x-2/4 mx-auto rounded-xl animate__animated animate__fadeIn animate__faster " +
-          (galleryPopup === false ? "animate__fadeOut" : "")
-        }
-      ></div>
-    </div>
+    <AnimatePresence exitBeforeEnter>
+      {galleryPopup && (
+        <motion.div
+          onClick={closeGalleryModal}
+          variants={backdrop}
+          animate="show"
+          initial="hidden"
+          exit="hidden"
+          className="backdrop overflow-y-scroll"
+        >
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            variants={container}
+            className={"w-4/5 p-4 bg-white shadow-lg mx-auto rounded-xl z-20"}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
