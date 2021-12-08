@@ -31,16 +31,8 @@ function ImageGalleryPicker() {
     <>
       <Swiper
         {...settings}
-        onSwiper={(swiper) =>
-          setAllowGallerySlideNext({
-            allowGallerySlideNext: swiper.allowSlideNext,
-          })
-        }
-        onSlideChange={(swiper) =>
-          setGallerySwiperIndex({
-            gallerySwiperIndex: swiper.realIndex,
-          })
-        }
+        onSwiper={(swiper) => setAllowGallerySlideNext(swiper.allowSlideNext)}
+        onSlideChange={(swiper) => setGallerySwiperIndex(swiper.realIndex)}
         thumbs={{ swiper: thumbsSwiper }}
         className="!mb-4"
       >
