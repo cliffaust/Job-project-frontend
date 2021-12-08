@@ -20,7 +20,7 @@ function GalleryPopup({ galleryPopup, closeGalleryModal, children }) {
 
   const container = {
     show: {
-      y: "50px",
+      y: "20px",
       transition: {
         type: "spring",
         stiffness: 60,
