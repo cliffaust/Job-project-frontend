@@ -39,66 +39,48 @@ function ImageGalleryPicker() {
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-1.jpg"
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-2.jpg"
+            src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-3.jpg"
+            src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1832&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-4.jpg"
+            src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-5.jpg"
+            src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <SwiperSlide className="!h-500">
           <img
             className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-6.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-7.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-8.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-9.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://swiperjs.com/demos/images/nature-10.jpg"
+            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
         <div
           className={
-            "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute flex cursor-pointer items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
             (gallerySwiperIndex === 0 ? "invisible" : "")
           }
         >
@@ -117,7 +99,7 @@ function ImageGalleryPicker() {
         </div>
         <div
           className={
-            "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute cursor-pointer flex items-center justify-center top-2/4 z-50 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
             (!allowGallerySlideNext ? "invisible" : "")
           }
         >
@@ -138,69 +120,52 @@ function ImageGalleryPicker() {
       <Swiper
         onSwiper={setThumbsSwiper}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={"auto"}
+        // centeredSlides={true}
         freeMode={true}
         watchSlidesProgress={true}
         className="image-picker-container"
       >
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-1.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-2.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-3.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1832&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-4.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-5.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
+        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
           <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-6.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
-          <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-7.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
-          <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-8.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
-          <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-9.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !overflow-hidden">
-          <img
-            class="image-gallery-picker"
-            src="https://swiperjs.com/demos/images/nature-10.jpg"
+            className="image-gallery-picker"
+            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+            alt="Image Gallery"
           />
         </SwiperSlide>
       </Swiper>

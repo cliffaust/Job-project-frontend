@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function GalleryPopup({ galleryPopup, closeGalleryModal, children }) {
+function GalleryPopup({ showPopup, closeModal, className, children }) {
   const backdrop = {
     show: {
       opacity: 1,
@@ -38,9 +38,9 @@ function GalleryPopup({ galleryPopup, closeGalleryModal, children }) {
   };
   return (
     <AnimatePresence exitBeforeEnter>
-      {galleryPopup && (
+      {showPopup && (
         <motion.div
-          onClick={closeGalleryModal}
+          onClick={closeModal}
           variants={backdrop}
           animate="show"
           initial="hidden"
@@ -50,7 +50,9 @@ function GalleryPopup({ galleryPopup, closeGalleryModal, children }) {
           <motion.div
             onClick={(e) => e.stopPropagation()}
             variants={container}
-            className={"w-4/5 p-4 bg-white shadow-lg mx-auto rounded-xl z-20"}
+            className={
+              "p-4 bg-white shadow-lg mx-auto rounded-xl z-20 " + className
+            }
           >
             {children}
           </motion.div>

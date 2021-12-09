@@ -12,14 +12,20 @@ const Navbar = () => {
         </Link>
         <div className="flex items-center gap-8">
           <div className="text-base cursor-pointer">Jobs</div>
-          <div className="text-base cursor-pointer">Post a job</div>
+          <Link href="/post-job">
+            <a className="text-base cursor-pointer">Post a job</a>
+          </Link>
           <div className="text-base cursor-pointer">Companies</div>
           <div className="text-base cursor-pointer">Guidelines</div>
         </div>
       </div>
       <div className="flex items-center gap-6">
-        <div className="text-base cursor-pointer">Sign in</div>
-        <div className="text-base cursor-pointer">Sign up</div>
+        <Link href="/signin">
+          <a className="text-base cursor-pointer">Sign in</a>
+        </Link>
+        <Link href="/signup">
+          <a className="text-base cursor-pointer">Sign up</a>
+        </Link>
       </div>
     </navbar>
   );

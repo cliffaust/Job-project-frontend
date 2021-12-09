@@ -20,6 +20,13 @@ function Profile() {
     swiperIndex: 0,
     allowSlideNext: false,
     galleryPopup: false,
+    jobPopup: false,
+    jobData: {
+      title: "",
+      location: "",
+      day: 0,
+      applicant: 0,
+    },
   });
 
   const settings = {
@@ -34,6 +41,21 @@ function Profile() {
       prevEl: ".swiper-button-prev",
     },
   };
+
+  const jobModal = (data) => (e) => {
+    e.stopPropagation();
+    setState({
+      ...state,
+      jobPopup: true,
+      jobData: {
+        ...state.jobData,
+        title: data.title,
+        location: data.location,
+        day: data.day,
+        applicant: data.applicant,
+      },
+    });
+  };
   const openGalleryModal = (e) => {
     e.stopPropagation();
     setState({ ...state, galleryPopup: true });
@@ -42,6 +64,16 @@ function Profile() {
   const closeGalleryModal = (e) => {
     e.stopPropagation();
     setState({ ...state, galleryPopup: false });
+  };
+
+  const openJobModal = (e) => {
+    e.stopPropagation();
+    setState({ ...state, jobPopup: true });
+  };
+
+  const closeJobModal = (e) => {
+    e.stopPropagation();
+    setState({ ...state, jobPopup: false });
   };
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
@@ -58,7 +90,9 @@ function Profile() {
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">Namiba</h1>
             <p className="text-base">Since 2009</p>
-            <p className="text-base text-green-600">20 Applicant</p>
+            <p className="text-base text-green-600">
+              More than 1,000 employees
+            </p>
           </div>
         </div>
         <ButtonPrimary className="px-6 py-2 !rounded-md">
@@ -196,9 +230,18 @@ function Profile() {
             <p className="text-base text-green-600">20 Applicant</p>
             <div className="mt-10">
               <p className="text-base mb-2">Posted 1 day ago</p>
-              <ButtonPrimary className="w-full rounded-md">
-                View Job
-              </ButtonPrimary>
+              <div
+                onClick={jobModal({
+                  title: "Junior Developer",
+                  location: "Tema Community 25, Accra Ghana(Remote)",
+                  day: 2,
+                  applicant: 20,
+                })}
+              >
+                <ButtonPrimary className="w-full rounded-md">
+                  View Job
+                </ButtonPrimary>
+              </div>
             </div>
           </SwiperSlide>
           <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
@@ -209,9 +252,18 @@ function Profile() {
             <p className="text-base text-green-600">12 Applicant</p>
             <div className="mt-10">
               <p className="text-base mb-2">Posted 4 day ago</p>
-              <ButtonPrimary className="w-full rounded-md">
-                View Job
-              </ButtonPrimary>
+              <div
+                onClick={jobModal({
+                  title: "Assistant Developer",
+                  location: "Madina, Accra Ghana",
+                  day: 4,
+                  applicant: 12,
+                })}
+              >
+                <ButtonPrimary className="w-full rounded-md">
+                  View Job
+                </ButtonPrimary>
+              </div>
             </div>
           </SwiperSlide>
           <div
@@ -261,8 +313,62 @@ function Profile() {
         </div>
       </div>
       <GroupPopup
-        closeGalleryModal={closeGalleryModal}
-        galleryPopup={state.galleryPopup}
+        closeModal={closeJobModal}
+        showPopup={state.jobPopup}
+        className="w-2/4 px-6"
+      >
+        <div className="flex justify-center flex-col gap-4 items-center">
+          <div className="w-36 h-36 rounded-full">
+            <img
+              src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80"
+              alt="Image"
+              className="h-full w-full object-cover rounded-full"
+            />
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <h1 className="text-4xl font-bold">{state.jobData.title}</h1>
+            <p className="text-base">{state.jobData.location}</p>
+            <p className="text-base text-green-600 font-bold">
+              {state.jobData.applicant} Applicant
+            </p>
+            <p className="text-base">Posted {state.jobData.day} days ago</p>
+          </div>
+        </div>
+        <div className="flex gap-5 items-center w-full mt-6">
+          <div className="w-3/4">
+            <ButtonPrimary className="px-6 py-2 !w-full !rounded-md">
+              Apply for this job
+            </ButtonPrimary>
+          </div>
+          <div className="w-1/5">
+            <ButtonPrimary className="!bg-gray-200 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
+              Save
+            </ButtonPrimary>
+          </div>
+        </div>
+        <div className="mt-6">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
+          nisi eaque ad odit optio. Nobis, harum consequuntur vero, sequi cum
+          error aliquid voluptatibus sint minima omnis illo illum optio odio.
+          eaque ad odit optio. Nobis, harum consequuntur vero, sequi cum error
+          aliquid voluptatibus sint minima omnis illo illum optio odio. eaque ad
+          odit optio. Nobis, harum consequuntur vero, sequi cum error aliquid
+          voluptatibus sint minima omnis illo illum optio odio. oluptatibus sint
+          minima omnis illo illum optio odio. eaque ad odit optio. Nobis, harum
+          consequuntur vero, sequi cum error aliquid voluptatibus sint minima
+          omnis illo illum optio odio. eaque ad odit optio. Nobis, harum
+        </div>
+        <div className="mt-10 font-bold">
+          If you have a problem with the job,{" "}
+          <span className="font-bold text-purple-600 cursor-pointer">
+            Report it here
+          </span>
+        </div>
+      </GroupPopup>
+      <GroupPopup
+        closeModal={closeGalleryModal}
+        showPopup={state.galleryPopup}
+        className="w-4/5"
       >
         <p className="px-6 mb-4 font-bold">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
