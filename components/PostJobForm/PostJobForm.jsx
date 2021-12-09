@@ -1,11 +1,11 @@
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import NextLink from "../DefaultComponents/NextLink";
 import PreviousLink from "../DefaultComponents/PreviousLink";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-quill/dist/quill.snow.css";
 
 import "swiper/css/effect-creative";
 import "swiper/css";
@@ -17,7 +17,11 @@ import SwiperCore, { EffectCreative } from "swiper";
 // install Swiper modules
 SwiperCore.use([EffectCreative]);
 
-function PostJobForm() {
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+});
+
+function PostJobForm({ children }) {
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -26,9 +30,14 @@ function PostJobForm() {
     currentRole: "",
     phone: "",
     swiperIndex: 0,
+    description: "",
   });
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleDescription = (value) => {
+    setState({ ...state, description: value });
   };
   return (
     <div className="flex h-screen">
@@ -168,9 +177,12 @@ function PostJobForm() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          {/* <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
-            <Editor></Editor>
-          </SwiperSlide> */}
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+            <ReactQuill
+              value={state.description}
+              onChange={handleDescription}
+            ></ReactQuill>
+          </SwiperSlide>
 
           <div className="flex items-center px-20 justify-between absolute bottom-0 z-10 w-full mb-10">
             <div
