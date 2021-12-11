@@ -178,7 +178,13 @@ function PostJobForm({ children }) {
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
+            </div>
             <ReactQuill
+              theme="snow"
+              className="h-64"
               value={state.description}
               onChange={handleDescription}
             ></ReactQuill>
