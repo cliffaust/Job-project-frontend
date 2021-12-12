@@ -30,6 +30,7 @@ function PostJobForm({ children }) {
     currentRole: "",
     phone: "",
     swiperIndex: 0,
+    endOfSlide: false,
     description: "",
   });
   const handleChange = (event) => {
@@ -40,7 +41,7 @@ function PostJobForm({ children }) {
     setState({ ...state, description: value });
   };
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <div className="w-2/4 flex flex-col justify-center py-5 bg-white">
         <div className="h-full">
           <img
@@ -60,9 +61,15 @@ function PostJobForm({ children }) {
           // spaceBetween={50}
           slidesPerView={1}
           effect={"creative"}
-          onSlideChange={(swiper) =>
-            setState({ ...state, swiperIndex: swiper.realIndex })
-          }
+          onSlideChange={(swiper) => {
+            setState({
+              ...state,
+              swiperIndex: swiper.realIndex,
+              endOfSlide: swiper.isEnd,
+            });
+          }}
+          preventInteractionOnTransition={true}
+          allowTouchMove={false}
           pagination={{
             el: ".swiper-pagination",
             clickable: true,
@@ -79,7 +86,7 @@ function PostJobForm({ children }) {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-70 !relative !overflow-visible !overflow-x-hidden"
+          className="!h-70 !relative !overflow-y-auto !overflow-x-hidden"
         >
           <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
             <div className="flex items-center mb-2">
@@ -177,20 +184,22 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
-            <div className="mt-4 font-medium">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] !px-10 py-5 !w-full">
+            <div className="font-medium mb-4">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
-            <ReactQuill
-              theme="snow"
-              className="h-64"
-              value={state.description}
-              onChange={handleDescription}
-            ></ReactQuill>
+            <div className="!h-2/3 overflow-hidden">
+              <ReactQuill
+                theme="snow"
+                value={state.description}
+                className="h-full"
+                onChange={handleDescription}
+              ></ReactQuill>
+            </div>
           </SwiperSlide>
 
-          <div className="flex items-center px-20 justify-between absolute bottom-0 z-10 w-full mb-10">
+          <div className="flex items-center px-20 justify-between !absolute !bottom-0 z-10 w-full">
             <div
               className={
                 "swiper-pagination swiper-button-prev z-10 " +
@@ -200,9 +209,7 @@ function PostJobForm({ children }) {
               <PreviousLink>Previous</PreviousLink>
             </div>
             <div className="swiper-pagination swiper-button-next z-10">
-              <NextLink>
-                {state.swiperIndex === 4 ? "Job description" : "Next"}
-              </NextLink>
+              <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
             </div>
           </div>
         </Swiper>
