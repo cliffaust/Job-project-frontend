@@ -41,7 +41,7 @@ function PostJobForm({ children }) {
     setState({ ...state, description: value });
   };
   return (
-    <div className="flex">
+    <div className="flex h-full">
       <div className="w-2/4 flex flex-col justify-center py-5 bg-white">
         <div className="h-full">
           <img
@@ -52,7 +52,7 @@ function PostJobForm({ children }) {
         </div>
       </div>
       <div className="w-2/4">
-        <div className="h-30 flex flex-col items-center justify-center border-b border-gray-300">
+        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-300">
           <div className="text-4xl px-10 font-standardTT">
             Start right from your comfort.
           </div>
@@ -184,35 +184,32 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] !px-10 py-5 !w-full">
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-10 py-5 !w-full">
             <div className="font-medium mb-4">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
-            <div className="!h-2/3 overflow-hidden">
-              <ReactQuill
-                theme="snow"
-                value={state.description}
-                className="h-full"
-                onChange={handleDescription}
-              ></ReactQuill>
-            </div>
+            <ReactQuill
+              theme="snow"
+              value={state.description}
+              className="!h-325"
+              onChange={handleDescription}
+            ></ReactQuill>
           </SwiperSlide>
-
-          <div className="flex items-center px-20 justify-between !absolute !bottom-0 z-10 w-full">
-            <div
-              className={
-                "swiper-pagination swiper-button-prev z-10 " +
-                (state.swiperIndex === 0 ? "invisible" : "")
-              }
-            >
-              <PreviousLink>Previous</PreviousLink>
-            </div>
-            <div className="swiper-pagination swiper-button-next z-10">
-              <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
-            </div>
-          </div>
         </Swiper>
+        <div className="flex items-center px-20 justify-between flex-grow z-10 w-full">
+          <div
+            className={
+              "swiper-pagination swiper-button-prev z-10 " +
+              (state.swiperIndex === 0 ? "invisible" : "")
+            }
+          >
+            <PreviousLink>Previous</PreviousLink>
+          </div>
+          <div className="swiper-pagination swiper-button-next z-10">
+            <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
+          </div>
+        </div>
       </div>
     </div>
   );
