@@ -69,3 +69,19 @@ body {
   opacity: 0;
   border-radius: 0.75rem;
 }
+
+.ql-container.ql-snow {
+  @apply rounded-bl-md rounded-br-md !border-gray-300;
+}
+
+.ql-toolbar.ql-snow {
+  @apply rounded-tl-md rounded-tr-md !border-gray-300;
+}
+
+.ql-editor.ql-blank::before {
+  @apply text-base !not-italic;
+}
+
+.ql-editor {
+  @apply text-base;
+}

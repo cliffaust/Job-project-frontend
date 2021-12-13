@@ -52,7 +52,7 @@ function PostJobForm({ children }) {
         </div>
       </div>
       <div className="w-2/4">
-        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-300">
+        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-200">
           <div className="text-4xl px-10 font-standardTT">
             Start right from your comfort.
           </div>
@@ -191,6 +191,7 @@ function PostJobForm({ children }) {
             </div>
             <ReactQuill
               theme="snow"
+              placeholder="Job description"
               value={state.description}
               className="!h-325"
               onChange={handleDescription}
