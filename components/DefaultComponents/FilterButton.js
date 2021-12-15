@@ -2,7 +2,12 @@ import React from "react";
 
 function FilterButton(props) {
   return (
-    <div className="border-[#BABABA] border cursor-pointer gap-2 px-4 rounded-md py-3 flex items-center">
+    <div
+      className={
+        "border-[#BABABA] border cursor-pointer gap-2 px-4 rounded-md py-3 flex items-center " +
+        props.className
+      }
+    >
       <div>{props.children}</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

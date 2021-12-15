@@ -85,3 +85,7 @@ body {
 .ql-editor {
   @apply text-base;
 }
+
+.option-select {
+  @apply px-4 py-2 hover:bg-purple-300 font-medium transition-all duration-200 ease-in-out cursor-pointer;
+}
