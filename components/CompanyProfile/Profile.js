@@ -4,6 +4,7 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
 import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
+import BaseInput from "../DefaultComponents/BaseInput";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -21,6 +22,7 @@ function Profile() {
     allowSlideNext: false,
     galleryPopup: false,
     jobPopup: false,
+    phone: "",
     jobData: {
       title: "",
       location: "",
@@ -66,9 +68,8 @@ function Profile() {
     setState({ ...state, galleryPopup: false });
   };
 
-  const openJobModal = (e) => {
-    e.stopPropagation();
-    setState({ ...state, jobPopup: true });
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
   };
 
   const closeJobModal = (e) => {
@@ -394,6 +395,32 @@ function Profile() {
                 />
               </svg>
               <h3 className="font-bold text-purple-600">Job Info</h3>
+            </div>
+            <div className="px-6">
+              <div className="mt-10">
+                <div className="mb-6">
+                  <div className="flex items-center mb-2">
+                    <h3 className="font-bold">Your CV&nbsp;</h3>
+                    <span className="text-red-500 font-bold mt-2">*</span>
+                  </div>
+                  <ButtonPrimary className="py-1 ml-2 px-6 !rounded-md font-bold">
+                    Upload
+                  </ButtonPrimary>
+                </div>
+              </div>
+              <div className="mt-6">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-bold">Phone number&nbsp;</h3>
+                  <span className="text-red-500 font-bold mt-2">*</span>
+                </div>
+                <BaseInput
+                  name="phone"
+                  placeholder="Phone Number"
+                  type="text"
+                  value={state.phone}
+                  handleChange={handleChange}
+                ></BaseInput>
+              </div>
             </div>
           </SwiperSlide>
         </Swiper>
