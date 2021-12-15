@@ -20,7 +20,7 @@ function JobSearchFilter() {
 
   const showPopup = {
     show: {
-      y: -10,
+      y: 10,
       opacity: 1,
     },
 
@@ -32,7 +32,7 @@ function JobSearchFilter() {
     },
 
     hide: {
-      y: 10,
+      y: 20,
       opacity: 0,
       transition: {
         type: "spring",
@@ -60,7 +60,7 @@ function JobSearchFilter() {
                 animate="show"
                 initial="hide"
                 exit="exit"
-                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-44"
+                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute"
               >
                 <div className="option-select">Last 24 hours</div>
                 <div className="option-select">Last 3 days</div>
@@ -79,13 +79,21 @@ function JobSearchFilter() {
           >
             <FilterButton>On-site/Remote</FilterButton>
           </div>
-          {jobSearch.showJobType && (
-            <div className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-32">
-              <div className="option-select">Remote</div>
-              <div className="option-select">On-site</div>
-              <div className="option-select">Hybrid</div>
-            </div>
-          )}
+          <AnimatePresence exitBeforeEnter>
+            {jobSearch.showJobType && (
+              <motion.div
+                variants={showPopup}
+                animate="show"
+                initial="hide"
+                exit="exit"
+                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute"
+              >
+                <div className="option-select">Remote</div>
+                <div className="option-select">On-site</div>
+                <div className="option-select">Hybrid</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       <div></div>

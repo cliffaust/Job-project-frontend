@@ -317,53 +317,86 @@ function Profile() {
         showPopup={state.jobPopup}
         className="w-2/4 px-6"
       >
-        <div className="flex justify-center flex-col gap-4 items-center">
-          <div className="w-36 h-36 rounded-full">
-            <img
-              src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80"
-              alt="Image"
-              className="h-full w-full object-cover rounded-full"
-            />
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <h1 className="text-4xl font-bold">{state.jobData.title}</h1>
-            <p className="text-base">{state.jobData.location}</p>
-            <p className="text-base text-green-600 font-bold">
-              {state.jobData.applicant} Applicant
-            </p>
-            <p className="text-base">Posted {state.jobData.day} days ago</p>
-          </div>
-        </div>
-        <div className="flex gap-5 items-center w-full mt-6">
-          <div className="w-3/4">
-            <ButtonPrimary className="px-6 py-2 !w-full !rounded-md">
-              Apply for this job
-            </ButtonPrimary>
-          </div>
-          <div className="w-1/5">
-            <ButtonPrimary className="!bg-gray-200 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
-              Save
-            </ButtonPrimary>
-          </div>
-        </div>
-        <div className="mt-6">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
-          nisi eaque ad odit optio. Nobis, harum consequuntur vero, sequi cum
-          error aliquid voluptatibus sint minima omnis illo illum optio odio.
-          eaque ad odit optio. Nobis, harum consequuntur vero, sequi cum error
-          aliquid voluptatibus sint minima omnis illo illum optio odio. eaque ad
-          odit optio. Nobis, harum consequuntur vero, sequi cum error aliquid
-          voluptatibus sint minima omnis illo illum optio odio. oluptatibus sint
-          minima omnis illo illum optio odio. eaque ad odit optio. Nobis, harum
-          consequuntur vero, sequi cum error aliquid voluptatibus sint minima
-          omnis illo illum optio odio. eaque ad odit optio. Nobis, harum
-        </div>
-        <div className="mt-10 font-bold">
-          If you have a problem with the job,{" "}
-          <span className="font-bold text-purple-600 cursor-pointer">
-            Report it here
-          </span>
-        </div>
+        <Swiper
+          preventInteractionOnTransition={true}
+          allowTouchMove={false}
+          pagination={{
+            el: ".swiper-pagination",
+            clickable: true,
+          }}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }}
+        >
+          <SwiperSlide>
+            <div className="flex justify-center flex-col gap-4 items-center">
+              <div className="w-36 h-36 rounded-full">
+                <img
+                  src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80"
+                  alt="Image"
+                  className="h-full w-full object-cover rounded-full"
+                />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <h1 className="text-4xl font-bold">{state.jobData.title}</h1>
+                <p className="text-base">{state.jobData.location}</p>
+                <p className="text-base text-green-600 font-bold">
+                  {state.jobData.applicant} Applicant
+                </p>
+                <p className="text-base">Posted {state.jobData.day} days ago</p>
+              </div>
+            </div>
+            <div className="flex gap-5 items-center w-full mt-6">
+              <div className="w-3/4">
+                <ButtonPrimary className="swiper-pagination swiper-button-next px-6 py-2 !w-full !rounded-md">
+                  Apply for this job
+                </ButtonPrimary>
+              </div>
+              <div className="w-1/5">
+                <ButtonPrimary className="!bg-gray-200 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
+                  Save
+                </ButtonPrimary>
+              </div>
+            </div>
+            <div className="mt-6">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
+              nisi eaque ad odit optio. Nobis, harum consequuntur vero, sequi
+              cum error aliquid voluptatibus sint minima omnis illo illum optio
+              odio. eaque ad odit optio. Nobis, harum consequuntur vero, sequi
+              cum error aliquid voluptatibus sint minima omnis illo illum optio
+              odio. eaque ad odit optio. Nobis, harum consequuntur vero, sequi
+              cum error aliquid voluptatibus sint minima omnis illo illum optio
+              odio. oluptatibus sint minima omnis illo illum optio odio. eaque
+              ad odit optio. Nobis, harum consequuntur vero, sequi cum error
+              aliquid voluptatibus sint minima omnis illo illum optio odio.
+              eaque ad odit optio. Nobis, harum
+            </div>
+            <div className="mt-10 font-bold">
+              If you have a problem with the job,{" "}
+              <span className="font-bold text-purple-600 cursor-pointer">
+                Report it here
+              </span>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-pagination swiper-button-prev cursor-pointer flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-purple-600"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <h3 className="font-bold text-purple-600">Job Info</h3>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </GroupPopup>
       <GroupPopup
         closeModal={closeGalleryModal}
