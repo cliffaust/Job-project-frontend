@@ -6,10 +6,21 @@ const jobSearchState = {
 const jobSearchReducer = (state = jobSearchState, action) => {
   switch (action.type) {
     case "SHOW_DATE_POSTED":
-      return { ...state, showDatePosted: !state.showDatePosted };
+      return {
+        ...state,
+        showJobType: false,
+        showDatePosted: !state.showDatePosted,
+      };
 
     case "SHOW_JOB_TYPE":
-      return { ...state, showJobType: !state.showJobType };
+      return {
+        ...state,
+        showDatePosted: false,
+        showJobType: !state.showJobType,
+      };
+
+    case "CANCEL_POPUP":
+      return { ...state, showJobType: false, showDatePosted: false };
 
     default:
       return state;

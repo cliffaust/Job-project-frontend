@@ -4,6 +4,7 @@ import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import { showDatePosted, showJobType } from "../../redux/actions/jobSearch";
 import { useDispatch, useSelector } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
 
 function JobSearchFilter() {
   const jobSearch = useSelector((state) => state.jobSearchReducer);
@@ -17,41 +18,64 @@ function JobSearchFilter() {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
+  const showPopup = {
+    show: {
+      y: -10,
+      opacity: 1,
+    },
+
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+
+    hide: {
+      y: 10,
+      opacity: 0,
+      transition: {
+        type: "spring",
+        stiffness: 20,
+      },
+    },
+  };
+
   return (
     <div className="bg-white shadow-sm px-20 py-6 flex flex-col justify-center">
       <div className="self-center flex items-center gap-5 mb-5">
         <div className="relative">
           <div
-          // onClick={(e) => {
-          //   e.stopPropagation();
-          //   setState({
-          //     ...state,
-          //     showDatePosted: !state.showDatePosted,
-          //     showJobType: false,
-          //   });
-          // }}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(showDatePosted());
+            }}
           >
             <FilterButton>Date Posted</FilterButton>
           </div>
-          {jobSearch.showDatePosted && (
-            <div className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-44">
-              <div className="option-select">Last 24 hours</div>
-              <div className="option-select">Last 3 days</div>
-              <div className="option-select">Last 7 days</div>
-              <div className="option-select">Last 14 days</div>
-            </div>
-          )}
+          <AnimatePresence exitBeforeEnter>
+            {jobSearch.showDatePosted && (
+              <motion.div
+                variants={showPopup}
+                animate="show"
+                initial="hide"
+                exit="exit"
+                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-44"
+              >
+                <div className="option-select">Last 24 hours</div>
+                <div className="option-select">Last 3 days</div>
+                <div className="option-select">Last 7 days</div>
+                <div className="option-select">Last 14 days</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         <div className="relative">
           <div
-          // onClick={(e) => {
-          //   e.stopPropagation();
-          //   setState({
-          //     ...state,
-          //     showJobType: !state.showJobType,
-          //     showDatePosted: false,
-          //   });
-          // }}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(showJobType());
+            }}
           >
             <FilterButton>On-site/Remote</FilterButton>
           </div>

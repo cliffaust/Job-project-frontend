@@ -9,3 +9,9 @@ export const showJobType = () => {
     type: "SHOW_JOB_TYPE",
   };
 };
+
+export const cancelPopup = () => {
+  return {
+    type: "CANCEL_POPUP",
+  };
+};

@@ -3,10 +3,13 @@ import Navbar from "../../components/JobsNavbar/Navbar";
 import JobSearchFilter from "../../components/JobSearch/Search";
 import Job from "../../components/Job/Job";
 import ActiveJob from "../../components/JobActive/JobActive";
+import { cancelPopup } from "../../redux/actions/jobSearch";
+import { useDispatch } from "react-redux";
 
 function Jobs() {
+  const dispatch = useDispatch();
   return (
-    <div className="">
+    <div onClick={() => dispatch(cancelPopup())} className="">
       <Navbar></Navbar>
       <JobSearchFilter></JobSearchFilter>
       <div className="px-20 flex justify-between mt-10">
