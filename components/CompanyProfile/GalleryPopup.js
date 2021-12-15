@@ -51,7 +51,8 @@ function GalleryPopup({ showPopup, closeModal, className, children }) {
             onClick={(e) => e.stopPropagation()}
             variants={container}
             className={
-              "p-4 bg-white shadow-lg mx-auto rounded-xl z-20 " + className
+              "p-4 bg-white shadow-lg mx-auto rounded-xl z-20 overflow-y-scroll " +
+              className
             }
           >
             {children}

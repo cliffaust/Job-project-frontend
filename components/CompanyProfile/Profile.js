@@ -14,13 +14,15 @@ import SwiperCore from "swiper";
 
 import "swiper/css/effect-creative";
 import "swiper/css";
-import "react-quill/dist/quill.snow.css";
+import { EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 SwiperCore.use([Navigation]);
 
-const ReactQuill = dynamic(import("react-quill"), {
-  ssr: false,
-});
+// const { Editor, EditorState } = dynamic(import("draft-js"), {
+//   ssr: false,
+// });
 
 function Profile() {
   const [state, setState] = useState({
@@ -29,7 +31,6 @@ function Profile() {
     galleryPopup: false,
     jobPopup: false,
     phone: "",
-    comment: "",
     jobData: {
       title: "",
       location: "",
@@ -37,6 +38,8 @@ function Profile() {
       applicant: 0,
     },
   });
+
+  const [comment, setComment] = useState(() => EditorState.createEmpty());
 
   const settings = {
     spaceBetween: 40,
@@ -437,14 +440,9 @@ function Profile() {
                   <h3 className="font-bold">Other comment&nbsp;</h3>
                   <span className="text-red-500 font-bold mt-2">*</span>
                 </div>
-                <ReactQuill
-                  theme="snow"
-                  placeholder="Other comment"
-                  value={state.comment}
-                  className="!h-64"
-                  onChange={handleComment}
-                ></ReactQuill>
+                <Editor editorState={comment} onChange={setComment} />
               </div>
+              <div className="block">Send</div>
             </div>
           </SwiperSlide>
         </Swiper>
