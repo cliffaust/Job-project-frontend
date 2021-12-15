@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
@@ -13,8 +14,13 @@ import SwiperCore from "swiper";
 
 import "swiper/css/effect-creative";
 import "swiper/css";
+import "react-quill/dist/quill.snow.css";
 
 SwiperCore.use([Navigation]);
+
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+});
 
 function Profile() {
   const [state, setState] = useState({
@@ -23,6 +29,7 @@ function Profile() {
     galleryPopup: false,
     jobPopup: false,
     phone: "",
+    comment: "",
     jobData: {
       title: "",
       location: "",
@@ -70,6 +77,10 @@ function Profile() {
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleComment = (value) => {
+    setState({ ...state, comment: value });
   };
 
   const closeJobModal = (e) => {
@@ -397,7 +408,7 @@ function Profile() {
               <h3 className="font-bold text-purple-600">Job Info</h3>
             </div>
             <div className="px-6">
-              <div className="mt-10">
+              <div className="mt-5">
                 <div className="mb-6">
                   <div className="flex items-center mb-2">
                     <h3 className="font-bold">Your CV&nbsp;</h3>
@@ -420,6 +431,19 @@ function Profile() {
                   value={state.phone}
                   handleChange={handleChange}
                 ></BaseInput>
+              </div>
+              <div className="mt-6">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-bold">Other comment&nbsp;</h3>
+                  <span className="text-red-500 font-bold mt-2">*</span>
+                </div>
+                <ReactQuill
+                  theme="snow"
+                  placeholder="Other comment"
+                  value={state.comment}
+                  className="!h-64"
+                  onChange={handleComment}
+                ></ReactQuill>
               </div>
             </div>
           </SwiperSlide>
