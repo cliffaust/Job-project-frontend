@@ -1,58 +1,39 @@
 import React, { useState } from "react";
 import FilterButton from "../DefaultComponents/FilterButton";
 import BaseInput from "../DefaultComponents/BaseInput";
-import { increse, decrese } from "../../redux/actions/counter";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
+import { showDatePosted, showJobType } from "../../redux/actions/jobSearch";
 import { useDispatch, useSelector } from "react-redux";
 
 function JobSearchFilter() {
-  const number = useSelector((state) => state.counter);
+  const jobSearch = useSelector((state) => state.jobSearchReducer);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     job: "",
     location: "",
-    showDatePosted: false,
-    showJobType: false,
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const cancelFilterPopup = (event) => {
-    setState({
-      ...state,
-      showDatePosted: false,
-      showJobType: false,
-    });
-  };
   return (
     <div className="bg-white shadow-sm px-20 py-6 flex flex-col justify-center">
-      <h2>{number}</h2>
-      <button
-        className="bg-purple-300 mb-3"
-        onClick={() => dispatch(increse())}
-      >
-        Add
-      </button>
-      <button className="bg-purple-300" onClick={() => dispatch(decrese())}>
-        Remove
-      </button>
       <div className="self-center flex items-center gap-5 mb-5">
         <div className="relative">
           <div
-            onClick={(e) => {
-              e.stopPropagation();
-              setState({
-                ...state,
-                showDatePosted: !state.showDatePosted,
-                showJobType: false,
-              });
-            }}
+          // onClick={(e) => {
+          //   e.stopPropagation();
+          //   setState({
+          //     ...state,
+          //     showDatePosted: !state.showDatePosted,
+          //     showJobType: false,
+          //   });
+          // }}
           >
             <FilterButton>Date Posted</FilterButton>
           </div>
-          {state.showDatePosted && (
+          {jobSearch.showDatePosted && (
             <div className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-44">
               <div className="option-select">Last 24 hours</div>
               <div className="option-select">Last 3 days</div>
@@ -63,18 +44,18 @@ function JobSearchFilter() {
         </div>
         <div className="relative">
           <div
-            onClick={(e) => {
-              e.stopPropagation();
-              setState({
-                ...state,
-                showJobType: !state.showJobType,
-                showDatePosted: false,
-              });
-            }}
+          // onClick={(e) => {
+          //   e.stopPropagation();
+          //   setState({
+          //     ...state,
+          //     showJobType: !state.showJobType,
+          //     showDatePosted: false,
+          //   });
+          // }}
           >
             <FilterButton>On-site/Remote</FilterButton>
           </div>
-          {state.showJobType && (
+          {jobSearch.showJobType && (
             <div className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute -bottom-32">
               <div className="option-select">Remote</div>
               <div className="option-select">On-site</div>

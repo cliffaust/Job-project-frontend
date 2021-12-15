@@ -1,0 +1,11 @@
+export const showDatePosted = () => {
+  return {
+    type: "SHOW_DATE_POSTED",
+  };
+};
+
+export const showJobType = () => {
+  return {
+    type: "SHOW_JOB_TYPE",
+  };
+};

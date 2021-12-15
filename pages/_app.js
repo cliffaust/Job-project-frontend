@@ -3,7 +3,7 @@ import "../styles/global.css";
 import { motion } from "framer-motion";
 import { Provider } from "react-redux";
 import store from "../redux/store";
-import withRedux from "next-redux-wrapper";
+import { createWrapper } from "next-redux-wrapper";
 
 function MyApp({ Component, pageProps, router }) {
   return (
@@ -21,4 +21,6 @@ function MyApp({ Component, pageProps, router }) {
 
 const makeStore = () => store;
 
-export default withRedux(makeStore)(MyApp);
+const wrapper = createWrapper(makeStore);
+
+export default wrapper.withRedux(MyApp);
