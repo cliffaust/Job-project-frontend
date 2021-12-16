@@ -14,15 +14,18 @@ import SwiperCore from "swiper";
 
 import "swiper/css/effect-creative";
 import "swiper/css";
-import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-quill/dist/quill.snow.css";
 
 SwiperCore.use([Navigation]);
 
-// const { Editor, EditorState } = dynamic(import("draft-js"), {
-//   ssr: false,
-// });
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+});
+
+// const Editor = dynamic(
+//   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+//   { ssr: false }
+// );
 
 function Profile() {
   const [state, setState] = useState({
@@ -31,6 +34,7 @@ function Profile() {
     galleryPopup: false,
     jobPopup: false,
     phone: "",
+    comment: "",
     jobData: {
       title: "",
       location: "",
@@ -39,7 +43,18 @@ function Profile() {
     },
   });
 
-  const [comment, setComment] = useState(() => EditorState.createEmpty());
+  const [value, setValue] = useState([
+    {
+      type: "paragraph",
+      children: [
+        { text: "A line of text in a paragraph. " },
+        {
+          text: "bold",
+          bold: true,
+        },
+      ],
+    },
+  ]);
 
   const settings = {
     spaceBetween: 40,
@@ -78,12 +93,12 @@ function Profile() {
     setState({ ...state, galleryPopup: false });
   };
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
-
   const handleComment = (value) => {
     setState({ ...state, comment: value });
+  };
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
   };
 
   const closeJobModal = (e) => {
@@ -440,9 +455,15 @@ function Profile() {
                   <h3 className="font-bold">Other comment&nbsp;</h3>
                   <span className="text-red-500 font-bold mt-2">*</span>
                 </div>
-                <Editor editorState={comment} onChange={setComment} />
+                <ReactQuill
+                  theme="snow"
+                  placeholder="Other comment"
+                  value={state.comment}
+                  className="!h-52"
+                  onChange={handleComment}
+                ></ReactQuill>
               </div>
-              <div className="block">Send</div>
+              {/* <div className="block">Send</div> */}
             </div>
           </SwiperSlide>
         </Swiper>
