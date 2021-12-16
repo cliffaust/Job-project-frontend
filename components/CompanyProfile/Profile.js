@@ -22,11 +22,6 @@ const ReactQuill = dynamic(import("react-quill"), {
   ssr: false,
 });
 
-// const Editor = dynamic(
-//   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-//   { ssr: false }
-// );
-
 function Profile() {
   const [state, setState] = useState({
     swiperIndex: 0,
@@ -438,6 +433,16 @@ function Profile() {
                 </div>
               </div>
               <div className="mt-6">
+                <div className="mb-6">
+                  <div className="flex items-center mb-2">
+                    <h3 className="font-bold">Transcript</h3>
+                  </div>
+                  <ButtonPrimary className="py-1 ml-2 px-6 !rounded-md font-bold">
+                    Upload
+                  </ButtonPrimary>
+                </div>
+              </div>
+              <div className="mt-6">
                 <div className="flex items-center mb-2">
                   <h3 className="font-bold">Phone number&nbsp;</h3>
                   <span className="text-red-500 font-bold mt-2">*</span>
@@ -450,7 +455,7 @@ function Profile() {
                   handleChange={handleChange}
                 ></BaseInput>
               </div>
-              <div className="mt-6">
+              <div className="mt-6 comment">
                 <div className="flex items-center mb-2">
                   <h3 className="font-bold">Other comment&nbsp;</h3>
                   <span className="text-red-500 font-bold mt-2">*</span>
@@ -459,11 +464,13 @@ function Profile() {
                   theme="snow"
                   placeholder="Other comment"
                   value={state.comment}
-                  className="!h-52"
+                  className=""
                   onChange={handleComment}
                 ></ReactQuill>
               </div>
-              {/* <div className="block">Send</div> */}
+              <ButtonPrimary className="py-1 mt-6 w-full px-6 !rounded-md font-bold">
+                Apply for this job
+              </ButtonPrimary>
             </div>
           </SwiperSlide>
         </Swiper>
