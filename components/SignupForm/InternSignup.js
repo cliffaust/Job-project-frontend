@@ -5,7 +5,7 @@ import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
 import { useDispatch } from "react-redux";
-import { internSignup } from "../../redux/actions/signup";
+import { internSignup } from "../../redux/actions/auth";
 
 import Link from "next/link";
 
@@ -15,6 +15,7 @@ export default function InternSignup(props) {
     last_name: "",
     email: "",
     password: "",
+    showPassword: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -25,10 +26,26 @@ export default function InternSignup(props) {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const handleSignup = () => {
+  const changeShowPasswordToFalse = () => {
+    setState({ ...state, showPassword: false });
+  };
+
+  const changeShowPasswordToTrue = () => {
+    setState({ ...state, showPassword: true });
+  };
+
+  const handleSignup = async () => {
     setLoading(true);
-    dispatch(internSignup());
-    // location.reload();
+    await dispatch(
+      internSignup({
+        first_name: state.first_name,
+        last_name: state.last_name,
+        email: state.email,
+        password1: state.password,
+        password2: state.password,
+      })
+    );
+    location.reload();
   };
 
   return (
@@ -86,6 +103,9 @@ export default function InternSignup(props) {
           label="Password"
           value={state.password}
           handleChange={handleChange}
+          showPassword={state.showPassword}
+          changeShowPasswordToFalse={changeShowPasswordToFalse}
+          changeShowPasswordToTrue={changeShowPasswordToTrue}
         ></BaseInput>
         <h3 className="mt-3 font-bold text-center">
           By clicking sign up, you agree to the job finder{" "}

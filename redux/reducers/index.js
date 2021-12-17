@@ -1,8 +1,8 @@
 import jobSearchReducer from "./jobSearch";
-import signupReducer from "./signup";
+import authenticationReducer from "./auth";
 import { combineReducers } from "redux";
 
 export const reducers = combineReducers({
   jobSearch: jobSearchReducer,
-  signup: signupReducer,
+  auth: authenticationReducer,
 });
