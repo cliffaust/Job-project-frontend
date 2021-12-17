@@ -1,14 +1,14 @@
 const signupState = {
-  token: true,
+  token: "",
 };
 
 const signupReducer = (state = signupState, action) => {
   switch (action.type) {
     case "COMPANY_SIGNUP":
-      return { ...state, token: false };
+      return { ...state, token: action.payload.token };
 
     case "INTERN_SIGNUP":
-      return { ...state, token: true };
+      return { ...state, token: action.payload.token };
 
     default:
       return state;
