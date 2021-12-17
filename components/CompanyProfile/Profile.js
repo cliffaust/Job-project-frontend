@@ -18,9 +18,8 @@ import "react-quill/dist/quill.snow.css";
 
 SwiperCore.use([Navigation]);
 
-const ReactQuill = dynamic(import("react-quill"), {
-  ssr: false,
-});
+const ReactQuill =
+  typeof window === "object" ? require("react-quill") : () => false;
 
 function Profile() {
   const [state, setState] = useState({
@@ -37,19 +36,6 @@ function Profile() {
       applicant: 0,
     },
   });
-
-  const [value, setValue] = useState([
-    {
-      type: "paragraph",
-      children: [
-        { text: "A line of text in a paragraph. " },
-        {
-          text: "bold",
-          bold: true,
-        },
-      ],
-    },
-  ]);
 
   const settings = {
     spaceBetween: 40,
