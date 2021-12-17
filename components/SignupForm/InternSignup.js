@@ -98,7 +98,7 @@ export default function InternSignup(props) {
         ></BaseInput>
         <BaseInput
           name="password"
-          type="password"
+          type={state.showPassword ? "text" : "password"}
           placeholder="Password"
           label="Password"
           value={state.password}

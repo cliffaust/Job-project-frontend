@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const internSignup = async (data) => {
+export const internSignup = (data) => async (dispatch) => {
   let response;
   try {
     response = await axios.post(
