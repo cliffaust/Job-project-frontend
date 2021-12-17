@@ -54,7 +54,7 @@ function JobSearchFilter() {
             <FilterButton>Date Posted</FilterButton>
           </div>
           <AnimatePresence exitBeforeEnter>
-            {jobSearch.showDatePosted && (
+            {jobSearch.showDatePosted ? (
               <motion.div
                 variants={showPopup}
                 animate="show"
@@ -67,6 +67,8 @@ function JobSearchFilter() {
                 <div className="option-select">Last 7 days</div>
                 <div className="option-select">Last 14 days</div>
               </motion.div>
+            ) : (
+              ""
             )}
           </AnimatePresence>
         </div>
@@ -80,7 +82,7 @@ function JobSearchFilter() {
             <FilterButton>On-site/Remote</FilterButton>
           </div>
           <AnimatePresence exitBeforeEnter>
-            {jobSearch.showJobType && (
+            {jobSearch.showJobType ? (
               <motion.div
                 variants={showPopup}
                 animate="show"
@@ -92,6 +94,8 @@ function JobSearchFilter() {
                 <div className="option-select">On-site</div>
                 <div className="option-select">Hybrid</div>
               </motion.div>
+            ) : (
+              ""
             )}
           </AnimatePresence>
         </div>

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
+import { useDispatch } from "react-redux";
+import { internSignup } from "../../redux/actions/signup";
 
 import Link from "next/link";
 
@@ -14,8 +17,18 @@ export default function InternSignup(props) {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleSignup = () => {
+    setLoading(true);
+    dispatch(internSignup());
+    // location.reload();
   };
 
   return (
@@ -78,7 +91,15 @@ export default function InternSignup(props) {
           By clicking sign up, you agree to the job finder{" "}
           <span className="text-blue-500">Terms and condition</span>
         </h3>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign up</ButtonPrimary>
+        <ButtonPrimary
+          onClick={handleSignup}
+          className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+        >
+          {!loading ? <span>Sign up</span> : ""}{" "}
+          <div>
+            {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+          </div>
+        </ButtonPrimary>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>

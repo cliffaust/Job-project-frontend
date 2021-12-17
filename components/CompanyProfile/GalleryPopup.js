@@ -38,7 +38,7 @@ function GalleryPopup({ showPopup, closeModal, className, children }) {
   };
   return (
     <AnimatePresence exitBeforeEnter>
-      {showPopup && (
+      {showPopup ? (
         <motion.div
           onClick={closeModal}
           variants={backdrop}
@@ -58,6 +58,8 @@ function GalleryPopup({ showPopup, closeModal, className, children }) {
             {children}
           </motion.div>
         </motion.div>
+      ) : (
+        ""
       )}
     </AnimatePresence>
   );
