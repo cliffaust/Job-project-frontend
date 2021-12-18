@@ -45,7 +45,7 @@ export default function InternSignup(props) {
         password2: state.password,
       })
     );
-    location.reload();
+    // location.reload();
   };
 
   return (

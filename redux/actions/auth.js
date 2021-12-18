@@ -7,34 +7,47 @@ export const internSignup = (data) => async (dispatch) => {
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
       data
     );
-    console.log(response);
+
+    dispatch({
+      type: "INTERN_SIGNUP",
+      payload: {
+        token: response.data.key,
+      },
+    });
   } catch (error) {
     console.log(error.response.data);
+
+    dispatch({
+      type: "INTERN_SIGNUP",
+      payload: {
+        token: "",
+      },
+    });
   }
-  return {
-    type: "INTERN_SIGNUP",
-    payload: {
-      token: response.data.key,
-    },
-  };
 };
 
-export const companySignup = async () => {
+export const companySignup = () => async (dispatch) => {
   let response;
   try {
     response = await axios.post(
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
       data
     );
+    dispatch({
+      type: "COMPANY_SIGNUP",
+      payload: {
+        token: response.data.key,
+      },
+    });
   } catch (error) {
     console.log(error.response.data);
+    dispatch({
+      type: "COMPANY_SIGNUP",
+      payload: {
+        token: "",
+      },
+    });
   }
-  return {
-    type: "COMPANY_SIGNUP",
-    payload: {
-      token: response.data.key,
-    },
-  };
 };
 
 export const logout = () => {

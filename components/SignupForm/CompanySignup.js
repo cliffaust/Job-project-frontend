@@ -2,18 +2,52 @@ import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
+
+import { useDispatch } from "react-redux";
+import { companySignup } from "../../redux/actions/auth";
 
 import Link from "next/link";
 
 export default function InternSignup(props) {
   const [state, setState] = useState({
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
+    showPassword: false,
   });
+
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const changeShowPasswordToFalse = () => {
+    setState({ ...state, showPassword: false });
+  };
+
+  const changeShowPasswordToTrue = () => {
+    setState({ ...state, showPassword: true });
+  };
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleSignup = async () => {
+    setLoading(true);
+    await dispatch(
+      companySignup({
+        first_name: state.first_name,
+        last_name: state.last_name,
+        email: state.email,
+        password1: state.password,
+        password2: state.password,
+        is_company: true,
+      })
+    );
+    // location.reload();
   };
   return (
     <div className="flex flex-col items-center py-10">
@@ -37,6 +71,24 @@ export default function InternSignup(props) {
           </div>
         </div>
         <BaseInput
+          name="first_name"
+          type="text"
+          value={state.first_name}
+          placeholder="First name"
+          className="mb-6"
+          label="First name"
+          handleChange={handleChange}
+        ></BaseInput>
+        <BaseInput
+          name="last_name"
+          type="text"
+          value={state.last_name}
+          placeholder="Last name"
+          label="Last name"
+          className="mb-6"
+          handleChange={handleChange}
+        ></BaseInput>
+        <BaseInput
           name="email"
           type="email"
           value={state.email}
@@ -52,12 +104,23 @@ export default function InternSignup(props) {
           label="Password"
           value={state.password}
           handleChange={handleChange}
+          showPassword={state.showPassword}
+          changeShowPasswordToFalse={changeShowPasswordToFalse}
+          changeShowPasswordToTrue={changeShowPasswordToTrue}
         ></BaseInput>
         <h3 className="mt-3 font-bold text-center">
           By clicking sign up, you agree to the job finder{" "}
           <span className="text-blue-500">Terms and condition</span>
         </h3>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign up</ButtonPrimary>
+        <ButtonPrimary
+          onClick={handleSignup}
+          className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+        >
+          {!loading ? <span>Sign up</span> : ""}{" "}
+          <div>
+            {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+          </div>
+        </ButtonPrimary>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>
