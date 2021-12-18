@@ -26,7 +26,7 @@ export const internSignup = (data) => async (dispatch) => {
   }
 };
 
-export const companySignup = () => async (dispatch) => {
+export const companySignup = (data) => async (dispatch) => {
   let response;
   try {
     response = await axios.post(

@@ -4,13 +4,33 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import Logo from "../HomeNavbar/Logo";
 
+import { useDispatch } from "react-redux";
+// import { internSignup } from "../../redux/actions/auth";
 import Link from "next/link";
 
 export default function Signin(props) {
   const [state, setState] = useState({
     email: "",
     password: "",
+    showPassword: false,
   });
+
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const changeShowPasswordToFalse = () => {
+    setState({ ...state, showPassword: false });
+  };
+
+  const changeShowPasswordToTrue = () => {
+    setState({ ...state, showPassword: true });
+  };
+
+  const handleLogin = async () => {
+    setLoading(true);
+    // location.reload();
+  };
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -30,13 +50,24 @@ export default function Signin(props) {
         ></BaseInput>
         <BaseInput
           name="password"
-          type="password"
+          type={state.showPassword ? "text" : "password"}
           placeholder="Password"
           label="Password"
           value={state.password}
           handleChange={handleChange}
+          showPassword={state.showPassword}
+          changeShowPasswordToFalse={changeShowPasswordToFalse}
+          changeShowPasswordToTrue={changeShowPasswordToTrue}
         ></BaseInput>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>
+        <ButtonPrimary
+          onClick={handleLogin}
+          className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+        >
+          {!loading ? <span>Sign up</span> : ""}{" "}
+          <div>
+            {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+          </div>
+        </ButtonPrimary>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>
