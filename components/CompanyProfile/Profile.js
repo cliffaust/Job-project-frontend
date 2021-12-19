@@ -78,7 +78,7 @@ function Profile() {
     setState({ ...state, comment: value });
   };
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -438,7 +438,7 @@ function Profile() {
                   placeholder="Phone Number"
                   type="text"
                   value={state.phone}
-                  handleChange={handleChange}
+                  onChange={onChange}
                 ></BaseInput>
               </div>
               <div className="mt-6 comment">

@@ -14,7 +14,7 @@ function JobSearchFilter() {
     location: "",
   });
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -108,7 +108,7 @@ function JobSearchFilter() {
             type="text"
             value={state.job}
             placeholder="Search jobs"
-            handleChange={handleChange}
+            onChange={onChange}
           ></BaseInput>
         </div>
         <div className="w-2/5">
@@ -117,7 +117,7 @@ function JobSearchFilter() {
             type="text"
             value={state.location}
             placeholder="Search City, Region or Town"
-            handleChange={handleChange}
+            onChange={onChange}
           ></BaseInput>
         </div>
         <ButtonPrimary className="px-4 py-2 !rounded-md">

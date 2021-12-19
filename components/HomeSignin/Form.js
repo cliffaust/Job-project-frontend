@@ -9,7 +9,7 @@ export default function Form() {
     password: "",
   });
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
@@ -24,14 +24,14 @@ export default function Form() {
           value={state.email}
           placeholder="Email"
           className="mb-6"
-          handleChange={handleChange}
+          onChange={onChange}
         ></BaseInput>
         <BaseInput
           name="password"
           type="password"
           placeholder="Password"
           value={state.password}
-          handleChange={handleChange}
+          onChange={onChange}
         ></BaseInput>
         <h3 className="mt-3 font-bold">Forgot password?</h3>
         <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>

@@ -26,7 +26,7 @@ function ProfileSetup() {
     swiperIndex: 0,
   });
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
@@ -88,7 +88,7 @@ function ProfileSetup() {
               type="text"
               placeholder="Company Name"
               value={state.companyName}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -104,7 +104,7 @@ function ProfileSetup() {
               type="number"
               placeholder="Number of Employees"
               value={state.employeeNumbers}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -120,7 +120,7 @@ function ProfileSetup() {
               type="number"
               placeholder="Year Started"
               value={state.yearStarted}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -135,7 +135,7 @@ function ProfileSetup() {
               name="aboutCompany"
               placeholder="About Company"
               value={state.aboutCompany}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseTextArea>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -150,7 +150,7 @@ function ProfileSetup() {
               name="companyValues"
               placeholder="Company Values"
               value={state.companyValues}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseTextArea>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,

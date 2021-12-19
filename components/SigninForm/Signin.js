@@ -4,8 +4,9 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
+import * as Yup from "yup";
 
-import { useForm } from "react-hook-form";
+import { useFormik } from "formik";
 
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
@@ -13,18 +14,33 @@ import Link from "next/link";
 
 export default function Signin(props) {
   const [state, setState] = useState({
-    email: "",
-    password: "",
     showPassword: false,
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("This field is required"),
+      password: Yup.string().required("This field is required"),
+    }),
+    onSubmit: async (values) => {
+      setLoading(true);
+      await dispatch(
+        login({
+          email: values.email,
+          password: values.password,
+        })
+      );
+      // location.reload();
+    },
+  });
 
   const [loading, setLoading] = useState(false);
 
@@ -36,50 +52,50 @@ export default function Signin(props) {
     setState({ ...state, showPassword: true });
   };
 
-  const handleLogin = async (data) => {
-    setLoading(true);
-    console.log(data);
-    // await dispatch(
-    //   login({
-    //     email: state.email,
-    //     password: state.password,
-    //   })
-    // );
-    // location.reload();
-  };
-
-  const onSubmit = (data) => console.log(data);
-
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
     <div className="flex flex-col items-center py-10">
       <Logo type="large"></Logo>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={formik.handleSubmit}>
           <BaseInput
+            name="email"
             type="email"
-            validation={register("email")}
-            value={state.email}
+            errorStyle={
+              formik.touched.email && formik.errors.email ? true : false
+            }
             placeholder="Email"
             label="Email"
-            className="mb-6"
-            handleChange={handleChange}
+            {...formik.getFieldProps("email")}
           ></BaseInput>
+          {formik.touched.email && formik.errors.email ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.email}
+            </span>
+          ) : null}
           <BaseInput
             name="password"
             type={state.showPassword ? "text" : "password"}
+            errorStyle={
+              formik.touched.password && formik.errors.password ? true : false
+            }
             placeholder="Password"
             label="Password"
-            validation={register("password")}
-            value={state.password}
-            handleChange={handleChange}
+            className="mt-4"
+            {...formik.getFieldProps("password")}
             showPassword={state.showPassword}
             changeShowPasswordToFalse={changeShowPasswordToFalse}
             changeShowPasswordToTrue={changeShowPasswordToTrue}
           ></BaseInput>
+          {formik.touched.password && formik.errors.password ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.password}
+            </span>
+          ) : null}
           <ButtonPrimary
+            type="submit"
             className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
           >
             {!loading ? <span>Sign up</span> : ""}{" "}

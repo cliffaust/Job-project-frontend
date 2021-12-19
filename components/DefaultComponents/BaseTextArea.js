@@ -5,7 +5,7 @@ export default function BaseInput({
   errorStyle,
   name,
   value,
-  handleChange,
+  onChange,
   placeholder,
   className,
 }) {
@@ -22,7 +22,7 @@ export default function BaseInput({
         <textarea
           cols="30"
           rows="10"
-          onChange={handleChange}
+          onChange={onChange}
           name={name}
           value={value}
           placeholder={placeholder}

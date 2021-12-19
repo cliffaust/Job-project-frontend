@@ -31,7 +31,7 @@ export default function InternSignup(props) {
     setState({ ...state, showPassword: true });
   };
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -77,7 +77,7 @@ export default function InternSignup(props) {
           placeholder="First name"
           className="mb-6"
           label="First name"
-          handleChange={handleChange}
+          onChange={onChange}
         ></BaseInput>
         <BaseInput
           name="last_name"
@@ -86,7 +86,7 @@ export default function InternSignup(props) {
           placeholder="Last name"
           label="Last name"
           className="mb-6"
-          handleChange={handleChange}
+          onChange={onChange}
         ></BaseInput>
         <BaseInput
           name="email"
@@ -95,7 +95,7 @@ export default function InternSignup(props) {
           placeholder="Email"
           label="Email"
           className="mb-6"
-          handleChange={handleChange}
+          onChange={onChange}
         ></BaseInput>
         <BaseInput
           name="password"
@@ -103,7 +103,7 @@ export default function InternSignup(props) {
           placeholder="Password"
           label="Password"
           value={state.password}
-          handleChange={handleChange}
+          onChange={onChange}
           showPassword={state.showPassword}
           changeShowPasswordToFalse={changeShowPasswordToFalse}
           changeShowPasswordToTrue={changeShowPasswordToTrue}

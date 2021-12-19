@@ -6,16 +6,16 @@ export default function BaseInput({
   name,
   value,
   type,
-  handleChange,
+  onChange,
   placeholder,
   className,
   showPassword = null,
   changeShowPasswordToFalse,
+  onBlur,
   changeShowPasswordToTrue,
-  validation,
 }) {
   return (
-    <>
+    <div className={className}>
       {label ? (
         <label className="block text-gray-700 text-sm font-bold mb-2">
           {label}
@@ -25,16 +25,15 @@ export default function BaseInput({
       )}
       <div className="relative">
         <input
-          onChange={handleChange}
+          onChange={onChange}
           name={name}
           value={value}
           type={type}
-          {...validation}
+          onBlur={onBlur}
           placeholder={placeholder}
           className={
-            "appearance-none leading-tight border border-gray-300 rounded-md focus:outline-none py-3 px-4 w-full text-base " +
-            className +
-            (errorStyle ? "border-red-300" : "")
+            "appearance-none leading-tight border rounded-md focus:outline-none py-3 px-4 w-full text-base " +
+            (errorStyle ? "!border-red-300" : "border-gray-300")
           }
         />
 
@@ -82,6 +81,6 @@ export default function BaseInput({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

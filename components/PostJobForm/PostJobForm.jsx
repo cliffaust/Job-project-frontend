@@ -33,7 +33,7 @@ function PostJobForm({ children }) {
     endOfSlide: false,
     description: "",
   });
-  const handleChange = (event) => {
+  const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -98,7 +98,7 @@ function PostJobForm({ children }) {
               type="text"
               placeholder="First Name"
               value={state.firstName}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="flex items-center mb-2 mt-4">
               <h3 className="font-bold">Last name&nbsp;</h3>
@@ -109,7 +109,7 @@ function PostJobForm({ children }) {
               type="text"
               placeholder="Last Name"
               value={state.lastName}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -126,7 +126,7 @@ function PostJobForm({ children }) {
               type="text"
               placeholder="Title of Job"
               value={state.jobTitle}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -143,7 +143,7 @@ function PostJobForm({ children }) {
               type="email"
               placeholder="Work Email"
               value={state.workEmail}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -160,7 +160,7 @@ function PostJobForm({ children }) {
               placeholder="Phone Number"
               type="text"
               value={state.phone}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
@@ -177,7 +177,7 @@ function PostJobForm({ children }) {
               placeholder="Your role"
               type="text"
               value={state.currentRole}
-              handleChange={handleChange}
+              onChange={onChange}
             ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
