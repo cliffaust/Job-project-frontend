@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const NavbarComponent = () => {
   return (
-    <navbar className="flex px-20 py-4 justify-between items-center">
+    <div className="flex px-20 py-4 justify-between items-center">
       <Link href={{ pathname: "/" }}>
         <a>
           <Logo type="small"></Logo>
@@ -26,7 +26,7 @@ const NavbarComponent = () => {
           </a>
         </Link>
       </div>
-    </navbar>
+    </div>
   );
 };
 

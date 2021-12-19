@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <navbar className="flex px-20 py-4 justify-between items-center">
+    <div className="flex px-20 py-4 justify-between items-center">
       <div className="flex items-center gap-10">
         <Link href={{ pathname: "/" }}>
           <a>
@@ -27,7 +27,7 @@ const Navbar = () => {
           <a className="text-base cursor-pointer">Sign up</a>
         </Link>
       </div>
-    </navbar>
+    </div>
   );
 };
 

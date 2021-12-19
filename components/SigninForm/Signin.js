@@ -5,10 +5,12 @@ import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
 import * as Yup from "yup";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 import { useFormik } from "formik";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/auth";
 import Link from "next/link";
 
@@ -17,7 +19,11 @@ export default function Signin(props) {
     showPassword: false,
   });
 
+  const router = useRouter();
+
   const dispatch = useDispatch();
+
+  const { loginError } = useSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -32,15 +38,34 @@ export default function Signin(props) {
     }),
     onSubmit: async (values) => {
       setLoading(true);
-      dispatch(
+      await dispatch(
         login({
-          email: values.email,
-          password: values.password,
+          data: {
+            email: values.email,
+            password: values.password,
+          },
+          router: router,
         })
       );
-      // location.reload();
+      setLoading(false);
     },
   });
+
+  const errorMessage = {
+    show: {
+      opacity: 1,
+      y: 0,
+    },
+
+    hide: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        type: "spring",
+        stiffness: 60,
+      },
+    },
+  };
 
   const [loading, setLoading] = useState(false);
 
@@ -53,10 +78,18 @@ export default function Signin(props) {
   };
   return (
     <div className="flex flex-col items-center pb-10">
-      <div className="text-white text-sm py-3 rounded-lg px-4 bg-red-500 font-bold">
-        We couldn’t find an account matching the email or password you entered.
-        Please check your email or password and try again.
-      </div>
+      {loginError ? (
+        <motion.div
+          variants={errorMessage}
+          animate="show"
+          initial="hide"
+          className="text-white text-sm py-3 rounded-lg px-4 bg-red-500 font-bold"
+        >
+          We couldn’t find an account matching the email or password you
+          entered. Please check your email or password and try again.
+        </motion.div>
+      ) : null}
+
       <div className="mt-6">
         <Logo type="large"></Logo>
       </div>

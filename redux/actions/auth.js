@@ -52,12 +52,12 @@ export const companySignup = (data) => async (dispatch) => {
   }
 };
 
-export const login = (data) => async (dispatch) => {
+export const login = (payload) => async (dispatch) => {
   let response;
   try {
     response = await axios.post(
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/login/`,
-      data
+      payload.data
     );
     // Cookies.set("token", response.data.key);
     dispatch({
@@ -66,6 +66,8 @@ export const login = (data) => async (dispatch) => {
         token: response.data.key,
       },
     });
+    // payload.router.replace(( payload.router.query.redirect || '/'), () => payload.router.reload())
+    payload.router.push("/", null, { shallow: true });
   } catch (error) {
     console.log(error.response.data);
     if (error.response.status === 400) {
@@ -74,12 +76,6 @@ export const login = (data) => async (dispatch) => {
       });
     }
   }
-};
-
-export const changeLogin = () => (dispatch) => {
-  dispatch({
-    type: "CHANGE_LOGIN_ERROR_STATE",
-  });
 };
 
 export const logout = () => {
