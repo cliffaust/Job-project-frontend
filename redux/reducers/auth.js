@@ -13,6 +13,9 @@ const authenticationReducer = (state = signupState, action) => {
     case "LOGIN":
       return { ...state, token: action.payload.token };
 
+    // case "ADD_TOKEN":
+    //   return { ...state, token: action.payload.token };
+
     default:
       return state;
   }

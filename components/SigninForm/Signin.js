@@ -5,8 +5,10 @@ import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
 
+import { useForm } from "react-hook-form";
+
 import { useDispatch } from "react-redux";
-// import { internSignup } from "../../redux/actions/auth";
+import { login } from "../../redux/actions/auth";
 import Link from "next/link";
 
 export default function Signin(props) {
@@ -15,6 +17,12 @@ export default function Signin(props) {
     password: "",
     showPassword: false,
   });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const dispatch = useDispatch();
 
@@ -28,10 +36,19 @@ export default function Signin(props) {
     setState({ ...state, showPassword: true });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (data) => {
     setLoading(true);
+    console.log(data);
+    // await dispatch(
+    //   login({
+    //     email: state.email,
+    //     password: state.password,
+    //   })
+    // );
     // location.reload();
   };
+
+  const onSubmit = (data) => console.log(data);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -40,35 +57,37 @@ export default function Signin(props) {
     <div className="flex flex-col items-center py-10">
       <Logo type="large"></Logo>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
-        <BaseInput
-          name="email"
-          type="email"
-          value={state.email}
-          placeholder="Email"
-          label="Email"
-          className="mb-6"
-          handleChange={handleChange}
-        ></BaseInput>
-        <BaseInput
-          name="password"
-          type={state.showPassword ? "text" : "password"}
-          placeholder="Password"
-          label="Password"
-          value={state.password}
-          handleChange={handleChange}
-          showPassword={state.showPassword}
-          changeShowPasswordToFalse={changeShowPasswordToFalse}
-          changeShowPasswordToTrue={changeShowPasswordToTrue}
-        ></BaseInput>
-        <ButtonPrimary
-          onClick={handleLogin}
-          className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
-        >
-          {!loading ? <span>Sign up</span> : ""}{" "}
-          <div>
-            {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
-          </div>
-        </ButtonPrimary>
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <BaseInput
+            type="email"
+            validation={register("email")}
+            value={state.email}
+            placeholder="Email"
+            label="Email"
+            className="mb-6"
+            handleChange={handleChange}
+          ></BaseInput>
+          <BaseInput
+            name="password"
+            type={state.showPassword ? "text" : "password"}
+            placeholder="Password"
+            label="Password"
+            validation={register("password")}
+            value={state.password}
+            handleChange={handleChange}
+            showPassword={state.showPassword}
+            changeShowPasswordToFalse={changeShowPasswordToFalse}
+            changeShowPasswordToTrue={changeShowPasswordToTrue}
+          ></BaseInput>
+          <ButtonPrimary
+            className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+          >
+            {!loading ? <span>Sign up</span> : ""}{" "}
+            <div>
+              {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+            </div>
+          </ButtonPrimary>
+        </form>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>

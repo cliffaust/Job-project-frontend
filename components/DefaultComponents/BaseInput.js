@@ -12,6 +12,7 @@ export default function BaseInput({
   showPassword = null,
   changeShowPasswordToFalse,
   changeShowPasswordToTrue,
+  validation,
 }) {
   return (
     <>
@@ -28,6 +29,7 @@ export default function BaseInput({
           name={name}
           value={value}
           type={type}
+          {...validation}
           placeholder={placeholder}
           className={
             "appearance-none leading-tight border border-gray-300 rounded-md focus:outline-none py-3 px-4 w-full text-base " +

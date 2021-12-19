@@ -7,7 +7,7 @@ import { createWrapper } from "next-redux-wrapper";
 
 function MyApp({ Component, pageProps, router }) {
   return (
-    <Provider store={store}>
+    <Provider store={store.store}>
       <motion.div
         key={router.route}
         animate={{ opacity: 1 }}
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, router }) {
   );
 }
 
-const makeStore = () => store;
+const makeStore = () => store.store;
 
 const wrapper = createWrapper(makeStore);
 
