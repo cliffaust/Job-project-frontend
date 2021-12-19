@@ -79,8 +79,26 @@ export const login = (payload) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
-  return {
+export const logout = (router) => async (dispatch) => {
+  dispatch({
     type: "LOGOUT",
-  };
+  });
+  try {
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/logout/`,
+      "",
+      {
+        headers: {
+          Authorization: "Token " + Cookies.get("token"),
+        },
+      }
+    );
+    Cookies.remove("token");
+    router.push("/");
+  } catch (error) {
+    if (error.response.status === 401) {
+      Cookies.remove("token");
+      router.push("/");
+    }
+  }
 };

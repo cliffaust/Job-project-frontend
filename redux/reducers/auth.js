@@ -14,6 +14,9 @@ const authenticationReducer = (state = signupState, action) => {
     case "LOGIN":
       return { ...state, token: action.payload.token };
 
+    case "LOGOUT":
+      return { ...state, token: "" };
+
     case "CHANGE_LOGIN_ERROR_STATE":
       return { ...state, loginError: true };
 
