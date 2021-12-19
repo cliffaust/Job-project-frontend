@@ -8,13 +8,14 @@ export const internSignup = (data) => async (dispatch) => {
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
       data
     );
-    // Cookies.set("token", response.data.key);
+    Cookies.set("token", response.data.key);
     dispatch({
       type: "INTERN_SIGNUP",
       payload: {
         token: response.data.key,
       },
     });
+    payload.router.push("/");
   } catch (error) {
     console.log(error.response.data);
 
@@ -34,13 +35,14 @@ export const companySignup = (data) => async (dispatch) => {
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
       data
     );
-    // Cookies.set("token", response.data.key);
+    Cookies.set("token", response.data.key);
     dispatch({
       type: "COMPANY_SIGNUP",
       payload: {
         token: response.data.key,
       },
     });
+    payload.router.push("/");
   } catch (error) {
     console.log(error.response.data);
     dispatch({
@@ -59,15 +61,14 @@ export const login = (payload) => async (dispatch) => {
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/login/`,
       payload.data
     );
-    // Cookies.set("token", response.data.key);
+    Cookies.set("token", response.data.key);
     dispatch({
       type: "LOGIN",
       payload: {
         token: response.data.key,
       },
     });
-    // payload.router.replace(( payload.router.query.redirect || '/'), () => payload.router.reload())
-    payload.router.push("/", null, { shallow: true });
+    payload.router.push("/");
   } catch (error) {
     console.log(error.response.data);
     if (error.response.status === 400) {
