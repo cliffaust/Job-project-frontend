@@ -10,13 +10,47 @@ import { companySignup } from "../../redux/actions/auth";
 
 import Link from "next/link";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 export default function InternSignup(props) {
   const [state, setState] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
     showPassword: false,
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      first_name: Yup.string()
+        .max(120, "This field has a max lenght of 120")
+        .required("This field is required"),
+      last_name: Yup.string()
+        .max(120, "This field has a max lenght of 120")
+        .required("This field is required"),
+      email: Yup.string()
+        .email("Invalid email")
+        .required("This field is required"),
+      password: Yup.string().required("This field is required"),
+    }),
+    onSubmit: async (values) => {
+      setLoading(true);
+      await dispatch(
+        companySignup({
+          first_name: values.first_name,
+          last_name: values.last_name,
+          email: values.email,
+          password1: values.password,
+          password2: values.password,
+          is_company: true,
+        })
+      );
+      // location.reload();
+    },
   });
 
   const [loading, setLoading] = useState(false);
@@ -29,25 +63,6 @@ export default function InternSignup(props) {
 
   const changeShowPasswordToTrue = () => {
     setState({ ...state, showPassword: true });
-  };
-
-  const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
-
-  const handleSignup = async () => {
-    setLoading(true);
-    await dispatch(
-      companySignup({
-        first_name: state.first_name,
-        last_name: state.last_name,
-        email: state.email,
-        password1: state.password,
-        password2: state.password,
-        is_company: true,
-      })
-    );
-    // location.reload();
   };
   return (
     <div className="flex flex-col items-center py-10">
@@ -70,57 +85,88 @@ export default function InternSignup(props) {
             Company
           </div>
         </div>
-        <BaseInput
-          name="first_name"
-          type="text"
-          value={state.first_name}
-          placeholder="First name"
-          className="mb-6"
-          label="First name"
-          onChange={onChange}
-        ></BaseInput>
-        <BaseInput
-          name="last_name"
-          type="text"
-          value={state.last_name}
-          placeholder="Last name"
-          label="Last name"
-          className="mb-6"
-          onChange={onChange}
-        ></BaseInput>
-        <BaseInput
-          name="email"
-          type="email"
-          value={state.email}
-          placeholder="Email"
-          label="Email"
-          className="mb-6"
-          onChange={onChange}
-        ></BaseInput>
-        <BaseInput
-          name="password"
-          type={state.showPassword ? "text" : "password"}
-          placeholder="Password"
-          label="Password"
-          value={state.password}
-          onChange={onChange}
-          showPassword={state.showPassword}
-          changeShowPasswordToFalse={changeShowPasswordToFalse}
-          changeShowPasswordToTrue={changeShowPasswordToTrue}
-        ></BaseInput>
-        <h3 className="mt-3 font-bold text-center">
-          By clicking sign up, you agree to the job finder{" "}
-          <span className="text-blue-500">Terms and condition</span>
-        </h3>
-        <ButtonPrimary
-          onClick={handleSignup}
-          className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
-        >
-          {!loading ? <span>Sign up</span> : ""}{" "}
-          <div>
-            {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
-          </div>
-        </ButtonPrimary>
+        <form onSubmit={formik.handleSubmit}>
+          <BaseInput
+            name="first_name"
+            type="text"
+            placeholder="First name"
+            errorStyle={
+              formik.touched.first_name && formik.errors.first_name
+                ? true
+                : false
+            }
+            label="First name"
+            {...formik.getFieldProps("first_name")}
+          ></BaseInput>
+          {formik.touched.first_name && formik.errors.first_name ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.first_name}
+            </span>
+          ) : null}
+          <BaseInput
+            name="last_name"
+            type="text"
+            placeholder="Last name"
+            label="Last name"
+            className="mt-6"
+            errorStyle={
+              formik.touched.last_name && formik.errors.last_name ? true : false
+            }
+            {...formik.getFieldProps("last_name")}
+          ></BaseInput>
+          {formik.touched.last_name && formik.errors.last_name ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.last_name}
+            </span>
+          ) : null}
+          <BaseInput
+            name="email"
+            type="email"
+            className="mt-6"
+            errorStyle={
+              formik.touched.email && formik.errors.email ? true : false
+            }
+            placeholder="Email"
+            label="Email"
+            {...formik.getFieldProps("email")}
+          ></BaseInput>
+          {formik.touched.email && formik.errors.email ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.email}
+            </span>
+          ) : null}
+          <BaseInput
+            name="password"
+            type={state.showPassword ? "text" : "password"}
+            className="mt-6"
+            errorStyle={
+              formik.touched.password && formik.errors.password ? true : false
+            }
+            placeholder="Password"
+            label="Password"
+            {...formik.getFieldProps("password")}
+            showPassword={state.showPassword}
+            changeShowPasswordToFalse={changeShowPasswordToFalse}
+            changeShowPasswordToTrue={changeShowPasswordToTrue}
+          ></BaseInput>
+          {formik.touched.password && formik.errors.password ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.password}
+            </span>
+          ) : null}
+          <h3 className="mt-3 font-bold text-center">
+            By clicking sign up, you agree to the job finder{" "}
+            <span className="text-blue-500">Terms and condition</span>
+          </h3>
+          <ButtonPrimary
+            className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+          >
+            {!loading ? <span>Sign up</span> : ""}{" "}
+            <div>
+              {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+            </div>
+          </ButtonPrimary>
+        </form>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>
