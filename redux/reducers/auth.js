@@ -1,5 +1,6 @@
 const signupState = {
   token: "",
+  loginError: false,
 };
 
 const authenticationReducer = (state = signupState, action) => {
@@ -13,8 +14,8 @@ const authenticationReducer = (state = signupState, action) => {
     case "LOGIN":
       return { ...state, token: action.payload.token };
 
-    // case "ADD_TOKEN":
-    //   return { ...state, token: action.payload.token };
+    case "CHANGE_LOGIN_ERROR_STATE":
+      return { ...state, loginError: true };
 
     default:
       return state;

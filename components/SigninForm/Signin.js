@@ -32,7 +32,7 @@ export default function Signin(props) {
     }),
     onSubmit: async (values) => {
       setLoading(true);
-      await dispatch(
+      dispatch(
         login({
           email: values.email,
           password: values.password,
@@ -51,13 +51,15 @@ export default function Signin(props) {
   const changeShowPasswordToTrue = () => {
     setState({ ...state, showPassword: true });
   };
-
-  const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
   return (
-    <div className="flex flex-col items-center py-10">
-      <Logo type="large"></Logo>
+    <div className="flex flex-col items-center pb-10">
+      <div className="text-white text-sm py-3 rounded-lg px-4 bg-red-500 font-bold">
+        We couldn’t find an account matching the email or password you entered.
+        Please check your email or password and try again.
+      </div>
+      <div className="mt-6">
+        <Logo type="large"></Logo>
+      </div>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
         <form onSubmit={formik.handleSubmit}>
           <BaseInput

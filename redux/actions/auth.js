@@ -68,35 +68,19 @@ export const login = (data) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error.response.data);
-
-    dispatch({
-      type: "LOGIN",
-      payload: {
-        token: "",
-      },
-    });
+    if (error.response.status === 400) {
+      dispatch({
+        type: "CHANGE_LOGIN_ERROR_STATE",
+      });
+    }
   }
 };
 
-// export const checkAuth = (req) => async (dispatch) => {
-//   let token
-//     if (req) {
-//       if (req.headers.cookie) {
-//         token = req.headers.cookie.split(';').map((element) => element.trim())
-//         token = token.find((c) => c.startsWith('token='))
-
-//         if (token) {
-//           token = token.split('=')[1]
-//           dispatch({
-//             type: "ADD_TOKEN",
-//             payload: {
-//               token: token,
-//             },
-//           })
-//         }
-//       }
-//     }
-//   },
+export const changeLogin = () => (dispatch) => {
+  dispatch({
+    type: "CHANGE_LOGIN_ERROR_STATE",
+  });
+};
 
 export const logout = () => {
   return {
