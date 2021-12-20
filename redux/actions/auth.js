@@ -28,12 +28,12 @@ export const internSignup = (data) => async (dispatch) => {
   }
 };
 
-export const companySignup = (data) => async (dispatch) => {
+export const companySignup = (payload) => async (dispatch) => {
   let response;
   try {
     response = await axios.post(
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
-      data
+      payload.data
     );
     Cookies.set("token", response.data.key);
     dispatch({
@@ -46,9 +46,9 @@ export const companySignup = (data) => async (dispatch) => {
   } catch (error) {
     console.log(error.response.data);
     dispatch({
-      type: "COMPANY_SIGNUP",
+      type: "ADD_SIGNUP_ERROR",
       payload: {
-        token: "",
+        errors: error.response.data,
       },
     });
   }
