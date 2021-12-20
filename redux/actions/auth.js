@@ -1,12 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const internSignup = (data) => async (dispatch) => {
+export const internSignup = (payload) => async (dispatch) => {
   let response;
   try {
     response = await axios.post(
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
-      data
+      payload.data
     );
     Cookies.set("token", response.data.key);
     dispatch({

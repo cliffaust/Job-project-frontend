@@ -47,11 +47,14 @@ export default function InternSignup(props) {
       setLoading(true);
       await dispatch(
         internSignup({
-          first_name: values.first_name,
-          last_name: values.last_name,
-          email: values.email,
-          password1: values.password1,
-          password2: values.password1,
+          data: {
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password1: values.password1,
+            password2: values.password1,
+          },
+          router,
         })
       );
       setLoading(false);
@@ -164,6 +167,7 @@ export default function InternSignup(props) {
             <span className="text-blue-500">Terms and condition</span>
           </h3>
           <ButtonPrimary
+            type="submit"
             className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
           >
             {!loading ? <span>Sign up</span> : ""}{" "}

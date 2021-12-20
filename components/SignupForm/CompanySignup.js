@@ -47,7 +47,7 @@ export default function InternSignup(props) {
     }),
     onSubmit: async (values, { setErrors }) => {
       setLoading(true);
-      dispatch(
+      await dispatch(
         companySignup({
           data: {
             first_name: values.first_name,
