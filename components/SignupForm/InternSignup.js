@@ -29,7 +29,7 @@ export default function InternSignup(props) {
       first_name: "",
       last_name: "",
       email: "",
-      password: "",
+      password1: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string()
@@ -41,17 +41,17 @@ export default function InternSignup(props) {
       email: Yup.string()
         .email("Invalid email")
         .required("This field is required"),
-      password: Yup.string().required("This field is required"),
+      password1: Yup.string().required("This field is required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setErrors }) => {
       setLoading(true);
       await dispatch(
         internSignup({
           first_name: values.first_name,
           last_name: values.last_name,
           email: values.email,
-          password1: values.password,
-          password2: values.password,
+          password1: values.password1,
+          password2: values.password1,
         })
       );
       setLoading(false);
@@ -141,22 +141,22 @@ export default function InternSignup(props) {
             </span>
           ) : null}
           <BaseInput
-            name="password"
+            name="password1"
             type={state.showPassword ? "text" : "password"}
             className="mt-6"
             errorStyle={
-              formik.touched.password && formik.errors.password ? true : false
+              formik.touched.password1 && formik.errors.password1 ? true : false
             }
             placeholder="Password"
             label="Password"
-            {...formik.getFieldProps("password")}
+            {...formik.getFieldProps("password1")}
             showPassword={state.showPassword}
             changeShowPasswordToFalse={changeShowPasswordToFalse}
             changeShowPasswordToTrue={changeShowPasswordToTrue}
           ></BaseInput>
-          {formik.touched.password && formik.errors.password ? (
+          {formik.touched.password1 && formik.errors.password1 ? (
             <span className="text-sm mt-3 font-bold text-red-400">
-              {formik.errors.password}
+              {formik.errors.password1}
             </span>
           ) : null}
           <h3 className="mt-3 font-bold text-center">
