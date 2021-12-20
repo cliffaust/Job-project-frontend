@@ -91,7 +91,11 @@ export default function Signin(props) {
       ) : null}
 
       <div className="mt-6">
-        <Logo type="large"></Logo>
+        <Link href="/">
+          <a>
+            <Logo type="large"></Logo>
+          </a>
+        </Link>
       </div>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
         <form onSubmit={formik.handleSubmit}>

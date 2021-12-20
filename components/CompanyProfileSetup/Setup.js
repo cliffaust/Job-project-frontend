@@ -30,16 +30,9 @@ function ProfileSetup() {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       <div className="w-2/3 flex flex-col py-5 justify-between bg-white">
-        <div className="h-2/5">
-          <img
-            className="h-full w-full"
-            src="./images/setup-image2.svg"
-            alt=""
-          />
-        </div>
-        <div className="h-2/4">
+        <div className="h-full">
           <img
             className="h-full w-full"
             src="./images/setup-image1.svg"
@@ -48,7 +41,7 @@ function ProfileSetup() {
         </div>
       </div>
       <div className="w-2/5">
-        <div className="h-30 flex flex-col items-center justify-center border-b border-gray-300">
+        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-300">
           <div className="text-4xl px-10 font-standardTT">
             Build your profile to attract more Interns.
           </div>
@@ -157,20 +150,20 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <div className="flex items-center px-20 justify-between absolute bottom-0 z-10 w-full mb-10">
-            <div
-              className={
-                "swiper-pagination swiper-button-prev z-10 " +
-                (state.swiperIndex === 0 ? "invisible" : "")
-              }
-            >
-              <PreviousLink>Previous</PreviousLink>
-            </div>
-            <div className="swiper-pagination swiper-button-next z-10">
-              <NextLink>{state.swiperIndex === 4 ? "Done" : "Next"}</NextLink>
-            </div>
-          </div>
         </Swiper>
+        <div className="flex items-center px-20 justify-between flex-grow z-10 w-full">
+          <div
+            className={
+              "swiper-pagination swiper-button-prev z-10 " +
+              (state.swiperIndex === 0 ? "invisible" : "")
+            }
+          >
+            <PreviousLink>Previous</PreviousLink>
+          </div>
+          <div className="swiper-pagination swiper-button-next z-10">
+            <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
+          </div>
+        </div>
       </div>
     </div>
   );

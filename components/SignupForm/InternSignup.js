@@ -74,7 +74,11 @@ export default function InternSignup(props) {
 
   return (
     <div className="flex flex-col items-center py-10">
-      <Logo type="large"></Logo>
+      <Link href="/">
+        <a>
+          <Logo type="large"></Logo>
+        </a>
+      </Link>
       <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
         <h3 className="font-bold mb-2">
           What account are you creating? Please choose one

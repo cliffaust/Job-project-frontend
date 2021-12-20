@@ -2,7 +2,7 @@ import React from "react";
 
 function PreviousLink(props) {
   return (
-    <div className="flex items-center gap-1 mt-5 cursor-pointer">
+    <div className="flex items-center select-none gap-1 mt-5 cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5"

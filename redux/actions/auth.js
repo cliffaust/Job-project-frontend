@@ -15,7 +15,7 @@ export const internSignup = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push("/");
+    payload.router.push("/intern-setup");
   } catch (error) {
     console.log(error.response.data);
 
@@ -42,7 +42,7 @@ export const companySignup = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push("/");
+    payload.router.push("/company-setup");
   } catch (error) {
     console.log(error.response.data);
     dispatch({

@@ -2,39 +2,139 @@ import React, { useState } from "react";
 import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
+import * as Yup from "yup";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+
+import { useFormik } from "formik";
+
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/auth";
+import Link from "next/link";
 
 export default function Form() {
   const [state, setState] = useState({
-    email: "",
-    password: "",
+    showPassword: false,
   });
 
-  const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const { loginError } = useSelector((state) => state.auth);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("This field is required"),
+      password: Yup.string().required("This field is required"),
+    }),
+    onSubmit: async (values) => {
+      setLoading(true);
+      await dispatch(
+        login({
+          data: {
+            email: values.email,
+            password: values.password,
+          },
+          router: router,
+        })
+      );
+      setLoading(false);
+    },
+  });
+
+  const errorMessage = {
+    show: {
+      opacity: 1,
+    },
+
+    hide: {
+      opacity: 0,
+      transition: {
+        duration: 0.4,
+      },
+    },
   };
+
+  const [loading, setLoading] = useState(false);
+
+  const changeShowPasswordToFalse = () => {
+    setState({ ...state, showPassword: false });
+  };
+
+  const changeShowPasswordToTrue = () => {
+    setState({ ...state, showPassword: true });
+  };
+
   return (
     <div className="flex gap-20">
       <div className="w-2/5">
         <h1 className="text-3xl font-standardTT mb-5 text-center">
           A new way of finding a job
         </h1>
-        <BaseInput
-          name="email"
-          type="email"
-          value={state.email}
-          placeholder="Email"
-          className="mb-6"
-          onChange={onChange}
-        ></BaseInput>
-        <BaseInput
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={state.password}
-          onChange={onChange}
-        ></BaseInput>
-        <h3 className="mt-3 font-bold">Forgot password?</h3>
-        <ButtonPrimary className="mt-5 w-full px-5 py-2">Sign in</ButtonPrimary>
+        {loginError ? (
+          <motion.div
+            variants={errorMessage}
+            animate="show"
+            initial="hide"
+            className="text-white my-4 text-sm py-3 rounded-lg px-4 bg-red-500 font-bold"
+          >
+            We couldn’t find an account matching the email or password you
+            entered. Please check your email or password and try again.
+          </motion.div>
+        ) : null}
+        <form onSubmit={formik.handleSubmit}>
+          <BaseInput
+            name="email"
+            type="email"
+            errorStyle={
+              formik.touched.email && formik.errors.email ? true : false
+            }
+            placeholder="Email"
+            label="Email"
+            {...formik.getFieldProps("email")}
+          ></BaseInput>
+          {formik.touched.email && formik.errors.email ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.email}
+            </span>
+          ) : null}
+          <BaseInput
+            name="password"
+            type={state.showPassword ? "text" : "password"}
+            errorStyle={
+              formik.touched.password && formik.errors.password ? true : false
+            }
+            placeholder="Password"
+            label="Password"
+            className="mt-4"
+            {...formik.getFieldProps("password")}
+            showPassword={state.showPassword}
+            changeShowPasswordToFalse={changeShowPasswordToFalse}
+            changeShowPasswordToTrue={changeShowPasswordToTrue}
+          ></BaseInput>
+          {formik.touched.password && formik.errors.password ? (
+            <span className="text-sm mt-3 font-bold text-red-400">
+              {formik.errors.password}
+            </span>
+          ) : null}
+          <ButtonPrimary
+            type="submit"
+            className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
+          >
+            {!loading ? <span>Sign up</span> : ""}{" "}
+            <div>
+              {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+            </div>
+          </ButtonPrimary>
+        </form>
         <div className="mt-10 flex gap-4 items-center">
           <div className="flex-grow h-px bg-gray-300"></div>
           <div className="text-sm font-bold text-center">Or</div>
