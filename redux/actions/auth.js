@@ -20,9 +20,9 @@ export const internSignup = (data) => async (dispatch) => {
     console.log(error.response.data);
 
     dispatch({
-      type: "INTERN_SIGNUP",
+      type: "ADD_SIGNUP_ERROR",
       payload: {
-        token: "",
+        errors: error.response.data,
       },
     });
   }

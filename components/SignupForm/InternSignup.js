@@ -4,9 +4,11 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { internSignup } from "../../redux/actions/auth";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
+
 import * as Yup from "yup";
 
 import Link from "next/link";
@@ -16,7 +18,11 @@ export default function InternSignup(props) {
     showPassword: false,
   });
 
+  const router = useRouter();
+
   const dispatch = useDispatch();
+
+  const store = useStore();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +54,8 @@ export default function InternSignup(props) {
           password2: values.password,
         })
       );
-      // location.reload();
+      setLoading(false);
+      setErrors(store.getState().auth.signupErrors);
     },
   });
 
