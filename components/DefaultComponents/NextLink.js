@@ -2,7 +2,10 @@ import React from "react";
 
 function NextLink(props) {
   return (
-    <div className="flex items-center gap-1 mt-5 cursor-pointer">
+    <div
+      onClick={props.onClick}
+      className="flex items-center gap-1 mt-5 cursor-pointer"
+    >
       <h1 className="text-lg tracking-wider select-none">{props.children}</h1>
       <svg
         xmlns="http://www.w3.org/2000/svg"

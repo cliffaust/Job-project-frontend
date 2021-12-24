@@ -6,6 +6,9 @@ import PreviousLink from "../DefaultComponents/PreviousLink";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import "swiper/css/effect-creative";
 import "swiper/css";
 
@@ -18,17 +21,31 @@ SwiperCore.use([EffectCreative]);
 
 function ProfileSetup() {
   const [state, setState] = useState({
-    companyName: "",
-    employeeNumbers: "",
-    yearStarted: "",
-    aboutCompany: "",
-    companyValues: "",
     swiperIndex: 0,
+    endOfSlide: false,
   });
 
-  const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
+  const formik = useFormik({
+    initialValues: {
+      companyName: "",
+      employeeNumbers: "",
+      yearStarted: "",
+      aboutCompany: "",
+      companyValues: "",
+    },
+    validationSchema: Yup.object({
+      companyName: Yup.string()
+        .max(500, "This field has a max lenght of 500")
+        .required("This field is required"),
+      employeeNumbers: Yup.number().required("This field is required"),
+      yearStarted: Yup.number().required("This field is required"),
+      aboutCompany: Yup.string().required("This field is required"),
+      companyValues: Yup.string().required("This field is required"),
+    }),
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
   return (
     <div className="flex h-full">
       <div className="w-2/3 flex flex-col py-5 justify-between bg-white">
@@ -47,12 +64,17 @@ function ProfileSetup() {
           </div>
         </div>
         <Swiper
-          // spaceBetween={50}
           slidesPerView={1}
           effect={"creative"}
           onSlideChange={(swiper) =>
-            setState({ ...state, swiperIndex: swiper.realIndex })
+            setState({
+              ...state,
+              swiperIndex: swiper.realIndex,
+              endOfSlide: swiper.isEnd,
+            })
           }
+          preventInteractionOnTransition={true}
+          allowTouchMove={false}
           pagination={{
             el: ".swiper-pagination",
             clickable: true,
@@ -80,9 +102,18 @@ function ProfileSetup() {
               name="companyName"
               type="text"
               placeholder="Company Name"
-              value={state.companyName}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.companyName && formik.errors.companyName
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("companyName")}
             ></BaseInput>
+            {formik.touched.companyName && formik.errors.companyName ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.companyName}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -96,9 +127,18 @@ function ProfileSetup() {
               name="employeeNumbers"
               type="number"
               placeholder="Number of Employees"
-              value={state.employeeNumbers}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.employeeNumbers && formik.errors.employeeNumbers
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("employeeNumbers")}
             ></BaseInput>
+            {formik.touched.employeeNumbers && formik.errors.employeeNumbers ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.employeeNumbers}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -112,9 +152,18 @@ function ProfileSetup() {
               name="yearStarted"
               type="number"
               placeholder="Year Started"
-              value={state.yearStarted}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.yearStarted && formik.errors.yearStarted
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("yearStarted")}
             ></BaseInput>
+            {formik.touched.yearStarted && formik.errors.yearStarted ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.yearStarted}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -127,9 +176,18 @@ function ProfileSetup() {
             <BaseTextArea
               name="aboutCompany"
               placeholder="About Company"
-              value={state.aboutCompany}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.aboutCompany && formik.errors.aboutCompany
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("aboutCompany")}
             ></BaseTextArea>
+            {formik.touched.aboutCompany && formik.errors.aboutCompany ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.aboutCompany}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -142,9 +200,18 @@ function ProfileSetup() {
             <BaseTextArea
               name="companyValues"
               placeholder="Company Values"
-              value={state.companyValues}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.companyValues && formik.errors.companyValues
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("companyValues")}
             ></BaseTextArea>
+            {formik.touched.companyValues && formik.errors.companyValues ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.companyValues}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -161,7 +228,13 @@ function ProfileSetup() {
             <PreviousLink>Previous</PreviousLink>
           </div>
           <div className="swiper-pagination swiper-button-next z-10">
-            <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
+            {state.endOfSlide ? (
+              <button type="submit" onClick={formik.handleSubmit}>
+                <NextLink>Done</NextLink>
+              </button>
+            ) : (
+              <NextLink>Next</NextLink>
+            )}
           </div>
         </div>
       </div>
