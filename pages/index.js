@@ -3,6 +3,7 @@ import Hero from "../components/HeroSection/Hero";
 import Section from "../components/HomeSections/Section";
 import Form from "../components/HomeSignin/Form";
 import Footer from "../components/HomeFooter/Footer";
+import getUserProfile from "../lib/userProfile";
 
 export default function Home() {
   return (
@@ -225,4 +226,16 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+export async function getServerSideProps(context) {
+  const response = await getUserProfile(context);
+
+  console.log(response);
+
+  return {
+    props: {
+      data: response.data,
+    },
+  };
 }
