@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import Profile from "../../components/CompanyProfile/Profile";
 import Footer from "../../components/HomeFooter/Footer";
-import axios from "axios";
-import Cookies from "js-cookie";
+import getToken from "../../lib/getToken";
 
-function CompanyProfile() {
+import axios from "axios";
+
+function CompanyProfile({ user_profile, company_profile }) {
   return (
     <div className="overflow-x-hidden">
-      <Profile></Profile>
+      <Profile
+        user_profile={user_profile}
+        company_profile={company_profile}
+      ></Profile>
       <div className="mt-20">
         <Footer></Footer>
       </div>
@@ -17,19 +21,9 @@ function CompanyProfile() {
 
 export default CompanyProfile;
 
-export async function getServerSideProps({ res, req }) {
+export async function getServerSideProps(context) {
   try {
-    let token;
-    if (req) {
-      if (req.headers.cookie) {
-        token = req.headers.cookie.split(";").map((element) => element.trim());
-        token = token.find((c) => c.startsWith("token="));
-
-        if (token) {
-          token = token.split("=")[1];
-        }
-      }
-    }
+    const token = getToken(context);
 
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
@@ -40,9 +34,19 @@ export async function getServerSideProps({ res, req }) {
       }
     );
 
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_baseURL}/user/`,
+      {
+        headers: {
+          Authorization: "Token " + token,
+        },
+      }
+    );
+
     return {
       props: {
         company_profile: data,
+        user_profile: response.data[0],
       },
     };
   } catch (error) {
@@ -50,6 +54,7 @@ export async function getServerSideProps({ res, req }) {
     return {
       props: {
         company_profile: "",
+        user_profile: "",
       },
     };
   }

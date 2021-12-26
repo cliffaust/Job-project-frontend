@@ -21,7 +21,7 @@ SwiperCore.use([Navigation]);
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 
-function Profile() {
+function Profile({ user_profile, company_profile }) {
   const [state, setState] = useState({
     swiperIndex: 0,
     allowSlideNext: false,
@@ -88,7 +88,7 @@ function Profile() {
   };
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
-      <NavBar></NavBar>
+      <NavBar user_profile={user_profile}></NavBar>
       <div className="mt-10 px-20 flex justify-between items-center">
         <div className="flex gap-4 items-center">
           <div className="w-36 h-36 rounded-full">

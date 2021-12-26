@@ -1,7 +1,26 @@
 import Logo from "../HomeNavbar/Logo";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Navbar = () => {
+const Navbar = ({ user_profile }) => {
+  const router = useRouter();
+  const signin = () => {
+    router.push({
+      pathname: "signin",
+      query: {
+        redirect: `${router.pathname}`,
+      },
+    });
+  };
+
+  const signup = () => {
+    router.push({
+      pathname: "signup",
+      query: {
+        redirect: `${router.pathname}`,
+      },
+    });
+  };
   return (
     <div className="flex px-20 py-4 justify-between items-center">
       <div className="flex items-center gap-10">
@@ -19,14 +38,24 @@ const Navbar = () => {
           <div className="text-base cursor-pointer">Guidelines</div>
         </div>
       </div>
-      <div className="flex items-center gap-6">
-        <Link href="/signin">
-          <a className="text-base cursor-pointer">Sign in</a>
-        </Link>
-        <Link href="/signup">
-          <a className="text-base cursor-pointer">Sign up</a>
-        </Link>
-      </div>
+      {user_profile ? (
+        <div>
+          <img
+            src={user_profile.profile_pic}
+            className="rounded-full w-10 h-10 object-cover"
+            alt="Profile Image"
+          />
+        </div>
+      ) : (
+        <div className="flex items-center gap-6">
+          <div onClick={signin} className="text-base cursor-pointer">
+            Sign in
+          </div>
+          <div onClick={signup} className="text-base cursor-pointer">
+            Sign up
+          </div>
+        </div>
+      )}
     </div>
   );
 };
