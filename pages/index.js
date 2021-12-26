@@ -229,13 +229,20 @@ export default function Home() {
 }
 
 export async function getServerSideProps(context) {
-  const response = await getUserProfile(context);
+  try {
+    const response = await getUserProfile(context);
 
-  console.log(response);
-
-  return {
-    props: {
-      data: response.data,
-    },
-  };
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error) {
+    console.log("this is the error ", error);
+    return {
+      props: {
+        data: "",
+      },
+    };
+  }
 }
