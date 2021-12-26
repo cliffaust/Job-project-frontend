@@ -3,12 +3,13 @@ import Hero from "../components/HeroSection/Hero";
 import Section from "../components/HomeSections/Section";
 import Form from "../components/HomeSignin/Form";
 import Footer from "../components/HomeFooter/Footer";
-import getUserProfile from "../lib/userProfile";
+import getToken from "../lib/getToken";
+import axios from "axios";
 
-export default function Home() {
+export default function Home({ user_profile }) {
   return (
     <main className="">
-      <Navbar></Navbar>
+      <Navbar user_profile={user_profile}></Navbar>
       <Hero></Hero>
       <div className="flex px-20 justify-between mt-20 mb-10">
         <Section
@@ -230,18 +231,34 @@ export default function Home() {
 
 export async function getServerSideProps(context) {
   try {
-    const response = await getUserProfile(context);
+    const token = getToken(context);
+
+    if (token) {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_baseURL}/user/`,
+        {
+          headers: {
+            Authorization: "Token " + token,
+          },
+        }
+      );
+      return {
+        props: {
+          user_profile: response.data[0],
+        },
+      };
+    }
 
     return {
       props: {
-        data: response.data,
+        user_profile: "",
       },
     };
   } catch (error) {
-    console.log("this is the error ", error);
     return {
-      props: {
-        data: "",
+      redirect: {
+        permanent: false,
+        destination: "logout",
       },
     };
   }
