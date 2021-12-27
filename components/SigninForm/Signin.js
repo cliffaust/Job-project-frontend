@@ -137,7 +137,7 @@ export default function Signin(props) {
             type="submit"
             className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
           >
-            {!loading ? <span>Sign up</span> : ""}{" "}
+            {!loading ? <span>Login in</span> : ""}{" "}
             <div>
               {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
             </div>
@@ -180,7 +180,12 @@ export default function Signin(props) {
         </ButtonPrimaryOpen>
         <h3 className="mt-6 font-bold text-center">
           Don't have an account?{" "}
-          <Link href="/signup">
+          <Link
+            href={{
+              pathname: "/signup",
+              query: { redirect: `${router.query.redirect}` },
+            }}
+          >
             <a className="text-blue-500">Sign up</a>
           </Link>
         </h3>

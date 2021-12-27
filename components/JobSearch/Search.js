@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
 function JobSearchFilter() {
-  const jobSearch = useSelector((state) => state.jobSearchReducer);
+  const jobSearch = useSelector((state) => state.jobSearch);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     job: "",
@@ -60,7 +60,7 @@ function JobSearchFilter() {
                 animate="show"
                 initial="hide"
                 exit="exit"
-                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute"
+                className="bg-white z-10 shadow-lg rounded-lg w-48 overflow-hidden absolute"
               >
                 <div className="option-select">Last 24 hours</div>
                 <div className="option-select">Last 3 days</div>
@@ -88,7 +88,7 @@ function JobSearchFilter() {
                 animate="show"
                 initial="hide"
                 exit="exit"
-                className="bg-white shadow-lg rounded-lg w-48 overflow-hidden absolute"
+                className="bg-white z-10 shadow-lg rounded-lg w-48 overflow-hidden absolute"
               >
                 <div className="option-select">Remote</div>
                 <div className="option-select">On-site</div>

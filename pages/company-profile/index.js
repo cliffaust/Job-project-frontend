@@ -51,11 +51,20 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     console.log(error.response.data);
-    return {
-      props: {
-        company_profile: "",
-        user_profile: "",
-      },
-    };
+    if (error.response.status === 401) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "logout",
+        },
+      };
+    } else {
+      return {
+        props: {
+          company_profile: "",
+          user_profile: "",
+        },
+      };
+    }
   }
 }

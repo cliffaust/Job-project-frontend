@@ -15,7 +15,7 @@ export const internSignup = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push("/intern-setup");
+    payload.router.push(payload.router.query.redirect);
   } catch (error) {
     console.log(error.response.data);
 
@@ -68,7 +68,7 @@ export const login = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push("/");
+    payload.router.push(payload.router.query.redirect);
   } catch (error) {
     console.log(error.response.data);
     if (error.response.status === 400) {

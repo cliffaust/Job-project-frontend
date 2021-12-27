@@ -1,6 +1,7 @@
 import Logo from "./Logo";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
+
 import Link from "next/link";
 
 const NavbarComponent = ({ user_profile }) => {
@@ -41,7 +42,11 @@ const NavbarComponent = ({ user_profile }) => {
             />
           </div>
         ) : (
-          <Link href="/signup">
+          <Link
+            href={{
+              pathname: "/signup",
+            }}
+          >
             <a>
               <ButtonPrimaryOpen className="!px-6 !py-1">
                 Sign up

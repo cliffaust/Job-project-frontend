@@ -217,7 +217,12 @@ export default function InternSignup(props) {
         </ButtonPrimaryOpen>
         <h3 className="mt-6 font-bold text-center">
           Already on Job finder?{" "}
-          <Link href="/signin">
+          <Link
+            href={{
+              pathname: "/signin",
+              query: { redirect: `${router.query.redirect}` },
+            }}
+          >
             <a className="text-blue-500">Sign in</a>
           </Link>
         </h3>
