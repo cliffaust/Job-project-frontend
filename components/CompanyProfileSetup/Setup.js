@@ -279,23 +279,31 @@ function ProfileSetup() {
           >
             <PreviousLink>Previous</PreviousLink>
           </div>
-          <div className="swiper-pagination swiper-button-next z-10">
-            {state.endOfSlide ? (
-              <button
-                type="submit"
-                onClick={formik.handleSubmit}
-                className="flex items-center gap-1"
-              >
-                {state.loading && (
-                  <div className="mt-5">
-                    <ButtonLoadingSpinner></ButtonLoadingSpinner>
-                  </div>
-                )}
-                <NextLink>Done</NextLink>
-              </button>
-            ) : (
-              <NextLink>Next</NextLink>
-            )}
+          {/* // <button
+            //   type="submit"
+            //   // onClick={formik.handleSubmit}
+            //   className="flex items-center gap-1"
+            // >
+            //   {state.loading && (
+            //     <div className="mt-5">
+            //       <ButtonLoadingSpinner></ButtonLoadingSpinner>
+            //     </div>
+            //   )} */}
+          <div
+            className={
+              "z-10 swiper-setup-pagination swiper-setup-button-next " +
+              (!state.endOfSlide ? "hidden" : "")
+            }
+          >
+            <NextLink>Done</NextLink>
+          </div>
+          <div
+            className={
+              "z-10 swiper-pagination swiper-button-next " +
+              (state.endOfSlide ? "hidden" : "")
+            }
+          >
+            <NextLink>Next</NextLink>
           </div>
         </div>
       </div>
