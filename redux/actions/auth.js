@@ -68,7 +68,7 @@ export const login = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push(payload.router.query.redirect);
+    payload.router.push("/intern-setup");
   } catch (error) {
     console.log(error.response.data);
     if (error.response.status === 400) {
