@@ -25,28 +25,37 @@ export async function getServerSideProps(context) {
   try {
     const token = getToken(context);
 
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
-      {
-        headers: {
-          Authorization: "Token " + token,
-        },
-      }
-    );
+    if (token) {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
+        {
+          headers: {
+            Authorization: "Token " + token,
+          },
+        }
+      );
 
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_baseURL}/user/`,
-      {
-        headers: {
-          Authorization: "Token " + token,
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_baseURL}/user/`,
+        {
+          headers: {
+            Authorization: "Token " + token,
+          },
+        }
+      );
+
+      return {
+        props: {
+          company_profile: data,
+          user_profile: response.data[0],
         },
-      }
-    );
+      };
+    }
 
     return {
-      props: {
-        company_profile: data,
-        user_profile: response.data[0],
+      redirect: {
+        permanent: false,
+        destination: "/",
       },
     };
   } catch (error) {
