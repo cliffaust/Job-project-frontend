@@ -279,16 +279,6 @@ function ProfileSetup() {
           >
             <PreviousLink>Previous</PreviousLink>
           </div>
-          {/* // <button
-            //   type="submit"
-            //   // onClick={formik.handleSubmit}
-            //   className="flex items-center gap-1"
-            // >
-            //   {state.loading && (
-            //     <div className="mt-5">
-            //       <ButtonLoadingSpinner></ButtonLoadingSpinner>
-            //     </div>
-            //   )} */}
           <div
             className={
               "z-10 swiper-setup-pagination swiper-setup-button-next " +

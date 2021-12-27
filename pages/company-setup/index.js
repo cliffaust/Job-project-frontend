@@ -8,6 +8,7 @@ import "swiper/css/effect-creative";
 import "swiper/css";
 
 import CompanySetup from "../../components/CompanyProfileSetup/Setup";
+import ImageUpload from "../../components/CompanyProfileSetup/ImageUpload";
 
 SwiperCore.use([Navigation]);
 
@@ -30,9 +31,8 @@ function Setup() {
           <CompanySetup></CompanySetup>
         </SwiperSlide>
         <SwiperSlide>
-          <h2>this is the next slide</h2>
+          <ImageUpload></ImageUpload>
         </SwiperSlide>
-        <button className="p-4 bg-gray-400">next</button>
       </Swiper>
     </>
   );

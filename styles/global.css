@@ -123,3 +123,53 @@ body {
     transform: rotate(359deg);
   }
 }
+
+.box-dashed {
+  background-image: repeating-linear-gradient(
+      -26deg,
+      #7c3aed,
+      #7c3aed 22px,
+      transparent 22px,
+      transparent 35px,
+      #7c3aed 35px
+    ),
+    repeating-linear-gradient(
+      64deg,
+      #7c3aed,
+      #7c3aed 22px,
+      transparent 22px,
+      transparent 35px,
+      #7c3aed 35px
+    ),
+    repeating-linear-gradient(
+      154deg,
+      #7c3aed,
+      #7c3aed 22px,
+      transparent 22px,
+      transparent 35px,
+      #7c3aed 35px
+    ),
+    repeating-linear-gradient(
+      244deg,
+      #7c3aed,
+      #7c3aed 22px,
+      transparent 22px,
+      transparent 35px,
+      #7c3aed 35px
+    );
+  background-size: 2px calc(100% + 38.94px), calc(100% + 38.94px) 2px,
+    2px calc(100% + 38.94px), calc(100% + 38.94px) 2px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+  animation: borderAnimation 2s infinite linear;
+  border-radius: 10px;
+}
+
+@keyframes borderAnimation {
+  from {
+    background-position: 0 0, -38.94px 0, 100% -38.94px, 0 100%;
+  }
+  to {
+    background-position: 0 -38.94px, 0 0, 100% 0, -38.94px 100%;
+  }
+}
