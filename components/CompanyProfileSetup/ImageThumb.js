@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import GalleryPopup from "../CompanyProfile/GalleryPopup";
+import React, { useState, useEffect } from "react";
 
-function ImageThumb({ file }) {
+import GalleryPopup from "../CompanyProfile/GalleryPopup";
+import BaseTextArea from "../DefaultComponents/BaseTextArea";
+
+function ImageThumb({ file, filterFile }) {
   const [state, setState] = useState({
     comment: "",
     commentPopup: false,
   });
+
+  useEffect(() => {
+    file.comment = state.comment;
+  }, [state.comment]);
 
   const closeCommentModal = (e) => {
     e.stopPropagation();
@@ -15,8 +21,12 @@ function ImageThumb({ file }) {
   const showModal = () => {
     setState({ ...state, commentPopup: true });
   };
+
+  const onChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full">
         <div className="rounded-lg flex items-center gap-4 justify-between px-6 py-1">
           <img
@@ -32,6 +42,7 @@ function ImageThumb({ file }) {
               className="h-5 w-5 cursor-pointer"
               viewBox="0 0 20 20"
               fill="currentColor"
+              onClick={filterFile}
             >
               <path
                 fillRule="evenodd"
@@ -53,12 +64,12 @@ function ImageThumb({ file }) {
         showPopup={state.commentPopup}
         className="w-2/4 px-6"
       >
-        <p className="px-6 mb-4 font-bold">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          quia quae quas perferendis. Ducimus consectetur nam, error distinctio
-          fugit esse porro facere totam maxime aliquam similique dolores
-          exercitationem? Inventore, temporibus?
-        </p>
+        <BaseTextArea
+          name="comment"
+          placeholder="Comment"
+          value={state.comment}
+          onChange={onChange}
+        ></BaseTextArea>
       </GalleryPopup>
     </div>
   );

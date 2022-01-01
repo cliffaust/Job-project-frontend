@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/router";
+
 import ImageThumb from "./ImageThumb";
 
 function ImageUpload() {
@@ -12,6 +14,12 @@ function ImageUpload() {
     [files]
   );
 
+  const router = useRouter();
+
+  const goBack = () => {
+    router.back();
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     accepts: "image/*",
     onDrop: (acceptedFiles) => {
@@ -19,19 +27,34 @@ function ImageUpload() {
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
+            comment: "",
           })
         )
       );
     },
   });
 
+  const removeImageThumb = (file) => {
+    const filterFiles = files.filter(
+      (filterFile) => filterFile.path !== file.path
+    );
+
+    console.log(filterFiles);
+
+    setFiles(filterFiles);
+  };
+
   const thumbs = files.map((file) => (
-    <ImageThumb file={file} key={file.path}></ImageThumb>
+    <ImageThumb
+      file={file}
+      key={file.path}
+      filterFile={() => removeImageThumb(file)}
+    ></ImageThumb>
   ));
 
   return (
     <div className="py-4 px-6">
-      <div className="swiper-setup-pagination swiper-setup-button-prev cursor-pointer flex items-center gap-2">
+      <div onClick={goBack} className="cursor-pointer flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 text-purple-600"

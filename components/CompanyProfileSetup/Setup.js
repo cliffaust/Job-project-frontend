@@ -80,7 +80,7 @@ function ProfileSetup() {
             },
           }
         );
-        router.push("/company-profile");
+        router.push("/company-setup-image");
       } catch (error) {
         console.log(error.response.data);
 
@@ -281,10 +281,19 @@ function ProfileSetup() {
           </div>
           <div
             className={
-              "z-10 swiper-setup-pagination swiper-setup-button-next " +
+              "z-10 swiper-pagination swiper-button-next flex items-center gap-2 " +
               (!state.endOfSlide ? "hidden" : "")
             }
+            onClick={formik.handleSubmit}
           >
+            {state.loading ? (
+              <div className="mt-5">
+                <ButtonLoadingSpinner
+                  width={18}
+                  height={18}
+                ></ButtonLoadingSpinner>
+              </div>
+            ) : null}
             <NextLink>Done</NextLink>
           </div>
           <div

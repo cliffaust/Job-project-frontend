@@ -1,10 +1,11 @@
+import axios from "axios";
+
 import Navbar from "../components/HomeNavbar/Navbar";
 import Hero from "../components/HeroSection/Hero";
 import Section from "../components/HomeSections/Section";
 import Form from "../components/HomeSignin/Form";
 import Footer from "../components/HomeFooter/Footer";
 import getToken from "../lib/getToken";
-import axios from "axios";
 
 export default function Home({ user_profile }) {
   return (
