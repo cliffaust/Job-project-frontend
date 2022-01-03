@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import GalleryPopup from "../CompanyProfile/GalleryPopup";
 import BaseTextArea from "../DefaultComponents/BaseTextArea";
 
+import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
+
 function ImageThumb({ file, filterFile }) {
   const [state, setState] = useState({
     comment: "",
@@ -70,6 +72,10 @@ function ImageThumb({ file, filterFile }) {
           value={state.comment}
           onChange={onChange}
         ></BaseTextArea>
+
+        <ButtonPrimary className="mt-2 px-4 py-2 !rounded-md w-full">
+          Add image comment
+        </ButtonPrimary>
       </GalleryPopup>
     </div>
   );
