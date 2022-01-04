@@ -90,6 +90,10 @@ body {
   @apply !h-52;
 }
 
+.about-company .ql-editor {
+  @apply !h-52;
+}
+
 .option-select {
   @apply px-4 py-2 hover:bg-purple-300 font-medium transition-all duration-200 ease-in-out cursor-pointer;
 }

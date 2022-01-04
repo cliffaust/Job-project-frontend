@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 import ImageThumb from "./ImageThumb";
+import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 
 function ImageUpload() {
   const [files, setFiles] = useState([]);
@@ -18,6 +21,40 @@ function ImageUpload() {
 
   const goBack = () => {
     router.back();
+  };
+
+  const sendCompanyProfileImage = async () => {
+    try {
+      const companyProfile = await axios.get(
+        `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
+        {
+          headers: {
+            Authorization: "Token " + Cookies.get("token"),
+          },
+        }
+      );
+      if (companyProfile.data.slug) {
+        if (files.length > 0) {
+          files.forEach((file) => {
+            const fd = new FormData();
+            fd.append("image", file, file.name);
+            fd.append("comment", file.comment);
+            axios.post(
+              `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
+              fd,
+              {
+                headers: {
+                  Authorization: "Token " + Cookies.get("token"),
+                },
+              }
+            );
+          });
+        }
+      }
+      console.log(companyProfile.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -107,6 +144,14 @@ function ImageUpload() {
 
           {thumbs}
         </div>
+        {files.length > 0 ? (
+          <ButtonPrimary
+            onClick={sendCompanyProfileImage}
+            className="mt-6 px-8 py-1.5 !rounded-md float-right"
+          >
+            Post
+          </ButtonPrimary>
+        ) : null}
       </div>
     </div>
   );

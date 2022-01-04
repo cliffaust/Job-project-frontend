@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,8 +8,6 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import axios from "axios";
 import * as Yup from "yup";
-import "swiper/css/effect-creative";
-import "swiper/css";
 
 import BaseInput from "../DefaultComponents/BaseInput";
 import BaseTextArea from "../DefaultComponents/BaseTextArea";
@@ -16,11 +15,18 @@ import NextLink from "../DefaultComponents/NextLink";
 import PreviousLink from "../DefaultComponents/PreviousLink";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 
-SwiperCore.use([Navigation]);
-
 import SwiperCore, { EffectCreative } from "swiper";
 
+import "swiper/css/effect-creative";
+import "swiper/css";
+import "react-quill/dist/quill.snow.css";
+
+SwiperCore.use([Navigation]);
 SwiperCore.use([EffectCreative]);
+
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+});
 
 function ProfileSetup() {
   const [state, setState] = useState({
@@ -76,7 +82,7 @@ function ProfileSetup() {
           },
           {
             headers: {
-              Authorization: "Token hy",
+              Authorization: "Token " + Cookies.get("token"),
             },
           }
         );
@@ -225,16 +231,30 @@ function ProfileSetup() {
             <div className="flex items-center mb-2">
               <h3 className="font-bold">About company</h3>
             </div>
-            <BaseTextArea
+            <div className="about-company">
+              <ReactQuill
+                theme="snow"
+                placeholder="About Company"
+                className={
+                  "border rounded-md " +
+                  (formik.touched.aboutCompany && formik.errors.aboutCompany
+                    ? "border-red-300"
+                    : "")
+                }
+                value={formik.values.aboutCompany}
+                onChange={formik.handleChange}
+              ></ReactQuill>
+            </div>
+            {/* <BaseTextArea
               name="aboutCompany"
               placeholder="About Company"
               errorStyle={
-                formik.touched.aboutCompany && formik.errors.aboutCompany
+                
                   ? true
                   : false
               }
               {...formik.getFieldProps("aboutCompany")}
-            ></BaseTextArea>
+            ></BaseTextArea> */}
             {formik.touched.aboutCompany && formik.errors.aboutCompany ? (
               <span className="text-sm mt-3 font-bold text-red-400">
                 {formik.errors.aboutCompany}
