@@ -24,11 +24,13 @@ function ImageUpload() {
     accepts: "image/*",
     onDrop: (acceptedFiles) => {
       setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-            comment: "",
-          })
+        files.concat(
+          acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+              comment: "",
+            })
+          )
         )
       );
     },
