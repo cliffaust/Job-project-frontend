@@ -33,25 +33,25 @@ function ImageUpload() {
           },
         }
       );
-      if (companyProfile.data.slug) {
-        if (files.length > 0) {
-          files.forEach((file) => {
-            const fd = new FormData();
-            fd.append("image", file, file.name);
-            fd.append("comment", file.comment);
-            axios.post(
-              `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
-              fd,
-              {
-                headers: {
-                  Authorization: "Token " + Cookies.get("token"),
-                },
-              }
-            );
-          });
-        }
-      }
-      console.log(companyProfile.data);
+      // if (companyProfile.data.slug) {
+      //   if (files.length > 0) {
+      //     files.forEach((file) => {
+      //       const fd = new FormData();
+      //       fd.append("image", file, file.name);
+      //       fd.append("comment", file.comment);
+      //       axios.post(
+      //         `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
+      //         fd,
+      //         {
+      //           headers: {
+      //             Authorization: "Token " + Cookies.get("token"),
+      //           },
+      //         }
+      //       );
+      //     });
+      //   }
+      // }
+      console.log(companyProfile);
     } catch (error) {
       console.log(error.response.data);
     }

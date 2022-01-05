@@ -28,7 +28,7 @@ export default function BaseInput({
           placeholder={placeholder}
           className={
             "appearance-none leading-tight border resize-none border-gray-300 rounded-md focus:outline-none py-3 px-4 w-full text-base " +
-            className +
+            (className ? className : "") +
             (errorStyle ? "border-red-300" : "")
           }
         />

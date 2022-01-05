@@ -231,9 +231,10 @@ function ProfileSetup() {
             <div className="flex items-center mb-2">
               <h3 className="font-bold">About company</h3>
             </div>
-            <div className="about-company">
+            {/* <div className="about-company">
               <ReactQuill
                 theme="snow"
+                name="aboutCompany"
                 placeholder="About Company"
                 className={
                   "border rounded-md " +
@@ -244,17 +245,17 @@ function ProfileSetup() {
                 value={formik.values.aboutCompany}
                 onChange={formik.handleChange}
               ></ReactQuill>
-            </div>
-            {/* <BaseTextArea
+            </div> */}
+            <BaseTextArea
               name="aboutCompany"
               placeholder="About Company"
               errorStyle={
-                
+                formik.touched.aboutCompany && formik.errors.aboutCompany
                   ? true
                   : false
               }
               {...formik.getFieldProps("aboutCompany")}
-            ></BaseTextArea> */}
+            ></BaseTextArea>
             {formik.touched.aboutCompany && formik.errors.aboutCompany ? (
               <span className="text-sm mt-3 font-bold text-red-400">
                 {formik.errors.aboutCompany}
