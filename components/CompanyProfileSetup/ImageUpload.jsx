@@ -6,9 +6,12 @@ import axios from "axios";
 
 import ImageThumb from "./ImageThumb";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 
 function ImageUpload() {
   const [files, setFiles] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(
     () => () => {
@@ -25,6 +28,7 @@ function ImageUpload() {
 
   const sendCompanyProfileImage = async () => {
     try {
+      setLoading(true);
       const companyProfile = await axios.get(
         `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
         {
@@ -33,26 +37,31 @@ function ImageUpload() {
           },
         }
       );
-      // if (companyProfile.data.slug) {
-      //   if (files.length > 0) {
-      //     files.forEach((file) => {
-      //       const fd = new FormData();
-      //       fd.append("image", file, file.name);
-      //       fd.append("comment", file.comment);
-      //       axios.post(
-      //         `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
-      //         fd,
-      //         {
-      //           headers: {
-      //             Authorization: "Token " + Cookies.get("token"),
-      //           },
-      //         }
-      //       );
-      //     });
-      //   }
-      // }
-      console.log(companyProfile);
+      if (await companyProfile.data.slug) {
+        if (files.length > 0) {
+          files.forEach((file) => {
+            const fd = new FormData();
+            fd.append("image", file, file.name);
+            fd.append("comment", file.comment);
+            try {
+              axios.post(
+                `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
+                fd,
+                {
+                  headers: {
+                    Authorization: "Token " + Cookies.get("token"),
+                  },
+                }
+              );
+            } catch (error) {
+              console.log(error.response);
+            }
+          });
+        }
+      }
+      router.push("/company-profile");
     } catch (error) {
+      setLoading(false);
       console.log(error.response.data);
     }
   };
@@ -147,9 +156,15 @@ function ImageUpload() {
         {files.length > 0 ? (
           <ButtonPrimary
             onClick={sendCompanyProfileImage}
-            className="mt-6 px-8 py-1.5 !rounded-md float-right"
+            className={
+              "mt-6 px-8 py-1.5 !rounded-md float-right " +
+              (loading ? "opacity-60" : "")
+            }
           >
-            Post
+            {!loading ? <span>Post</span> : ""}{" "}
+            <div>
+              {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
+            </div>
           </ButtonPrimary>
         ) : null}
       </div>
