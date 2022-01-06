@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { assignIn } from "lodash";
 
 import ImageThumb from "./ImageThumb";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
@@ -39,10 +40,11 @@ function ImageUpload() {
       );
       if (await companyProfile.data.slug) {
         if (files.length > 0) {
-          files.forEach((file) => {
+          files.forEach((file, index) => {
             const fd = new FormData();
             fd.append("image", file, file.name);
             fd.append("comment", file.comment);
+
             try {
               axios.post(
                 `${process.env.NEXT_PUBLIC_baseURL}/company-profiles/${companyProfile.data.slug}/create-company-profile-image/`,
@@ -50,6 +52,22 @@ function ImageUpload() {
                 {
                   headers: {
                     Authorization: "Token " + Cookies.get("token"),
+                  },
+                  onUploadProgress: (progressEvent) => {
+                    let percentCompleted = Math.floor(
+                      (progressEvent.loaded * 100) / progressEvent.total
+                    );
+
+                    let updatedFiles = files.map((item) => {
+                      if (item.id === index) {
+                        return assignIn(item, {
+                          completedPercent: percentCompleted,
+                        });
+                      }
+                      return item;
+                    });
+
+                    setFiles(updatedFiles);
                   },
                 }
               );
@@ -71,10 +89,12 @@ function ImageUpload() {
     onDrop: (acceptedFiles) => {
       setFiles(
         files.concat(
-          acceptedFiles.map((file) =>
+          acceptedFiles.map((file, index) =>
             Object.assign(file, {
+              id: index,
               preview: URL.createObjectURL(file),
               comment: "",
+              completedPercent: 0,
             })
           )
         )
@@ -146,7 +166,7 @@ function ImageUpload() {
           </svg>
           <h3 className="text-gray-400">Drag & Drop your image here</h3>
         </div>
-        <div className="flex flex-col gap-4 items-center mt-6">
+        <div className="flex flex-col gap-8 items-center mt-6">
           {files.length > 0 ? (
             <h3 className="text-gray-400 mb-4">All files</h3>
           ) : null}

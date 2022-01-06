@@ -11,7 +11,7 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
 
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
-function ImageGalleryPicker() {
+function ImageGalleryPicker({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [allowGallerySlideNext, setAllowGallerySlideNext] = useState(false);
   const [gallerySwiperIndex, setGallerySwiperIndex] = useState(0);
@@ -36,48 +36,15 @@ function ImageGalleryPicker() {
         thumbs={{ swiper: thumbsSwiper }}
         className="!mb-4"
       >
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1832&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-500">
-          <img
-            className="image-gallery"
-            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
+        {images.map((image) => (
+          <SwiperSlide key={image.id} className="!h-500">
+            <img
+              className="image-gallery"
+              src={image.image}
+              alt="Image Gallery"
+            />
+          </SwiperSlide>
+        ))}
         <div
           className={
             "absolute flex cursor-pointer items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
@@ -126,48 +93,15 @@ function ImageGalleryPicker() {
         watchSlidesProgress={true}
         className="image-picker-container"
       >
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1832&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
-        <SwiperSlide className="!h-32 !w-72 !overflow-hidden">
-          <img
-            className="image-gallery-picker"
-            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
-            alt="Image Gallery"
-          />
-        </SwiperSlide>
+        {images.map((image) => (
+          <SwiperSlide key={image.id} className="!h-32 !w-72 !overflow-hidden">
+            <img
+              className="image-gallery-picker"
+              src={image.image}
+              alt="Image Gallery"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

@@ -37,6 +37,8 @@ function Profile({ user_profile, company_profile }) {
     },
   });
 
+  const [showProfilePics, setShowProfilePics] = useState(false);
+
   const settings = {
     spaceBetween: 40,
     slidesPerView: "auto",
@@ -91,18 +93,49 @@ function Profile({ user_profile, company_profile }) {
       <NavBar user_profile={user_profile}></NavBar>
       <div className="mt-10 px-20 flex justify-between items-center">
         <div className="flex gap-4 items-center">
-          <div className="w-36 h-36 rounded-full">
+          <div
+            onMouseEnter={() => setShowProfilePics(true)}
+            onMouseLeave={() => setShowProfilePics(false)}
+            className="w-36 h-36 rounded-full relative cursor-pointer"
+          >
             <img
-              src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80"
+              src={user_profile.profile_pic}
               alt="Image"
               className="h-full w-full object-cover rounded-full"
             />
+            {showProfilePics ? (
+              <div>
+                <div className="bg-black bg-opacity-70 w-36 h-36 rounded-full absolute top-0"></div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 text-purple-800 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+            ) : null}
           </div>
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold">Namiba</h1>
-            <p className="text-base">Since 2009</p>
+            <h1 className="text-2xl font-bold">
+              {company_profile.company_name}
+            </h1>
+            <p className="text-base">Since {company_profile.year_started}</p>
             <p className="text-base text-green-600">
-              More than 1,000 employees
+              More than {company_profile.num_of_employees} employees
             </p>
           </div>
         </div>
@@ -129,49 +162,14 @@ function Profile({ user_profile, company_profile }) {
             </svg>
           </div>
         </div>
-        <ImageGallery></ImageGallery>
+        <ImageGallery images={company_profile.company_images}></ImageGallery>
       </div>
       <div className="flex flex-col mt-10 px-20">
         <div className="text-2xl mb-8 font-standardTT font-bold">
           About Company
         </div>
         <div className="pl-8">
-          <p className="text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit
-            consectetur eu sed erat lorem. Et sed nisi, ipsum aenean tortor
-            aliquam in condimentum. Ornare scelerisque et sociis mauris mattis
-            quis felis pellentesque. Feugiat massa in lectus nunc, pellentesque
-            tempus. Odio aliquet quis vel facilisis nullam a. Euismod urna,
-            penatibus sed lectus in. Velit dignissim arcu nec nibh velit
-            vestibulum. Eget porttitor massa ultricies sed amet volutpat sed
-            morbi. Faucibus pulvinar elementum porttitor et volutpat. Quis duis
-            metus turpis nunc. Cursus laoreet volutpat hac sed sem diam. Lorem
-            amet, quis ut metus consequat, sem venenatis facilisi. Fringilla
-            amet mattis duis elit varius eget consectetur. Egestas orci quis
-            viverra orci.Euismod urna, penatibus sed lectus in. Velit dignissim
-            arcu nec nibh velit vestibulum. Eget porttitor massa ultricies sed
-            amet volutpat sed morbi. Faucibus pulvinar elementum porttitor et
-            volutpat. Quis duis metus turpis nunc. Cursus laoreet volutpat hac
-            sed sem diam. Lorem amet, quis ut metus quis vel facilisis nullam a.
-            Euismod urna, penatibus sed lectus in. Velit dignissim arcu nec nibh
-            velit vestibulum. Eget porttitor massa ultricies sed amet volutpat
-            sed morbi... &nbsp;
-            <span className="font-bold text-purple-600 cursor-pointer">
-              Read more
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 inline-block"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </p>
+          <p className="text-base">{company_profile.about_company}</p>
         </div>
       </div>
       <div className="flex flex-col mt-10 px-20">
@@ -179,42 +177,7 @@ function Profile({ user_profile, company_profile }) {
           Company Values
         </div>
         <div className="pl-8">
-          <p className="text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit
-            consectetur eu sed erat lorem. Et sed nisi, ipsum aenean tortor
-            aliquam in condimentum. Ornare scelerisque et sociis mauris mattis
-            quis felis pellentesque. Feugiat massa in lectus nunc, pellentesque
-            tempus. Odio aliquet quis vel facilisis nullam a. Euismod urna,
-            penatibus sed lectus in. Velit dignissim arcu nec nibh velit
-            vestibulum. Eget porttitor massa ultricies sed amet volutpat sed
-            morbi. Faucibus pulvinar elementum porttitor et volutpat. Quis duis
-            metus turpis nunc. Cursus laoreet volutpat hac sed sem diam. Lorem
-            amet, quis ut metus consequat, sem venenatis facilisi. Fringilla
-            amet mattis duis elit varius eget consectetur. Egestas orci quis
-            viverra orci.Euismod urna, penatibus sed lectus in. Velit dignissim
-            arcu nec nibh velit vestibulum. Eget porttitor massa ultricies sed
-            amet volutpat sed morbi. Faucibus pulvinar elementum porttitor et
-            volutpat. Quis duis metus turpis nunc. Cursus laoreet volutpat hac
-            sed sem diam. Lorem amet, quis ut metus quis vel facilisis nullam a.
-            Euismod urna, penatibus sed lectus in. Velit dignissim arcu nec nibh
-            velit vestibulum. Eget porttitor massa ultricies sed amet volutpat
-            sed morbi... &nbsp;
-            <span className="font-bold text-purple-600 cursor-pointer">
-              Read more
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 inline-block"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </p>
+          <p className="text-base">{company_profile.company_values}</p>
         </div>
       </div>
       <div className="flex flex-col mt-10 px-20">
@@ -472,7 +435,9 @@ function Profile({ user_profile, company_profile }) {
           fugit esse porro facere totam maxime aliquam similique dolores
           exercitationem? Inventore, temporibus?
         </p>
-        <ImageGalleryPicker></ImageGalleryPicker>
+        <ImageGalleryPicker
+          images={company_profile.company_images}
+        ></ImageGalleryPicker>
       </GroupPopup>
     </div>
   );
