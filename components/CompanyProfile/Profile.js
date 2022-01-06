@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
@@ -33,6 +33,7 @@ function Profile({ user_profile, company_profile }) {
     phone: "",
     comment: "",
     file: null,
+    profileImageProgress: 0,
     jobData: {
       title: "",
       location: "",
@@ -42,6 +43,8 @@ function Profile({ user_profile, company_profile }) {
   });
 
   const [showProfilePics, setShowProfilePics] = useState(false);
+
+  const jobs = useRef(null);
 
   useEffect(() => {
     if (state.file) {
@@ -107,7 +110,7 @@ function Profile({ user_profile, company_profile }) {
               (progressEvent.loaded * 100) / progressEvent.total
             );
 
-            console.log(percentCompleted);
+            setState({ ...state, profileImageProgress: percentCompleted });
           },
         }
       );
@@ -183,12 +186,17 @@ function Profile({ user_profile, company_profile }) {
                 />
               </svg>
             </label>
-            <div className="mt-2 w-full h-3 bg-gray-200 rounded-full">
-              <div
-                className="bg-purple-600 rounded-full h-full"
-                style={{ width: 20 + "%" }}
-              ></div>
-            </div>
+            {state.profileImageProgress > 0 ? (
+              <div className="mt-2 relative w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="bg-purple-600 rounded-full h-full"
+                  style={{ width: state.profileImageProgress + "%" }}
+                ></div>
+                <div className="absolute right-2 top-2/4 font-bold z-20 -translate-y-2/4">
+                  {state.profileImageProgress}%
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">
@@ -200,7 +208,15 @@ function Profile({ user_profile, company_profile }) {
             </p>
           </div>
         </div>
-        <ButtonPrimary className="px-6 py-2 !rounded-md">
+        <ButtonPrimary
+          onClick={() =>
+            jobs.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            })
+          }
+          className="px-6 py-2 !rounded-md"
+        >
           Go to jobs
         </ButtonPrimary>
       </div>
@@ -241,7 +257,7 @@ function Profile({ user_profile, company_profile }) {
           <p className="text-base">{company_profile.company_values}</p>
         </div>
       </div>
-      <div className="flex flex-col mt-10 px-20">
+      <div ref={jobs} className="flex flex-col mt-10 px-20">
         <div className="text-2xl mb-8 font-standardTT font-bold">
           Available jobs(2)
         </div>
