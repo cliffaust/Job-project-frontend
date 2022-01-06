@@ -133,9 +133,6 @@ function Profile({ user_profile, company_profile }) {
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
       <NavBar user_profile={user_profile}></NavBar>
-      <div className="circle-border">
-        <div className="circle"></div>
-      </div>
       <div className="mt-10 px-20 flex justify-between items-center">
         <div className="flex gap-4 items-center">
           <div
@@ -186,6 +183,12 @@ function Profile({ user_profile, company_profile }) {
                 />
               </svg>
             </label>
+            <div className="mt-2 w-full h-3 bg-gray-200 rounded-full">
+              <div
+                className="bg-purple-600 rounded-full h-full"
+                style={{ width: 20 + "%" }}
+              ></div>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">
