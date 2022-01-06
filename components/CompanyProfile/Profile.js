@@ -1,11 +1,14 @@
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
 import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
 import BaseInput from "../DefaultComponents/BaseInput";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useDropzone } from "react-dropzone";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -29,6 +32,7 @@ function Profile({ user_profile, company_profile }) {
     jobPopup: false,
     phone: "",
     comment: "",
+    file: null,
     jobData: {
       title: "",
       location: "",
@@ -38,6 +42,12 @@ function Profile({ user_profile, company_profile }) {
   });
 
   const [showProfilePics, setShowProfilePics] = useState(false);
+
+  useEffect(() => {
+    if (state.file) {
+      sendProfileImage();
+    }
+  }, [state.file]);
 
   const settings = {
     spaceBetween: 40,
@@ -80,6 +90,37 @@ function Profile({ user_profile, company_profile }) {
     setState({ ...state, comment: value });
   };
 
+  const sendProfileImage = async () => {
+    const fd = new FormData();
+    fd.append("profile_pic", state.file, state.file.name);
+
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_baseURL}/user/${user_profile.id}/`,
+        fd,
+        {
+          headers: {
+            Authorization: "Token " + Cookies.get("token"),
+          },
+          onUploadProgress: (progressEvent) => {
+            let percentCompleted = Math.floor(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+
+            console.log(percentCompleted);
+          },
+        }
+      );
+      location.reload();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleFileChange = async (event) => {
+    setState({ ...state, file: event.target.files[0] });
+  };
+
   const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
@@ -88,9 +129,13 @@ function Profile({ user_profile, company_profile }) {
     e.stopPropagation();
     setState({ ...state, jobPopup: false });
   };
+
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
       <NavBar user_profile={user_profile}></NavBar>
+      <div className="circle-border">
+        <div className="circle"></div>
+      </div>
       <div className="mt-10 px-20 flex justify-between items-center">
         <div className="flex gap-4 items-center">
           <div
@@ -103,31 +148,44 @@ function Profile({ user_profile, company_profile }) {
               alt="Image"
               className="h-full w-full object-cover rounded-full"
             />
-            {showProfilePics ? (
-              <div>
-                <div className="bg-black bg-opacity-70 w-36 h-36 rounded-full absolute top-0"></div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-10 w-10 text-purple-800 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </div>
-            ) : null}
+
+            <label
+              className={
+                "cursor-pointer z-50 " +
+                (showProfilePics && company_profile.user === user_profile.email
+                  ? null
+                  : "hidden")
+              }
+            >
+              <input
+                className="hidden"
+                accept="image/*"
+                type="file"
+                onChange={handleFileChange}
+              />
+
+              <div className="bg-black bg-opacity-70 w-36 h-36 rounded-full absolute top-0"></div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10 text-purple-800 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </label>
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">
