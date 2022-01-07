@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 export const internSignup = (payload) => async (dispatch) => {
   let response;
 
+  console.log(payload.data);
   try {
     response = await axios.post(
       `${process.env.NEXT_PUBLIC_baseURL}/rest-auth/registration/`,
@@ -16,7 +17,7 @@ export const internSignup = (payload) => async (dispatch) => {
         token: response.data.key,
       },
     });
-    payload.router.push(payload.router.query.redirect);
+    payload.router.push(payload.router.query.redirect || "/");
   } catch (error) {
     console.log(error.response.data);
 

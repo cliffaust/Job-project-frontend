@@ -32,8 +32,6 @@ function Profile({ user_profile, company_profile }) {
     jobPopup: false,
     phone: "",
     comment: "",
-    file: null,
-    profileImageProgress: 0,
     jobData: {
       title: "",
       location: "",
@@ -44,13 +42,21 @@ function Profile({ user_profile, company_profile }) {
 
   const [showProfilePics, setShowProfilePics] = useState(false);
 
+  const [file, setFile] = useState({
+    image: null,
+    profileImageProgress: 0,
+  });
+
   const jobs = useRef(null);
 
   useEffect(() => {
-    if (state.file) {
+    if (file.image) {
       sendProfileImage();
+      return () => {
+        setFile({});
+      };
     }
-  }, [state.file]);
+  }, [file.image]);
 
   const settings = {
     spaceBetween: 40,
@@ -95,7 +101,7 @@ function Profile({ user_profile, company_profile }) {
 
   const sendProfileImage = async () => {
     const fd = new FormData();
-    fd.append("profile_pic", state.file, state.file.name);
+    fd.append("profile_pic", file.image, file.image.name);
 
     try {
       await axios.patch(
@@ -110,7 +116,7 @@ function Profile({ user_profile, company_profile }) {
               (progressEvent.loaded * 100) / progressEvent.total
             );
 
-            setState({ ...state, profileImageProgress: percentCompleted });
+            setFile({ ...file, profileImageProgress: percentCompleted });
           },
         }
       );
@@ -121,7 +127,7 @@ function Profile({ user_profile, company_profile }) {
   };
 
   const handleFileChange = async (event) => {
-    setState({ ...state, file: event.target.files[0] });
+    setFile({ ...file, image: event.target.files[0] });
   };
 
   const onChange = (event) => {
@@ -186,14 +192,14 @@ function Profile({ user_profile, company_profile }) {
                 />
               </svg>
             </label>
-            {state.profileImageProgress > 0 ? (
+            {file.profileImageProgress > 0 ? (
               <div className="mt-2 relative w-full h-4 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="bg-purple-600 rounded-full h-full"
-                  style={{ width: state.profileImageProgress + "%" }}
+                  style={{ width: file.profileImageProgress + "%" }}
                 ></div>
                 <div className="absolute right-2 top-2/4 font-bold z-20 -translate-y-2/4">
-                  {state.profileImageProgress}%
+                  {file.profileImageProgress}%
                 </div>
               </div>
             ) : null}

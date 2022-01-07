@@ -27,7 +27,7 @@ body {
 }
 
 .image-gallery {
-  @apply w-full h-full object-cover rounded-xl;
+  @apply w-full h-500 object-cover rounded-xl;
 }
 
 .image-gallery-picker {

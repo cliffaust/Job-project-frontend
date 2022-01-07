@@ -18,6 +18,7 @@ function ImageGalleryPicker({ images }) {
 
   const settings = {
     spaceBetween: 10,
+    autoHeight: true,
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
@@ -37,7 +38,7 @@ function ImageGalleryPicker({ images }) {
         className="!mb-4"
       >
         {images.map((image) => (
-          <SwiperSlide key={image.id} className="!h-500">
+          <SwiperSlide key={image.id}>
             <p className="px-6 mb-4 font-bold">{image.comment}</p>
             <img
               className="image-gallery"
