@@ -1,14 +1,20 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import axios from "axios";
+import * as Yup from "yup";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useFormik } from "formik";
+import { motion } from "framer-motion";
+import { Navigation } from "swiper";
+import "react-quill/dist/quill.snow.css";
+import "swiper/css/effect-creative";
+import "swiper/css";
+
 import BaseInput from "../DefaultComponents/BaseInput";
 import NextLink from "../DefaultComponents/NextLink";
 import PreviousLink from "../DefaultComponents/PreviousLink";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
-import "react-quill/dist/quill.snow.css";
-
-import "swiper/css/effect-creative";
-import "swiper/css";
 
 SwiperCore.use([Navigation]);
 
@@ -33,6 +39,57 @@ function PostJobForm({ children }) {
     endOfSlide: false,
     description: "",
   });
+
+  const router = useRouter();
+
+  const errorMessage = {
+    show: {
+      opacity: 1,
+    },
+
+    hide: {
+      opacity: 0,
+      transition: {
+        duration: 0.4,
+      },
+    },
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      jobTitle: "",
+      workEmail: "",
+      currentRole: "",
+      phone: "",
+      description: "",
+    },
+    validationSchema: Yup.object({
+      first_name: Yup.string()
+        .max(120, "This field has a max lenght of 120")
+        .required("This field is required"),
+      last_name: Yup.string()
+        .max(120, "This field has a max lenght of 120")
+        .required("This field is required"),
+      jobTitle: Yup.string()
+        .max(500, "This field has a max lenght of 500")
+        .required("This field is required"),
+      workEmail: Yup.string()
+        .email("Invalid email")
+        .required("This field is required"),
+      currentRole: Yup.string()
+        .max(500, "This field has a max lenght of 500")
+        .required("This field is required"),
+      phone: Yup.string().required("This field is required"),
+      description: Yup.string().required("This field is required"),
+    }),
+    onSubmit: async (values) => {
+      setState({ ...state, loading: true });
+      console.log(values);
+    },
+  });
+
   const onChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
