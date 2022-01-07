@@ -89,7 +89,10 @@ function ImageThumb({ file, filterFile }) {
           onChange={onChange}
         ></BaseTextArea>
 
-        <ButtonPrimary className="mt-2 px-4 py-2 !rounded-md w-full">
+        <ButtonPrimary
+          onClick={() => setState({ ...state, commentPopup: false })}
+          className="mt-2 px-4 py-2 !rounded-md w-full"
+        >
           Add image comment
         </ButtonPrimary>
       </GalleryPopup>

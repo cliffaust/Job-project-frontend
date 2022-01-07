@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-export default function InternSignup(props) {
+export default function CompanySignup(props) {
   const [state, setState] = useState({
     showPassword: false,
   });
@@ -45,7 +45,7 @@ export default function InternSignup(props) {
         .required("This field is required"),
       password1: Yup.string().required("This field is required"),
     }),
-    onSubmit: async (values, { setErrors }) => {
+    onSubmit: async (values, { setStatus }) => {
       setLoading(true);
       await dispatch(
         companySignup({
@@ -61,7 +61,7 @@ export default function InternSignup(props) {
         })
       );
       setLoading(false);
-      setErrors(store.getState().auth.signupErrors);
+      setStatus(store.getState().auth.signupErrors);
     },
   });
 

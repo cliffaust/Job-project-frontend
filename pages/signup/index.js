@@ -14,7 +14,18 @@ export default function Signup() {
   return (
     <div>
       <div className="mx-auto">
-        <div style={{ display: companySignupFormState ? "block" : "none" }}>
+        {companySignupFormState ? (
+          <CompanySignup
+            changeToInternSignup={changeToInternSignup}
+            changeToCompanySignup={changeToCompanySignup}
+          ></CompanySignup>
+        ) : (
+          <InternSignup
+            changeToInternSignup={changeToInternSignup}
+            changeToCompanySignup={changeToCompanySignup}
+          ></InternSignup>
+        )}
+        {/* <div style={{ display: companySignupFormState ? "block" : "none" }}>
           <CompanySignup
             changeToInternSignup={changeToInternSignup}
             changeToCompanySignup={changeToCompanySignup}
@@ -25,7 +36,7 @@ export default function Signup() {
             changeToInternSignup={changeToInternSignup}
             changeToCompanySignup={changeToCompanySignup}
           ></InternSignup>
-        </div>
+        </div> */}
       </div>
     </div>
   );

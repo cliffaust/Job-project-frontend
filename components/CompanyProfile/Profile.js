@@ -506,14 +506,11 @@ function Profile({ user_profile, company_profile }) {
         showPopup={state.galleryPopup}
         className="w-4/5"
       >
-        <p className="px-6 mb-4 font-bold">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          quia quae quas perferendis. Ducimus consectetur nam, error distinctio
-          fugit esse porro facere totam maxime aliquam similique dolores
-          exercitationem? Inventore, temporibus?
-        </p>
         <ImageGalleryPicker
           images={company_profile.company_images}
+          // comment={
+          //   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quia quae quas perferendis. Ducimus consectetur nam, error distinctio fugit esse porro facere totam maxime aliquam similique dolores exercitationem Inventore, temporibus"
+          // }
         ></ImageGalleryPicker>
       </GroupPopup>
     </div>

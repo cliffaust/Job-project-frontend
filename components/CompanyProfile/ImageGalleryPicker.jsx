@@ -38,6 +38,7 @@ function ImageGalleryPicker({ images }) {
       >
         {images.map((image) => (
           <SwiperSlide key={image.id} className="!h-500">
+            <p className="px-6 mb-4 font-bold">{image.comment}</p>
             <img
               className="image-gallery"
               src={image.image}
