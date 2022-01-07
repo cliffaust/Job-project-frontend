@@ -58,7 +58,13 @@ export default function InternSignup(props) {
         })
       );
       setLoading(false);
-      setErrors(store.getState().auth.signupErrors);
+      const errorVals = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password1: "",
+      };
+      setErrors({ ...errorVals, ...store.getState().auth.signupErrors });
     },
   });
 

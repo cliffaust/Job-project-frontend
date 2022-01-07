@@ -45,7 +45,7 @@ export default function CompanySignup(props) {
         .required("This field is required"),
       password1: Yup.string().required("This field is required"),
     }),
-    onSubmit: async (values, { setStatus }) => {
+    onSubmit: async (values, { setErrors }) => {
       setLoading(true);
       await dispatch(
         companySignup({
@@ -61,7 +61,14 @@ export default function CompanySignup(props) {
         })
       );
       setLoading(false);
-      setStatus(store.getState().auth.signupErrors);
+
+      const errorVals = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password1: "",
+      };
+      setErrors({ ...errorVals, ...store.getState().auth.signupErrors });
     },
   });
 
