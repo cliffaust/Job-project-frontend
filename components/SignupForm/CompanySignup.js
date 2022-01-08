@@ -1,19 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch, useStore } from "react-redux";
+import { companySignup } from "../../redux/actions/auth";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import BaseInput from "../DefaultComponents/BaseInput";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ButtonPrimaryOpen from "../DefaultComponents/ButtonPrimaryOpen";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 import Logo from "../HomeNavbar/Logo";
-
-import { useDispatch, useStore } from "react-redux";
-import { companySignup } from "../../redux/actions/auth";
-
-import Link from "next/link";
-
-import { useRouter } from "next/router";
-
-import { useFormik } from "formik";
-import * as Yup from "yup";
 
 export default function CompanySignup(props) {
   const [state, setState] = useState({

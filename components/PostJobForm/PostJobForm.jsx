@@ -29,15 +29,10 @@ const ReactQuill = dynamic(import("react-quill"), {
 
 function PostJobForm({ children }) {
   const [state, setState] = useState({
-    firstName: "",
-    lastName: "",
-    jobTitle: "",
-    workEmail: "",
-    currentRole: "",
-    phone: "",
+    loading: false,
     swiperIndex: 0,
+    setupError: false,
     endOfSlide: false,
-    description: "",
   });
 
   const router = useRouter();
@@ -66,14 +61,14 @@ function PostJobForm({ children }) {
       description: "",
     },
     validationSchema: Yup.object({
-      first_name: Yup.string()
+      firstName: Yup.string()
         .max(120, "This field has a max lenght of 120")
         .required("This field is required"),
-      last_name: Yup.string()
+      lastName: Yup.string()
         .max(120, "This field has a max lenght of 120")
         .required("This field is required"),
       jobTitle: Yup.string()
-        .max(500, "This field has a max lenght of 500")
+        .max(255, "This field has a max lenght of 500")
         .required("This field is required"),
       workEmail: Yup.string()
         .email("Invalid email")
@@ -84,7 +79,7 @@ function PostJobForm({ children }) {
       phone: Yup.string().required("This field is required"),
       description: Yup.string().required("This field is required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       setState({ ...state, loading: true });
       console.log(values);
     },
@@ -110,6 +105,16 @@ function PostJobForm({ children }) {
       </div>
       <div className="w-2/4">
         <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-200">
+          {state.setupError && (
+            <motion.div
+              variants={errorMessage}
+              animate="show"
+              initial="hide"
+              className="text-white mb-2 w-full text-sm py-2 text-center px-4 bg-red-500 font-bold"
+            >
+              An error has occurred.
+            </motion.div>
+          )}
           <div className="text-4xl px-10 font-standardTT">
             Start right from your comfort.
           </div>
@@ -154,9 +159,18 @@ function PostJobForm({ children }) {
               name="firstName"
               type="text"
               placeholder="First Name"
-              value={state.firstName}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.firstName && formik.errors.firstName
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("firstName")}
             ></BaseInput>
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.firstName}
+              </span>
+            ) : null}
             <div className="flex items-center mb-2 mt-4">
               <h3 className="font-bold">Last name&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -165,9 +179,16 @@ function PostJobForm({ children }) {
               name="lastName"
               type="text"
               placeholder="Last Name"
-              value={state.lastName}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.lastName && formik.errors.lastName ? true : false
+              }
+              {...formik.getFieldProps("lastName")}
             ></BaseInput>
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.lastName}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -182,9 +203,16 @@ function PostJobForm({ children }) {
               name="jobTitle"
               type="text"
               placeholder="Title of Job"
-              value={state.jobTitle}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.jobTitle && formik.errors.jobTitle ? true : false
+              }
+              {...formik.getFieldProps("jobTitle")}
             ></BaseInput>
+            {formik.touched.jobTitle && formik.errors.jobTitle ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.jobTitle}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -216,9 +244,16 @@ function PostJobForm({ children }) {
               name="phone"
               placeholder="Phone Number"
               type="text"
-              value={state.phone}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.phone && formik.errors.phone ? true : false
+              }
+              {...formik.getFieldProps("phone")}
             ></BaseInput>
+            {formik.touched.phone && formik.errors.phone ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.phone}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -233,9 +268,18 @@ function PostJobForm({ children }) {
               name="currentRole"
               placeholder="Your role"
               type="text"
-              value={state.currentRole}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.currentRole && formik.errors.currentRole
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("currentRole")}
             ></BaseInput>
+            {formik.touched.currentRole && formik.errors.currentRole ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.currentRole}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
@@ -249,9 +293,9 @@ function PostJobForm({ children }) {
             <ReactQuill
               theme="snow"
               placeholder="Job description"
-              value={state.description}
+              value={formik.values.description}
               className="!h-325"
-              onChange={handleDescription}
+              onChange={formik.handleChange}
             ></ReactQuill>
           </SwiperSlide>
         </Swiper>
