@@ -315,8 +315,30 @@ function PostJobForm({ children }) {
           >
             <PreviousLink>Previous</PreviousLink>
           </div>
-          <div className="swiper-pagination swiper-button-next z-10">
-            <NextLink>{state.endOfSlide ? "Done" : "Next"}</NextLink>
+          <div
+            className={
+              "z-10 swiper-pagination swiper-button-next flex items-center gap-2 " +
+              (!state.endOfSlide ? "hidden" : "")
+            }
+            onClick={formik.handleSubmit}
+          >
+            {state.loading ? (
+              <div className="mt-5">
+                <ButtonLoadingSpinner
+                  width={18}
+                  height={18}
+                ></ButtonLoadingSpinner>
+              </div>
+            ) : null}
+            <NextLink>Done</NextLink>
+          </div>
+          <div
+            className={
+              "z-10 swiper-pagination swiper-button-next " +
+              (state.endOfSlide ? "hidden" : "")
+            }
+          >
+            <NextLink>Next</NextLink>
           </div>
         </div>
       </div>
