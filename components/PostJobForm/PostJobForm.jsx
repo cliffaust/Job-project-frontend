@@ -90,9 +90,6 @@ function PostJobForm({ children }) {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const handleDescription = (value) => {
-    setState({ ...state, description: value });
-  };
   return (
     <div className="flex h-full">
       <div className="w-2/4 flex flex-col justify-center py-5 bg-white">
@@ -228,9 +225,18 @@ function PostJobForm({ children }) {
               name="workEmail"
               type="email"
               placeholder="Work Email"
-              value={state.workEmail}
-              onChange={onChange}
+              errorStyle={
+                formik.touched.workEmail && formik.errors.workEmail
+                  ? true
+                  : false
+              }
+              {...formik.getFieldProps("workEmail")}
             ></BaseInput>
+            {formik.touched.workEmail && formik.errors.workEmail ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.workEmail}
+              </span>
+            ) : null}
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
