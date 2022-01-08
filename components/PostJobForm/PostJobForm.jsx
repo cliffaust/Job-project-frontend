@@ -80,15 +80,43 @@ function PostJobForm({ children }) {
       phone: Yup.string().required("This field is required"),
       description: Yup.string().required("This field is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setState({ ...state, loading: true });
-      console.log(values);
+      try {
+        const companyProfile = await axios.get(
+          `${process.env.NEXT_PUBLIC_baseURL}/user-company-profile/`,
+          {
+            headers: {
+              Authorization: "Token " + Cookies.get("token"),
+            },
+          }
+        );
+        console.log(companyProfile.data);
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_baseURL}/companies/${companyProfile.data.slug}/create-job/`,
+          {
+            first_name: values.firstName,
+            last_name: values.lastName,
+            job_title: values.jobTitle,
+            work_email: values.workEmail,
+            current_role: values.currentRole,
+            phone_number: values.phone,
+            description: values.description,
+          },
+          {
+            headers: {
+              Authorization: "Token " + Cookies.get("token"),
+            },
+          }
+        );
+        router.push("/company-profile");
+      } catch (error) {
+        console.log(error.response.data);
+
+        setState({ ...state, setupError: true, loading: false });
+      }
     },
   });
-
-  const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
 
   return (
     <div className="flex h-full">
@@ -102,7 +130,7 @@ function PostJobForm({ children }) {
         </div>
       </div>
       <div className="w-2/4">
-        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-200">
+        <div className="h-1/5 flex flex-col items-center border-b border-gray-200">
           {state.setupError && (
             <motion.div
               variants={errorMessage}
@@ -113,7 +141,7 @@ function PostJobForm({ children }) {
               An error has occurred.
             </motion.div>
           )}
-          <div className="text-4xl px-10 font-standardTT">
+          <div className="text-4xl px-10 mt-4 font-standardTT">
             Start right from your comfort.
           </div>
         </div>
@@ -299,10 +327,11 @@ function PostJobForm({ children }) {
             </div>
             <ReactQuill
               theme="snow"
+              name="description"
               placeholder="Job description"
               value={formik.values.description}
               className="!h-325"
-              onChange={formik.handleChange}
+              onChange={(value) => formik.setFieldValue("description", value)}
             ></ReactQuill>
           </SwiperSlide>
         </Swiper>
