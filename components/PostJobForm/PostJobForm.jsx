@@ -15,6 +15,7 @@ import "swiper/css";
 import BaseInput from "../DefaultComponents/BaseInput";
 import NextLink from "../DefaultComponents/NextLink";
 import PreviousLink from "../DefaultComponents/PreviousLink";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 
 SwiperCore.use([Navigation]);
 
