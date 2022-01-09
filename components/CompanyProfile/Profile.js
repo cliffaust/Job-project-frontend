@@ -1,30 +1,29 @@
 import dynamic from "next/dynamic";
+import Parser from "html-react-parser";
 import React, { useState, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useDropzone } from "react-dropzone";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import SwiperCore from "swiper";
+import "swiper/css/effect-creative";
+import "swiper/css";
+import "react-quill/dist/quill.snow.css";
+
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 import ImageGallery from "./ImageGallery";
 import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
 import BaseInput from "../DefaultComponents/BaseInput";
-import Cookies from "js-cookie";
-import axios from "axios";
-import { useDropzone } from "react-dropzone";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
-
-import SwiperCore from "swiper";
-
-import "swiper/css/effect-creative";
-import "swiper/css";
-import "react-quill/dist/quill.snow.css";
 
 SwiperCore.use([Navigation]);
 
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 
-function Profile({ user_profile, company_profile }) {
+function Profile({ user_profile, company_profile, jobs }) {
   const [state, setState] = useState({
     swiperIndex: 0,
     allowSlideNext: false,
@@ -33,10 +32,18 @@ function Profile({ user_profile, company_profile }) {
     phone: "",
     comment: "",
     jobData: {
-      title: "",
-      location: "",
-      day: 0,
-      applicant: 0,
+      firstName: "",
+      lastName: "",
+      jobTitle: "",
+      address: "",
+      remote: false,
+      salary: "",
+      workEmail: "",
+      currentRole: "",
+      phone: "",
+      description: "",
+      num_applicants: 0,
+      date_posted: "",
     },
   });
 
@@ -47,7 +54,7 @@ function Profile({ user_profile, company_profile }) {
     profileImageProgress: 0,
   });
 
-  const jobs = useRef(null);
+  const jobsRef = useRef(null);
 
   useEffect(() => {
     if (file.image) {
@@ -78,10 +85,18 @@ function Profile({ user_profile, company_profile }) {
       jobPopup: true,
       jobData: {
         ...state.jobData,
-        title: data.title,
-        location: data.location,
-        day: data.day,
-        applicant: data.applicant,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        jobTitle: data.job_title,
+        address: data.address,
+        remote: data.remote,
+        salary: data.salary,
+        workEmail: data.work_email,
+        currentRole: data.current_role,
+        phone: data.phone_number,
+        description: data.description,
+        num_applicants: data.num_applicants,
+        date_posted: data.date_posted,
       },
     });
   };
@@ -264,7 +279,7 @@ function Profile({ user_profile, company_profile }) {
         </div>
       </div>
       {jobs.length > 0 ? (
-        <div ref={jobs} className="flex flex-col mt-10 px-20">
+        <div ref={jobsRef} className="flex flex-col mt-10 px-20">
           <div className="text-2xl mb-8 font-standardTT font-bold">
             Available jobs(2)
           </div>
@@ -278,30 +293,42 @@ function Profile({ user_profile, company_profile }) {
             }
             className="!w-full !pl-10"
           >
-            <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
-              <h1 className="text-xl truncate mb-2 font-bold">
-                Junior Developer
-              </h1>
-              <p className="text-base truncate">
-                Tema Community 25, Accra Ghana(Remote)
-              </p>
-              <p className="text-base text-green-600">20 Applicant</p>
-              <div className="mt-10">
-                <p className="text-base mb-2">Posted 1 day ago</p>
-                <div
-                  onClick={jobModal({
-                    title: "Junior Developer",
-                    location: "Tema Community 25, Accra Ghana(Remote)",
-                    day: 2,
-                    applicant: 20,
-                  })}
-                >
-                  <ButtonPrimary className="w-full rounded-md">
-                    View Job
-                  </ButtonPrimary>
+            {jobs.map((job) => (
+              <SwiperSlide
+                key={job.id}
+                className="px-3 py-5 shadow-lg rounded-xl !w-72"
+              >
+                <h1 className="text-xl truncate mb-2 font-bold">
+                  {job.job_title}
+                </h1>
+                <p className="text-base truncate">
+                  {job.remote && job.address
+                    ? job.address + "(Remote)"
+                    : job.remote && !job.address
+                    ? "Remote"
+                    : !job.remote && job.address
+                    ? job.address
+                    : "No address data"}
+                </p>
+                {job.num_applicants > 0 ? (
+                  <p className="text-base text-green-600 font-bold">
+                    {job.num_applicants} Applicants
+                  </p>
+                ) : (
+                  <p className="text-base text-green-600 font-bold">
+                    No applicants
+                  </p>
+                )}
+                <div className="mt-10">
+                  <p className="text-base mb-2">Posted 1 day ago</p>
+                  <div onClick={jobModal(job)}>
+                    <ButtonPrimary className="w-full rounded-md">
+                      View Job
+                    </ButtonPrimary>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
+            ))}
             <div
               className={
                 "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
@@ -343,7 +370,7 @@ function Profile({ user_profile, company_profile }) {
           </Swiper>
         </div>
       ) : (
-        <div ref={jobs} className="text-xl font-bold text-center mt-10">
+        <div ref={jobsRef} className="text-xl font-bold text-center mt-10">
           No available jobs
         </div>
       )}
@@ -372,18 +399,34 @@ function Profile({ user_profile, company_profile }) {
             <div className="flex justify-center flex-col gap-4 items-center">
               <div className="w-36 h-36 rounded-full">
                 <img
-                  src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80"
+                  src={user_profile.profile_pic}
                   alt="Image"
                   className="h-full w-full object-cover rounded-full"
                 />
               </div>
               <div className="flex flex-col items-center gap-2">
                 <h1 className="text-4xl font-bold">{state.jobData.title}</h1>
-                <p className="text-base">{state.jobData.location}</p>
-                <p className="text-base text-green-600 font-bold">
-                  {state.jobData.applicant} Applicant
+                <p className="truncate text-lg">
+                  {state.jobData.remote && state.jobData.address
+                    ? state.jobData.address + "(Remote)"
+                    : state.jobData.remote && !state.jobData.address
+                    ? "Remote"
+                    : !state.jobData.remote && state.jobData.address
+                    ? state.jobData.address
+                    : "No address data"}
                 </p>
-                <p className="text-base">Posted {state.jobData.day} days ago</p>
+                {state.jobData.num_applicants > 0 ? (
+                  <p className="text-base text-green-600 font-bold">
+                    {state.jobData.num_applicants} Applicants
+                  </p>
+                ) : (
+                  <p className="text-base text-green-600 font-bold">
+                    No applicants
+                  </p>
+                )}
+                <p className="text-base">
+                  Posted {state.jobData.date_posted} days ago
+                </p>
               </div>
             </div>
             <div className="flex gap-5 items-center w-full mt-6">
@@ -398,19 +441,7 @@ function Profile({ user_profile, company_profile }) {
                 </ButtonPrimary>
               </div>
             </div>
-            <div className="mt-6">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
-              nisi eaque ad odit optio. Nobis, harum consequuntur vero, sequi
-              cum error aliquid voluptatibus sint minima omnis illo illum optio
-              odio. eaque ad odit optio. Nobis, harum consequuntur vero, sequi
-              cum error aliquid voluptatibus sint minima omnis illo illum optio
-              odio. eaque ad odit optio. Nobis, harum consequuntur vero, sequi
-              cum error aliquid voluptatibus sint minima omnis illo illum optio
-              odio. oluptatibus sint minima omnis illo illum optio odio. eaque
-              ad odit optio. Nobis, harum consequuntur vero, sequi cum error
-              aliquid voluptatibus sint minima omnis illo illum optio odio.
-              eaque ad odit optio. Nobis, harum
-            </div>
+            <div className="mt-12">{Parser(state.jobData.description)}</div>
             <div className="mt-10 font-bold">
               If you have a problem with the job,{" "}
               <span className="font-bold text-purple-600 cursor-pointer">

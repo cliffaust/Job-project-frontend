@@ -4,6 +4,12 @@ body {
   background-color: #fdfbf8;
 }
 
+ol,
+ul {
+  padding: revert;
+  list-style: revert;
+}
+
 .circle-gradient {
   background: linear-gradient(
     135.78deg,
