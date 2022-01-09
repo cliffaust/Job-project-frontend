@@ -13,6 +13,7 @@ import "swiper/css/effect-creative";
 import "swiper/css";
 
 import BaseInput from "../DefaultComponents/BaseInput";
+import BaseCheckBox from "../DefaultComponents/BaseCheckBox";
 import NextLink from "../DefaultComponents/NextLink";
 import PreviousLink from "../DefaultComponents/PreviousLink";
 import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
@@ -56,6 +57,9 @@ function PostJobForm({ children }) {
       firstName: "",
       lastName: "",
       jobTitle: "",
+      address: "",
+      remote: false,
+      salary: "",
       workEmail: "",
       currentRole: "",
       phone: "",
@@ -77,6 +81,9 @@ function PostJobForm({ children }) {
       currentRole: Yup.string()
         .max(500, "This field has a max lenght of 500")
         .required("This field is required"),
+      address: Yup.string().max(500, "This field has a max lenght of 500"),
+      remote: Yup.boolean(),
+      salary: Yup.number(),
       phone: Yup.string().required("This field is required"),
       description: Yup.string().required("This field is required"),
     }),
@@ -91,7 +98,6 @@ function PostJobForm({ children }) {
             },
           }
         );
-        console.log(companyProfile.data);
         await axios.post(
           `${process.env.NEXT_PUBLIC_baseURL}/companies/${companyProfile.data.slug}/create-job/`,
           {
@@ -102,6 +108,9 @@ function PostJobForm({ children }) {
             current_role: values.currentRole,
             phone_number: values.phone,
             description: values.description,
+            address: values.address,
+            salary: values.salary,
+            remote: values.remote,
           },
           {
             headers: {
@@ -265,6 +274,51 @@ function PostJobForm({ children }) {
                 {formik.errors.workEmail}
               </span>
             ) : null}
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Address</h3>
+            </div>
+            <BaseInput
+              name="address"
+              type="text"
+              placeholder="Workplace adress"
+              errorStyle={
+                formik.touched.address && formik.errors.address ? true : false
+              }
+              {...formik.getFieldProps("address")}
+            ></BaseInput>
+            {formik.touched.address && formik.errors.address ? (
+              <span className="text-sm mt-3 font-bold text-red-400">
+                {formik.errors.address}
+              </span>
+            ) : null}
+
+            <BaseCheckBox
+              className="mt-4"
+              name="remote"
+              label="Remote job"
+              {...formik.getFieldProps("remote")}
+            ></BaseCheckBox>
+            <div className="mt-4 font-medium">
+              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
+              maecenas, egestas urna vel ultrices risus, maecenas
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+            <div className="flex items-center mb-2">
+              <h3 className="font-bold">Salary</h3>
+            </div>
+            <BaseInput
+              name="salary"
+              type="number"
+              placeholder="Salary"
+              {...formik.getFieldProps("salary")}
+            ></BaseInput>
             <div className="mt-4 font-medium">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas

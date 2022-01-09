@@ -5,12 +5,13 @@ import getToken from "../../lib/getToken";
 
 import axios from "axios";
 
-function CompanyProfile({ user_profile, company_profile }) {
+function CompanyProfile({ user_profile, company_profile, jobs }) {
   return (
     <div className="overflow-x-hidden">
       <Profile
         user_profile={user_profile}
         company_profile={company_profile}
+        jobs={jobs}
       ></Profile>
       <div className="mt-20">
         <Footer></Footer>
@@ -44,10 +45,15 @@ export async function getServerSideProps(context) {
         }
       );
 
+      const jobs = await axios.get(
+        `${process.env.NEXT_PUBLIC_baseURL}/companies/${data.slug}/jobs/`
+      );
+
       return {
         props: {
           company_profile: data,
           user_profile: response.data[0],
+          jobs: jobs.data.results,
         },
       };
     }

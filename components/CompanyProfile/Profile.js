@@ -263,111 +263,93 @@ function Profile({ user_profile, company_profile }) {
           <p className="text-base">{company_profile.company_values}</p>
         </div>
       </div>
-      <div ref={jobs} className="flex flex-col mt-10 px-20">
-        <div className="text-2xl mb-8 font-standardTT font-bold">
-          Available jobs(2)
-        </div>
-        <Swiper
-          {...settings}
-          onSwiper={(swiper) =>
-            setState({ ...state, allowSlideNext: swiper.allowSlideNext })
-          }
-          onSlideChange={(swiper) =>
-            setState({ ...state, swiperIndex: swiper.realIndex })
-          }
-          className="!w-full !pl-10"
-        >
-          <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
-            <h1 className="text-xl truncate mb-2 font-bold">
-              Junior Developer
-            </h1>
-            <p className="text-base truncate">
-              Tema Community 25, Accra Ghana(Remote)
-            </p>
-            <p className="text-base text-green-600">20 Applicant</p>
-            <div className="mt-10">
-              <p className="text-base mb-2">Posted 1 day ago</p>
-              <div
-                onClick={jobModal({
-                  title: "Junior Developer",
-                  location: "Tema Community 25, Accra Ghana(Remote)",
-                  day: 2,
-                  applicant: 20,
-                })}
-              >
-                <ButtonPrimary className="w-full rounded-md">
-                  View Job
-                </ButtonPrimary>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
-            <h1 className="text-xl truncate mb-2 font-bold">
-              Assistant Developer
-            </h1>
-            <p className="text-base truncate">Madina, Accra Ghana</p>
-            <p className="text-base text-green-600">12 Applicant</p>
-            <div className="mt-10">
-              <p className="text-base mb-2">Posted 4 day ago</p>
-              <div
-                onClick={jobModal({
-                  title: "Assistant Developer",
-                  location: "Madina, Accra Ghana",
-                  day: 4,
-                  applicant: 12,
-                })}
-              >
-                <ButtonPrimary className="w-full rounded-md">
-                  View Job
-                </ButtonPrimary>
-              </div>
-            </div>
-          </SwiperSlide>
-          <div
-            className={
-              "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
-              (state.swiperIndex === 0 ? "invisible" : "")
-            }
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
+      {jobs.length > 0 ? (
+        <div ref={jobs} className="flex flex-col mt-10 px-20">
+          <div className="text-2xl mb-8 font-standardTT font-bold">
+            Available jobs(2)
           </div>
-          <div
-            className={
-              "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
-              (!state.allowSlideNext ? "invisible" : "")
+          <Swiper
+            {...settings}
+            onSwiper={(swiper) =>
+              setState({ ...state, allowSlideNext: swiper.allowSlideNext })
             }
+            onSlideChange={(swiper) =>
+              setState({ ...state, swiperIndex: swiper.realIndex })
+            }
+            className="!w-full !pl-10"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+            <SwiperSlide className="px-3 py-5 shadow-lg rounded-xl !w-72">
+              <h1 className="text-xl truncate mb-2 font-bold">
+                Junior Developer
+              </h1>
+              <p className="text-base truncate">
+                Tema Community 25, Accra Ghana(Remote)
+              </p>
+              <p className="text-base text-green-600">20 Applicant</p>
+              <div className="mt-10">
+                <p className="text-base mb-2">Posted 1 day ago</p>
+                <div
+                  onClick={jobModal({
+                    title: "Junior Developer",
+                    location: "Tema Community 25, Accra Ghana(Remote)",
+                    day: 2,
+                    applicant: 20,
+                  })}
+                >
+                  <ButtonPrimary className="w-full rounded-md">
+                    View Job
+                  </ButtonPrimary>
+                </div>
+              </div>
+            </SwiperSlide>
+            <div
+              className={
+                "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
+                (state.swiperIndex === 0 ? "invisible" : "")
+              }
             >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </Swiper>
-        <div className="mt-10">
-          To read more about this company,{" "}
-          <span className="font-bold text-purple-600">
-            Go to company website
-          </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div
+              className={
+                "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+                (!state.allowSlideNext ? "invisible" : "")
+              }
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </Swiper>
         </div>
+      ) : (
+        <div ref={jobs} className="text-xl font-bold text-center mt-10">
+          No available jobs
+        </div>
+      )}
+      <div className="mt-10 px-20">
+        To read more about this company,{" "}
+        <span className="font-bold text-purple-600">Go to company website</span>
       </div>
       <GroupPopup
         closeModal={closeJobModal}
