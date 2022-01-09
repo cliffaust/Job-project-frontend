@@ -30,7 +30,9 @@ const Navbar = ({ user_profile }) => {
           </a>
         </Link>
         <div className="flex items-center gap-8">
-          <div className="text-base cursor-pointer">Jobs</div>
+          <Link href="/jobs">
+            <div className="text-base cursor-pointer">Jobs</div>
+          </Link>
           <Link href="/post-job">
             <a className="text-base cursor-pointer">Post a job</a>
           </Link>

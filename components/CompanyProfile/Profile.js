@@ -3,6 +3,7 @@ import Parser from "html-react-parser";
 import React, { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import moment from "moment";
 import { useDropzone } from "react-dropzone";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -55,6 +56,10 @@ function Profile({ user_profile, company_profile, jobs }) {
   });
 
   const jobsRef = useRef(null);
+
+  const formTime = (time) => {
+    return moment(time).startOf("hour").fromNow();
+  };
 
   useEffect(() => {
     if (file.image) {
@@ -224,14 +229,14 @@ function Profile({ user_profile, company_profile, jobs }) {
               {company_profile.company_name}
             </h1>
             <p className="text-base">Since {company_profile.year_started}</p>
-            <p className="text-base text-green-600">
-              More than {company_profile.num_of_employees} employees
+            <p className="text-base text-green-600 font-medium">
+              About {company_profile.num_of_employees} employees
             </p>
           </div>
         </div>
         <ButtonPrimary
           onClick={() =>
-            jobs.current.scrollIntoView({
+            jobsRef.current.scrollIntoView({
               behavior: "smooth",
               block: "center",
             })
@@ -267,7 +272,9 @@ function Profile({ user_profile, company_profile, jobs }) {
           About Company
         </div>
         <div className="pl-8">
-          <p className="text-base">{company_profile.about_company}</p>
+          <p className="text-base whitespace-pre-wrap">
+            {company_profile.about_company}
+          </p>
         </div>
       </div>
       <div className="flex flex-col mt-10 px-20">
@@ -275,13 +282,15 @@ function Profile({ user_profile, company_profile, jobs }) {
           Company Values
         </div>
         <div className="pl-8">
-          <p className="text-base">{company_profile.company_values}</p>
+          <p className="text-base whitespace-pre-wrap">
+            {company_profile.company_values}
+          </p>
         </div>
       </div>
       {jobs.length > 0 ? (
         <div ref={jobsRef} className="flex flex-col mt-10 px-20">
           <div className="text-2xl mb-8 font-standardTT font-bold">
-            Available jobs(2)
+            Available jobs({jobs.length})
           </div>
           <Swiper
             {...settings}
@@ -320,7 +329,9 @@ function Profile({ user_profile, company_profile, jobs }) {
                   </p>
                 )}
                 <div className="mt-10">
-                  <p className="text-base mb-2">Posted 1 day ago</p>
+                  <p className="text-base font-medium mb-2">
+                    Posted {moment(job.date_posted).startOf("hour").fromNow()}
+                  </p>
                   <div onClick={jobModal(job)}>
                     <ButtonPrimary className="w-full rounded-md">
                       View Job
@@ -386,6 +397,7 @@ function Profile({ user_profile, company_profile, jobs }) {
         <Swiper
           preventInteractionOnTransition={true}
           allowTouchMove={false}
+          autoHeight={true}
           pagination={{
             el: ".swiper-pagination",
             clickable: true,
@@ -424,8 +436,9 @@ function Profile({ user_profile, company_profile, jobs }) {
                     No applicants
                   </p>
                 )}
-                <p className="text-base">
-                  Posted {state.jobData.date_posted} days ago
+                <p className="text-base font-medium">
+                  Posted{" "}
+                  {moment(state.jobData.date_posted).startOf("hour").fromNow()}
                 </p>
               </div>
             </div>
@@ -442,6 +455,30 @@ function Profile({ user_profile, company_profile, jobs }) {
               </div>
             </div>
             <div className="mt-12">{Parser(state.jobData.description)}</div>
+            <div className="flex flex-wrap mt-12">
+              <div className="w-2/4 px-4 py-2 rounded-md border-l-4 border-purple-600">
+                <h3 className="font-bold text-lg">Salary</h3>
+                {state.jobData.salary ? (
+                  <p className="mt-2">GH¢{state.jobData.salary}</p>
+                ) : (
+                  <p className="mt-2">No data</p>
+                )}
+              </div>
+              <div className="w-2/4 px-4 py-2 rounded-md border-l-4 border-purple-600">
+                <h3 className="font-bold text-lg">Posted by,</h3>
+                <p className="mt-2">
+                  {state.jobData.firstName} {""} {state.jobData.lastName}
+                </p>
+              </div>
+              <div className="w-2/4 px-4 py-2 mt-4 rounded-md border-l-4 border-purple-600">
+                <h3 className="font-bold text-lg">Phone Number</h3>
+                <p className="mt-2 truncate">{state.jobData.phone}</p>
+              </div>
+              <div className="w-2/4 px-4 py-2 mt-4 rounded-md border-l-4 border-purple-600">
+                <h3 className="font-bold text-lg">Email address</h3>
+                <p className="mt-2 truncate">{state.jobData.workEmail}</p>
+              </div>
+            </div>
             <div className="mt-10 font-bold">
               If you have a problem with the job,{" "}
               <span className="font-bold text-purple-600 cursor-pointer">

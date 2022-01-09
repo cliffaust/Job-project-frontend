@@ -2,6 +2,11 @@ body {
   font-family: "Mulish", sans-serif;
   color: #002333;
   background-color: #fdfbf8;
+  /* background-color: #f2f4fd; */
+}
+
+#nprogress .bar {
+  @apply !bg-purple-500;
 }
 
 ol,

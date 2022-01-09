@@ -15,15 +15,7 @@ function Jobs({ jobs, user_profile }) {
     <div onClick={() => dispatch(cancelPopup())} className="">
       <Navbar user_profile={user_profile}></Navbar>
       <JobSearchFilter></JobSearchFilter>
-      <div className="px-20 flex justify-between mt-10">
-        <div className="w-2/5 flex flex-col gap-6">
-          <Job isActive={true}></Job>
-          <Job isActive={false}></Job>
-        </div>
-        <div className="w-2/4">
-          <ActiveJob></ActiveJob>
-        </div>
-      </div>
+      <Job jobs={jobs}></Job>
     </div>
   );
 }
@@ -50,7 +42,7 @@ export async function getServerSideProps(context) {
 
       return {
         props: {
-          jobs: data,
+          jobs: data.results,
           user_profile: response.data[0],
         },
       };
@@ -58,7 +50,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        jobs: data,
+        jobs: data.results,
         user_profile: "",
       },
     };
@@ -73,7 +65,7 @@ export async function getServerSideProps(context) {
     } else {
       return {
         props: {
-          jobs: "",
+          jobs: [],
           user_profile: "",
         },
       };
