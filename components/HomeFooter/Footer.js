@@ -15,6 +15,7 @@ export default function Footer() {
           <h3>Contact us</h3>
           <h3>Guides</h3>
         </div>
+
         <div>
           <h1 className="font-bold md:mb-8 mb-2">Employers</h1>
           <h3>Get a Free Company Account</h3>
