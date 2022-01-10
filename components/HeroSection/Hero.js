@@ -2,16 +2,16 @@ import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
 
 const Hero = () => {
   return (
-    <header className="flex justify-between items-center px-20 mt-10 overflow-hidden">
-      <div className="w-2/5">
-        <h1 className="font-standardTT font-bold text-4xl mb-6">
+    <header className="flex md:flex-row flex-col justify-between items-center px-8 md:px-20 mt-10 overflow-hidden">
+      <div className="w-full md:w-2/5">
+        <h1 className="font-standardTT font-bold text-3xl md:text-4xl mb-6">
           Start building your team just with a click
         </h1>
         <ButtonPrimary className="!px-6 !py-1">Hire an intern</ButtonPrimary>
       </div>
-      <div className="w-2/5 relative -mr-20">
-        <div className="w-600 h-600 circle-gradient rounded-full"></div>
-        <div className="px-6 py-4 flex flex-col items-center gap-1 rounded-lg circle-gradient w-500 absolute top-40 -left-52">
+      <div className="w-full md:w-2/5 md:relative md:-mr-20">
+        <div className="w-600 h-600 circle-gradient rounded-full hidden md:block"></div>
+        <div className="md:mt-0 mt-6 px-6 py-4 flex flex-col items-center gap-1 rounded-lg circle-gradient md:w-500 md:absolute md:top-40 md:-left-52">
           <div className="w-20 h-20 rounded-full bg-pink-500">
             <img
               className="w-20 h-20 rounded-full object-cover"

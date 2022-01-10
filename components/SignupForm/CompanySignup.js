@@ -226,7 +226,7 @@ export default function CompanySignup(props) {
           <Link
             href={{
               pathname: "/signin",
-              query: { redirect: `${router.query.redirect}` },
+              query: { redirect: `${router.query.redirect || null}` },
             }}
           >
             <a className="text-blue-500">Sign in</a>

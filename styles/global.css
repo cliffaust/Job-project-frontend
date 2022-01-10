@@ -188,3 +188,73 @@ ul {
     background-position: 0 -38.94px, 0 0, 100% 0, -38.94px 100%;
   }
 }
+
+/* burger */
+
+.navigation-icon {
+  cursor: pointer;
+  height: 1.2rem;
+  width: 1.4rem;
+  padding: 4px 3px 4px 2px;
+}
+
+.burger {
+  position: relative;
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  width: 1.4rem;
+  height: 2px;
+  display: inline-block;
+  background-color: #5b21b6;
+  transition: 0.2s ease;
+}
+
+.burger {
+  width: 1rem;
+}
+
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.burger::before {
+  top: -0.6rem;
+}
+
+.burger::after {
+  top: 0.6rem;
+}
+
+.navigation-icon:hover .burger::before {
+  background-color: #5b21b6;
+}
+.navigation-icon:hover .burger::after {
+  background-color: #5b21b6;
+}
+.navigation-icon:hover .burger {
+  background-color: #5b21b6;
+}
+
+.navigation-checkbox:checked + .navigation-icon .burger {
+  background-color: transparent;
+}
+
+.navigation-checkbox:checked + .navigation-icon .burger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.navigation-checkbox:checked + .navigation-icon .burger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.navigation-checkbox {
+  display: none;
+}
