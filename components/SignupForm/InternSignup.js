@@ -79,13 +79,13 @@ export default function InternSignup(props) {
   };
 
   return (
-    <div className="flex flex-col items-center py-10">
+    <div className="flex flex-col items-center px-2 md:py-10 mt-10 md:mt-0">
       <Link href="/">
         <a>
           <Logo type="large"></Logo>
         </a>
       </Link>
-      <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
+      <div className="bg-gray-100 px-6 sm:px-8 py-4 rounded-xl flex w-full flex-col sm:w-500 mt-4 sm:mt-8">
         <h3 className="font-bold mb-2">
           What account are you creating? Please choose one
         </h3>

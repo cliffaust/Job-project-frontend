@@ -77,7 +77,7 @@ export default function Signin(props) {
     setState({ ...state, showPassword: true });
   };
   return (
-    <div className="flex flex-col items-center pb-10">
+    <div className="flex flex-col items-center pb-10 px-2">
       {loginError ? (
         <motion.div
           variants={errorMessage}
@@ -97,7 +97,7 @@ export default function Signin(props) {
           </a>
         </Link>
       </div>
-      <div className="bg-gray-100 px-8 py-4 rounded-xl flex flex-col w-500 mt-8">
+      <div className="bg-gray-100 px-6 sm:px-8 py-4 rounded-xl flex w-full flex-col sm:w-500 mt-4 sm:mt-8">
         <form onSubmit={formik.handleSubmit}>
           <BaseInput
             name="email"
