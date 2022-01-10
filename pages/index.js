@@ -12,7 +12,7 @@ export default function Home({ user_profile }) {
     <main className="">
       <Navbar user_profile={user_profile}></Navbar>
       <Hero></Hero>
-      <div className="flex bg-white py-10 md:py-0 border-t border-b border-gray-200 md:border-none md:bg-none md:flex-row flex-col md:gap-0 gap-6 md:px-20 px-8 justify-between mt-16 md:mt-20 mb-10">
+      <div className="flex bg-white md:bg-opacity-0 py-10 md:py-0 border-t border-b border-gray-200 md:border-none md:flex-row flex-col md:gap-6 gap-6 md:px-10 px-8 justify-between mt-16 md:mt-20 mb-10">
         <Section
           title="Profile Based Choice"
           text="Lorem ipsum dolor sit amet. egestas urna vel ultrices risus, maecenas. Fames turpis morbi est sagittis nulla elementum dignissim tellus aenean."
@@ -220,7 +220,7 @@ export default function Home({ user_profile }) {
           </svg>
         </Section>
       </div>
-      <div className="px-20 my-40">
+      <div className="md:px-20 px-8 md:my-40 my-20">
         <Form></Form>
       </div>
       <div>

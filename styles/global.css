@@ -16,11 +16,17 @@ ul {
 }
 
 .circle-gradient {
+  background: #6d36c5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #ac84ee,
+    #ac84ee
+  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    135.78deg,
-    #27187e -30.81%,
-    rgba(117, 139, 253, 0) 114.28%
-  );
+    to left,
+    #6d36c5,
+    #ac84ee
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .social-icon {

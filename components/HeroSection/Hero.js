@@ -11,7 +11,7 @@ const Hero = () => {
       </div>
       <div className="w-full md:w-2/5 md:relative md:-mr-20">
         <div className="w-600 h-600 circle-gradient rounded-full hidden md:block"></div>
-        <div className="md:mt-0 mt-6 px-6 py-4 flex flex-col items-center gap-1 rounded-lg circle-gradient md:w-500 md:absolute md:top-40 md:-left-52">
+        <div className="md:mt-0 mt-6 px-6 py-4 flex flex-col items-center gap-1 rounded-lg circle-gradient lg:w-500 md:absolute md:top-40 md:-left-52">
           <div className="w-20 h-20 rounded-full bg-pink-500">
             <img
               className="w-20 h-20 rounded-full object-cover"

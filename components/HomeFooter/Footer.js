@@ -3,26 +3,26 @@ import Logo from "../HomeNavbar/Logo";
 
 export default function Footer() {
   return (
-    <div className="bg-gray-100 flex flex-col py-8 items-center">
+    <div className="md:bg-gray-100 bg-white flex flex-col py-8 md:items-center md:px-0 sm:px-20 px-10">
       <div className="mb-10">
         <Logo type="large"></Logo>
       </div>
-      <div className="flex gap-16">
+      <div className="flex md:flex-row flex-col md:gap-16 gap-10">
         <div>
-          <h1 className="font-bold mb-8">Job finder</h1>
+          <h1 className="font-bold md:mb-8 mb-2">Job finder</h1>
           <h3>About</h3>
           <h3>Blog</h3>
           <h3>Contact us</h3>
           <h3>Guides</h3>
         </div>
         <div>
-          <h1 className="font-bold mb-8">Employers</h1>
+          <h1 className="font-bold md:mb-8 mb-2">Employers</h1>
           <h3>Get a Free Company Account</h3>
           <h3>Employer Center</h3>
           <h3>Post a Job</h3>
         </div>
         <div>
-          <h1 className="font-bold mb-8">Community</h1>
+          <h1 className="font-bold md:mb-8 mb-2">Community</h1>
           <h3>Help / Contact Us</h3>
           <h3>Guidelines</h3>
           <h3>Terms of Use</h3>
@@ -30,7 +30,7 @@ export default function Footer() {
           <h3>Privacy Center</h3>
         </div>
         <div>
-          <h1 className="font-bold mb-8">Work With Us</h1>
+          <h1 className="font-bold md:mb-8 mb-2">Work With Us</h1>
           <h3>Advertisers</h3>
           <h3>Developers</h3>
           <h3>Careers</h3>

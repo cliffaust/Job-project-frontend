@@ -74,8 +74,8 @@ export default function Form() {
   };
 
   return (
-    <div className="flex gap-20">
-      <div className="w-2/5">
+    <div className="flex w-full lg:items-center lg:flex-row md:px-20 lg:px-0 flex-col-reverse gap-10 lg:gap-20">
+      <div className="lg:w-2/4">
         <h1 className="text-3xl font-standardTT mb-5 text-center">
           A new way of finding a job
         </h1>
@@ -171,8 +171,8 @@ export default function Form() {
           <span>Sign in with Google</span>
         </ButtonPrimaryOpen>
       </div>
-      <div>
-        <img className="w-full" src="./images/image2.svg" alt="" />
+      <div className="lg:w-2/4">
+        <img className="w-full h-full" src="./images/image2.svg" alt="" />
       </div>
     </div>
   );
