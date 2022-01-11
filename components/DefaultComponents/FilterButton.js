@@ -4,7 +4,7 @@ function FilterButton(props) {
   return (
     <div
       className={
-        "border-[#BABABA] border cursor-pointer gap-2 px-4 rounded-md py-3 flex items-center " +
+        "border-[#BABABA] border cursor-pointer gap-2 px-4 rounded-md py-3 flex items-center justify-center " +
         props.className
       }
     >

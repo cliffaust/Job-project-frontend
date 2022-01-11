@@ -41,7 +41,7 @@ function ImageGalleryPicker({ images }) {
           <SwiperSlide key={image.id}>
             <p className="px-6 mb-4 font-bold">{image.comment}</p>
             <img
-              className="image-gallery"
+              className="image-gallery relative"
               src={image.image}
               alt="Image Gallery"
             />
@@ -49,7 +49,7 @@ function ImageGalleryPicker({ images }) {
         ))}
         <div
           className={
-            "absolute flex cursor-pointer items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute hidden md:flex cursor-pointer items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
             (gallerySwiperIndex === 0 ? "invisible" : "")
           }
         >
@@ -68,7 +68,7 @@ function ImageGalleryPicker({ images }) {
         </div>
         <div
           className={
-            "absolute cursor-pointer flex items-center justify-center top-2/4 z-50 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute hidden cursor-pointer md:flex items-center justify-center top-2/4 z-50 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
             (!allowGallerySlideNext ? "invisible" : "")
           }
         >

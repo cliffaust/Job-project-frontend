@@ -394,7 +394,7 @@ function Profile({ user_profile, company_profile, jobs }) {
       <GroupPopup
         closeModal={closeJobModal}
         showPopup={state.jobPopup}
-        className="w-2/4 px-6"
+        className="lg:w-2/4 md:w-4/5 w-full px-6"
       >
         <Swiper
           preventInteractionOnTransition={true}
@@ -504,7 +504,7 @@ function Profile({ user_profile, company_profile, jobs }) {
               </svg>
               <h3 className="font-bold text-purple-600">Job Info</h3>
             </div>
-            <div className="px-6">
+            <div className="md:px-6 px-0">
               <div className="mt-5">
                 <div className="mb-6">
                   <div className="flex items-center mb-2">
@@ -562,7 +562,7 @@ function Profile({ user_profile, company_profile, jobs }) {
       <GroupPopup
         closeModal={closeGalleryModal}
         showPopup={state.galleryPopup}
-        className="w-4/5"
+        className="w-full md:w-11/12 lg:w-4/5"
       >
         <ImageGalleryPicker
           images={company_profile.company_images}

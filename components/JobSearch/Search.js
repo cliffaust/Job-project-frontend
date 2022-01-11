@@ -42,9 +42,9 @@ function JobSearchFilter() {
   };
 
   return (
-    <div className="bg-white shadow-sm px-20 py-6 flex flex-col justify-center">
-      <div className="self-center flex items-center gap-5 mb-5">
-        <div className="relative">
+    <div className="bg-white shadow-sm lg:px-20 px-5 py-6 flex flex-col justify-center">
+      <div className="self-center sm:w-2/3 flex sm:flex-row flex-col items-center gap-5 mb-5">
+        <div className="relative w-full">
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -72,7 +72,7 @@ function JobSearchFilter() {
             )}
           </AnimatePresence>
         </div>
-        <div className="relative">
+        <div className="relative w-full">
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -101,8 +101,8 @@ function JobSearchFilter() {
         </div>
       </div>
       <div></div>
-      <div className="flex items-center justify-center gap-10">
-        <div className="w-2/5">
+      <div className="flex md:flex-row flex-col items-center justify-center md:gap-10 gap-4">
+        <div className="md:w-2/5 w-full">
           <BaseInput
             name="job"
             type="text"
@@ -111,7 +111,7 @@ function JobSearchFilter() {
             onChange={onChange}
           ></BaseInput>
         </div>
-        <div className="w-2/5">
+        <div className="md:w-2/5 w-full">
           <BaseInput
             name="location"
             type="text"
@@ -120,7 +120,7 @@ function JobSearchFilter() {
             onChange={onChange}
           ></BaseInput>
         </div>
-        <ButtonPrimary className="px-4 py-2 !rounded-md">
+        <ButtonPrimary className="px-4 py-2 !rounded-md md:w-1/5">
           Find a job
         </ButtonPrimary>
       </div>

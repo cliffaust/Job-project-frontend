@@ -47,8 +47,8 @@ function Job({ jobs }) {
   return (
     <div>
       {jobs.length > 0 ? (
-        <div className="px-20 flex justify-between mt-10">
-          <div className="w-2/5 flex flex-col gap-6 h-screen overflow-scroll">
+        <div className="md:px-20 px-5 flex justify-between mt-10">
+          <div className="md:w-2/5 w-full flex flex-col gap-6 h-screen overflow-scroll">
             {jobs.map((job) => (
               <div
                 onClick={setJobActive(job)}
@@ -99,7 +99,7 @@ function Job({ jobs }) {
               </div>
             ))}
           </div>
-          <div className="w-2/4 h-screen overflow-scroll">
+          <div className="w-2/4 h-screen overflow-scroll hidden md:block">
             <ActiveJob job={state}></ActiveJob>
           </div>
         </div>
