@@ -162,12 +162,12 @@ function Profile({ user_profile, company_profile, jobs }) {
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
       <NavBar user_profile={user_profile}></NavBar>
-      <div className="mt-10 px-20 flex justify-between items-center">
-        <div className="flex gap-4 items-center">
+      <div className="mt-10 md:px-20 px-8 flex md:flex-row flex-col md:justify-between md:items-center sm:items-center justify-center">
+        <div className="flex md:flex-row flex-col gap-4 items-center justify-center">
           <div
             onMouseEnter={() => setShowProfilePics(true)}
             onMouseLeave={() => setShowProfilePics(false)}
-            className="w-36 h-36 rounded-full relative cursor-pointer"
+            className="w-44 h-44 md:w-36 md:h-36 rounded-full relative cursor-pointer"
           >
             <img
               src={user_profile.profile_pic}
@@ -190,7 +190,7 @@ function Profile({ user_profile, company_profile, jobs }) {
                 onChange={handleFileChange}
               />
 
-              <div className="bg-black bg-opacity-70 w-36 h-36 rounded-full absolute top-0"></div>
+              <div className="bg-black bg-opacity-70 w-44 h-44 md:w-36 md:h-36 rounded-full absolute top-0"></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-10 w-10 text-purple-800 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4"
@@ -225,11 +225,13 @@ function Profile({ user_profile, company_profile, jobs }) {
             ) : null}
           </div>
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-2xl font-bold text-center md:text-left">
               {company_profile.company_name}
             </h1>
-            <p className="text-base">Since {company_profile.year_started}</p>
-            <p className="text-base text-green-600 font-medium">
+            <p className="text-base text-center md:text-left">
+              Since {company_profile.year_started}
+            </p>
+            <p className="text-base text-green-600 font-medium md:text-left">
               About {company_profile.num_of_employees} employees
             </p>
           </div>
@@ -241,13 +243,13 @@ function Profile({ user_profile, company_profile, jobs }) {
               block: "center",
             })
           }
-          className="px-6 py-2 !rounded-md"
+          className="px-6 py-2 !rounded-md md:mt-0 mt-6 sm:w-80"
         >
           Go to jobs
         </ButtonPrimary>
       </div>
       <div className="flex flex-col mt-10">
-        <div className="flex items-center justify-between px-20 mb-8 mt-10">
+        <div className="flex items-center justify-between md:px-20 px-6 mb-8 md:mt-10 mt-5">
           <div className="text-2xl font-standardTT font-bold"></div>
           <div
             onClick={openGalleryModal}
@@ -267,28 +269,28 @@ function Profile({ user_profile, company_profile, jobs }) {
         </div>
         <ImageGallery images={company_profile.company_images}></ImageGallery>
       </div>
-      <div className="flex flex-col mt-10 px-20">
+      <div className="flex flex-col mt-10 md:px-20 px-6">
         <div className="text-2xl mb-8 font-standardTT font-bold">
           About Company
         </div>
-        <div className="pl-8">
+        <div className="md:pl-8 pl-4">
           <p className="text-base whitespace-pre-wrap">
             {company_profile.about_company}
           </p>
         </div>
       </div>
-      <div className="flex flex-col mt-10 px-20">
+      <div className="flex flex-col mt-10 md:px-20 px-6">
         <div className="text-2xl mb-8 font-standardTT font-bold">
           Company Values
         </div>
-        <div className="pl-8">
+        <div className="md:pl-8 pl-4">
           <p className="text-base whitespace-pre-wrap">
             {company_profile.company_values}
           </p>
         </div>
       </div>
       {jobs.length > 0 ? (
-        <div ref={jobsRef} className="flex flex-col mt-10 px-20">
+        <div ref={jobsRef} className="flex flex-col mt-10 md:px-20 pl-6">
           <div className="text-2xl mb-8 font-standardTT font-bold">
             Available jobs({jobs.length})
           </div>
@@ -300,7 +302,7 @@ function Profile({ user_profile, company_profile, jobs }) {
             onSlideChange={(swiper) =>
               setState({ ...state, swiperIndex: swiper.realIndex })
             }
-            className="!w-full !pl-10"
+            className="!w-full md:!pl-10 !pl-5"
           >
             {jobs.map((job) => (
               <SwiperSlide
@@ -342,7 +344,7 @@ function Profile({ user_profile, company_profile, jobs }) {
             ))}
             <div
               className={
-                "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
+                "absolute flex cursor-pointer items-center justify-center top-2/4 z-10 md:left-6 left-3 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
                 (state.swiperIndex === 0 ? "invisible" : "")
               }
             >
@@ -361,7 +363,7 @@ function Profile({ user_profile, company_profile, jobs }) {
             </div>
             <div
               className={
-                "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+                "absolute cursor-pointer flex items-center justify-center top-2/4 z-10 md:right-6 right-3 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
                 (!state.allowSlideNext ? "invisible" : "")
               }
             >
@@ -385,7 +387,7 @@ function Profile({ user_profile, company_profile, jobs }) {
           No available jobs
         </div>
       )}
-      <div className="mt-10 px-20">
+      <div className="mt-10 md:px-20 px-6">
         To read more about this company,{" "}
         <span className="font-bold text-purple-600">Go to company website</span>
       </div>

@@ -13,6 +13,22 @@ function ImageGallery({ images }) {
     speed: 4500,
     autoplaySpeed: 0,
     cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <Slider {...settings}>

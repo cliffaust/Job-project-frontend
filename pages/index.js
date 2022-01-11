@@ -220,7 +220,7 @@ export default function Home({ user_profile }) {
           </svg>
         </Section>
       </div>
-      <div className="md:px-20 px-8 md:my-40 my-20">
+      <div className="md:px-20 px-8 border-b border-gray-200 md:border-none md:my-40 py-20">
         <Form></Form>
       </div>
       <div>
