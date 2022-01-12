@@ -128,8 +128,8 @@ function PostJobForm({ children }) {
   });
 
   return (
-    <div className="flex h-full">
-      <div className="w-2/4 flex flex-col justify-center py-5 bg-white">
+    <div className="flex lg:h-screen">
+      <div className="lg:w-2/4 lg:flex hidden flex-col py-5 justify-between bg-white">
         <div className="h-full">
           <img
             className="h-full w-full"
@@ -138,8 +138,8 @@ function PostJobForm({ children }) {
           />
         </div>
       </div>
-      <div className="w-2/4">
-        <div className="h-1/5 flex flex-col items-center border-b border-gray-200">
+      <div className="lg:w-2/4 w-full px-10 lg:px-0 sm:pb-10">
+        <div className="h-auto mt-8 flex flex-col items-center justify-center border-b border-gray-300">
           {state.setupError && (
             <motion.div
               variants={errorMessage}
@@ -150,7 +150,7 @@ function PostJobForm({ children }) {
               An error has occurred.
             </motion.div>
           )}
-          <div className="text-4xl px-10 mt-4 font-standardTT">
+          <div className="text-4xl md:px-10 sm:px-5 px-2 font-standardTT">
             Start right from your comfort.
           </div>
         </div>
@@ -183,9 +183,9 @@ function PostJobForm({ children }) {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-70 !relative !overflow-y-auto !overflow-x-hidden"
+          className="lg:!h-70 !h-full w-full !relative !overflow-visible !overflow-x-hidden"
         >
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">First name&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -229,7 +229,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Job Title&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -253,7 +253,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Work Email&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -279,7 +279,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Address</h3>
             </div>
@@ -309,7 +309,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Salary</h3>
             </div>
@@ -324,7 +324,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Phone number&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -348,7 +348,7 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Your role&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -374,22 +374,24 @@ function PostJobForm({ children }) {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-10 py-5 !w-full">
+          <SwiperSlide className="post-job-slide">
             <div className="font-medium mb-4">
               Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
-            <ReactQuill
-              theme="snow"
-              name="description"
-              placeholder="Job description"
-              value={formik.values.description}
-              className="!h-325"
-              onChange={(value) => formik.setFieldValue("description", value)}
-            ></ReactQuill>
+            <div className="post-job-form">
+              <ReactQuill
+                theme="snow"
+                name="description"
+                placeholder="Job description"
+                value={formik.values.description}
+                className=""
+                onChange={(value) => formik.setFieldValue("description", value)}
+              ></ReactQuill>
+            </div>
           </SwiperSlide>
         </Swiper>
-        <div className="flex items-center px-20 justify-between flex-grow z-10 w-full">
+        <div className="flex items-center lg:px-20 justify-between flex-grow z-10 w-full">
           <div
             className={
               "swiper-pagination swiper-button-prev z-10 " +

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 
 import ActiveJob from "../../components/JobActive/JobActive";
+import Popup from "../CompanyProfile/GalleryPopup";
 
 function Job({ jobs }) {
   const [state, setState] = useState({
@@ -23,6 +24,8 @@ function Job({ jobs }) {
       typeof jobs[0] !== "undefined" ? jobs[0].company_profile_image : "",
   });
 
+  const [jobPopup, setJobPopup] = useState(false);
+
   const setJobActive = (data) => (e) => {
     e.stopPropagation();
     setState({
@@ -43,24 +46,25 @@ function Job({ jobs }) {
       company_name: data.company_name,
       company_profile_image: data.company_profile_image,
     });
+    setJobPopup(true);
   };
   return (
-    <div>
+    <div className="border-b border-gray-100">
       {jobs.length > 0 ? (
         <div className="md:px-20 px-5 flex justify-between mt-10">
-          <div className="md:w-2/5 w-full flex flex-col gap-6 h-screen overflow-scroll">
+          <div className="lg:w-2/5 w-full flex flex-col gap-6 h-screen overflow-x-hidden overflow-y-scroll">
             {jobs.map((job) => (
               <div
                 onClick={setJobActive(job)}
                 key={job.id}
                 className={
-                  "border px-6 py-4 bg-white rounded-md flex flex-col items-center cursor-pointer " +
+                  "border px-6 py-4 bg-white rounded-md flex flex-col sm:flex-row lg:flex-col items-center cursor-pointer w-full " +
                   (job.id === state.id
-                    ? "border-purple-600"
+                    ? "lg:border-purple-600 border-gray-200"
                     : "border-gray-200")
                 }
               >
-                <div className="w-24 h-24 rounded-full">
+                <div className="w-24 h-24 lg:w-28 lg:h-28 lg:mb-4 sm:mb-0 mb-4 sm:mr-6 lg:mr-0 sm:w-32 sm:h-32 rounded-full">
                   <img
                     src={job.company_profile_image}
                     alt="Image"
@@ -73,7 +77,7 @@ function Job({ jobs }) {
                     <p className="text-base">{job.job_title}</p>
                   </div>
                   <div>
-                    <p className="text-base truncate">
+                    <p className="text-base">
                       {job.remote && job.address
                         ? job.address + "(Remote)"
                         : job.remote && !job.address
@@ -99,7 +103,7 @@ function Job({ jobs }) {
               </div>
             ))}
           </div>
-          <div className="w-2/4 h-screen overflow-scroll hidden md:block">
+          <div className="w-2/4 lg:h-screen overflow-scroll hidden lg:block lg:mb-6">
             <ActiveJob job={state}></ActiveJob>
           </div>
         </div>
@@ -108,6 +112,14 @@ function Job({ jobs }) {
           Sorry, No jobs available right now
         </div>
       )}
+      <Popup
+        closeModal={() => setJobPopup(false)}
+        showPopup={jobPopup}
+        className="w-full md:w-11/12 lg:w-4/5 lg:hidden"
+        backdropClassName="lg:hidden"
+      >
+        <ActiveJob job={state}></ActiveJob>
+      </Popup>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Navbar from "../../components/JobsNavbar/Navbar";
 import JobSearchFilter from "../../components/JobSearch/Search";
 import Job from "../../components/Job/Job";
 import ActiveJob from "../../components/JobActive/JobActive";
+import Footer from "../../components/HomeFooter/Footer";
 import { cancelPopup } from "../../redux/actions/jobSearch";
 import getToken from "../../lib/getToken";
 
@@ -16,6 +17,7 @@ function Jobs({ jobs, user_profile }) {
       <Navbar user_profile={user_profile}></Navbar>
       <JobSearchFilter></JobSearchFilter>
       <Job jobs={jobs}></Job>
+      <Footer></Footer>
     </div>
   );
 }

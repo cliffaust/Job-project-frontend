@@ -95,8 +95,8 @@ function ProfileSetup() {
     },
   });
   return (
-    <div className="flex h-full">
-      <div className="w-2/3 flex flex-col py-5 justify-between bg-white">
+    <div className="flex lg:h-screen">
+      <div className="lg:w-2/4 lg:flex hidden flex-col py-5 justify-between bg-white">
         <div className="h-full">
           <img
             className="h-full w-full"
@@ -105,8 +105,8 @@ function ProfileSetup() {
           />
         </div>
       </div>
-      <div className="w-2/5">
-        <div className="h-1/5 flex flex-col items-center justify-center border-b border-gray-300">
+      <div className="lg:w-2/4 w-full px-10 lg:px-0 sm:pb-10">
+        <div className="h-auto flex flex-col items-center justify-center border-b border-gray-300">
           {state.setupError && (
             <motion.div
               variants={errorMessage}
@@ -117,7 +117,7 @@ function ProfileSetup() {
               An error has occurred.
             </motion.div>
           )}
-          <div className="text-4xl px-10 font-standardTT">
+          <div className="text-4xl md:px-10 sm:px-5 px-2 font-standardTT">
             Build your profile to attract more Interns.
           </div>
         </div>
@@ -149,9 +149,9 @@ function ProfileSetup() {
               translate: ["100%", 0, 0],
             },
           }}
-          className="!h-70 !relative !overflow-visible !overflow-x-hidden"
+          className="lg:!h-70 !h-full w-full !relative !overflow-visible !overflow-x-hidden"
         >
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="company-setup-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Company name&nbsp;</h3>
               <span className="text-red-500 font-bold mt-2">*</span>
@@ -177,7 +177,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="company-setup-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Number of employees&nbsp;</h3>
             </div>
@@ -202,7 +202,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="company-setup-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Year started</h3>
             </div>
@@ -227,7 +227,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="company-setup-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">About company</h3>
             </div>
@@ -266,7 +266,7 @@ function ProfileSetup() {
               maecenas, egestas urna vel ultrices risus, maecenas
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex flex-col !bg-[#fdfbf8] justify-center !px-20 !w-full">
+          <SwiperSlide className="company-setup-slide">
             <div className="flex items-center mb-2">
               <h3 className="font-bold">Company values</h3>
             </div>
@@ -291,7 +291,7 @@ function ProfileSetup() {
             </div>
           </SwiperSlide>
         </Swiper>
-        <div className="flex items-center px-20 justify-between flex-grow z-10 w-full">
+        <div className="flex items-center lg:px-20 justify-between flex-grow z-10 w-full">
           <div
             className={
               "swiper-pagination swiper-button-prev z-10 " +

@@ -69,6 +69,15 @@ ul {
   opacity: 0.6;
 }
 
+.company-setup-slide,
+.post-job-slide {
+  @apply flex flex-col !bg-[#fdfbf8] h-full justify-center lg:!px-20 md:px-32 sm:py-10 lg:py-0 !w-full;
+}
+
+.post-job-form .ql-editor {
+  @apply !h-72;
+}
+
 .image-picker-container .swiper-slide-thumb-active {
   opacity: 1;
 }

@@ -8,7 +8,7 @@ function ActiveJob({ job }) {
   return (
     <div
       className={
-        "px-6 py-4 bg-white shadow-lg rounded-lg flex flex-col items-center"
+        "md:px-6 py-4 bg-white lg:shadow-lg rounded-lg flex flex-col items-center"
       }
     >
       <div className="w-32 h-32 rounded-full">
@@ -37,7 +37,7 @@ function ActiveJob({ job }) {
         ) : (
           <p className="text-base text-green-600 font-bold">No applicants</p>
         )}
-        <p className="text-base">
+        <p className="text-base text-center">
           <span>Job posted by, </span>{" "}
           <span className="font-bold">
             {job.firstName} {""} {job.lastName}({job.currentRole})

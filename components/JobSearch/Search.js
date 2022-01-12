@@ -42,7 +42,7 @@ function JobSearchFilter() {
   };
 
   return (
-    <div className="bg-white shadow-sm lg:px-20 px-5 py-6 flex flex-col justify-center">
+    <div className="bg-white shadow-sm lg:px-20 border-t border-gray-100 px-5 py-6 flex flex-col justify-center">
       <div className="self-center sm:w-2/3 flex sm:flex-row flex-col items-center gap-5 mb-5">
         <div className="relative w-full">
           <div
