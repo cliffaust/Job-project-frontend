@@ -19,6 +19,9 @@ function ImageGallery({ images }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          speed: 100,
+          autoplay: false,
+          centerMode: true,
         },
       },
       {

@@ -14,6 +14,7 @@ import "react-quill/dist/quill.snow.css";
 
 import NavBar from "../JobsNavbar/Navbar";
 import ButtonPrimary from "../DefaultComponents/ButtonPrimary";
+import ReadMore from "../DefaultComponents/ReadMore";
 import ImageGallery from "./ImageGallery";
 import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
@@ -274,9 +275,11 @@ function Profile({ user_profile, company_profile, jobs }) {
           About Company
         </div>
         <div className="md:pl-8 pl-4">
-          <p className="text-base whitespace-pre-wrap">
-            {company_profile.about_company}
-          </p>
+          <div className="text-base whitespace-pre-wrap">
+            <ReadMore numOfWords={600}>
+              {company_profile.about_company}
+            </ReadMore>
+          </div>
         </div>
       </div>
       <div className="flex flex-col mt-10 md:px-20 px-6">
@@ -284,9 +287,11 @@ function Profile({ user_profile, company_profile, jobs }) {
           Company Values
         </div>
         <div className="md:pl-8 pl-4">
-          <p className="text-base whitespace-pre-wrap">
-            {company_profile.company_values}
-          </p>
+          <div className="text-base whitespace-pre-wrap">
+            <ReadMore numOfWords={600}>
+              {company_profile.company_values}
+            </ReadMore>
+          </div>
         </div>
       </div>
       {jobs.length > 0 ? (
@@ -565,10 +570,10 @@ function Profile({ user_profile, company_profile, jobs }) {
         className="w-full md:w-11/12 lg:w-4/5"
       >
         <ImageGalleryPicker
-          images={company_profile.company_images}
-          // comment={
-          //   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quia quae quas perferendis. Ducimus consectetur nam, error distinctio fugit esse porro facere totam maxime aliquam similique dolores exercitationem Inventore, temporibus"
-          // }
+          images={{
+            images: company_profile.company_images,
+            showComment: false,
+          }}
         ></ImageGalleryPicker>
       </GroupPopup>
     </div>
