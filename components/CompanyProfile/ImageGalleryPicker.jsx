@@ -113,7 +113,6 @@ function ImageGalleryPicker({ images }) {
         onSwiper={setThumbsSwiper}
         spaceBetween={10}
         slidesPerView={"auto"}
-        // centeredSlides={true}
         freeMode={true}
         watchSlidesProgress={true}
         className="image-picker-container"
