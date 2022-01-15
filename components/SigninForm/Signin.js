@@ -137,7 +137,7 @@ export default function Signin(props) {
             type="submit"
             className={"mt-5 w-full px-5 py-2 " + (loading ? "opacity-60" : "")}
           >
-            {!loading ? <span>Login in</span> : ""}{" "}
+            {!loading ? <span>Login</span> : ""}{" "}
             <div>
               {loading ? <ButtonLoadingSpinner></ButtonLoadingSpinner> : ""}
             </div>

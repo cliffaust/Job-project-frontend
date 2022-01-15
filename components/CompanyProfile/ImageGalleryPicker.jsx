@@ -12,7 +12,6 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 import ReadMore from "../DefaultComponents/ReadMore";
-import ImageGalleryPickerSlide from "../CompanyProfile/ImageGalleryPickerSlide";
 
 function ImageGalleryPicker({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -38,41 +37,25 @@ function ImageGalleryPicker({ images }) {
         onSwiper={(swiper) => setAllowGallerySlideNext(swiper.allowSlideNext)}
         onSlideChange={(swiper) => setGallerySwiperIndex(swiper.realIndex)}
         thumbs={{ swiper: thumbsSwiper }}
-        className="!mb-4"
+        className="!mb-4 select-none"
       >
         {images.images.map((image) => (
-          <SwiperSlide key={image.id} className="relative">
-            <div className="absolute w-4/5 bottom-10 rounded-lg -translate-x-2/4 left-2/4 right-2/4 py-2 z-10 bg-purple-200">
-              <div className="px-6 mb-4 font-bold">{image.comment}</div>
-            </div>
+          <SwiperSlide key={image.id} className="relative select-none">
             <div className="relative">
               <img
-                className="image-gallery relative"
+                className="image-gallery relative select-none"
                 src={image.image}
                 alt="Image Gallery"
               />
-              <div className="w-12 h-12 flex justify-center cursor-pointer items-center rounded-full bg-purple-500 absolute bottom-4 right-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeinLejoin="round"
-                    strokeWidth="2"
-                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                  />
-                </svg>
+              <div className="my-2 font-bold select-none">
+                {image.comment.slice(0, 100)}
               </div>
             </div>
           </SwiperSlide>
         ))}
         <div
           className={
-            "absolute hidden md:flex cursor-pointer items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute hidden md:flex cursor-pointer select-none items-center justify-center top-2/4 z-50 left-6 -translate-y-2/4 swiper-pagination swiper-button-prev w-10 h-10 rounded-full bg-white shadow-lg " +
             (gallerySwiperIndex === 0 ? "invisible" : "")
           }
         >
@@ -91,7 +74,7 @@ function ImageGalleryPicker({ images }) {
         </div>
         <div
           className={
-            "absolute hidden cursor-pointer md:flex items-center justify-center top-2/4 z-50 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
+            "absolute hidden cursor-pointer md:flex select-none items-center justify-center top-2/4 z-50 right-6 -translate-y-2/4 swiper-pagination swiper-button-next w-10 h-10 rounded-full bg-white shadow-lg " +
             (!allowGallerySlideNext ? "invisible" : "")
           }
         >
@@ -115,10 +98,13 @@ function ImageGalleryPicker({ images }) {
         slidesPerView={"auto"}
         freeMode={true}
         watchSlidesProgress={true}
-        className="image-picker-container"
+        className="image-picker-container select-none"
       >
         {images.images.map((image) => (
-          <SwiperSlide key={image.id} className="!h-32 !w-72 !overflow-hidden">
+          <SwiperSlide
+            key={image.id}
+            className="!h-32 sm:!w-72 !w-52 !overflow-hidden select-none"
+          >
             <img
               className="image-gallery-picker"
               src={image.image}

@@ -9,6 +9,7 @@ function ImageThumb({ file, filterFile }) {
   const [state, setState] = useState({
     comment: "",
     commentPopup: false,
+    counter: 0,
   });
 
   useEffect(() => {
@@ -25,8 +26,13 @@ function ImageThumb({ file, filterFile }) {
   };
 
   const onChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
+    setState({
+      ...state,
+      [event.target.name]: event.target.value.slice(0, 100),
+      counter: event.target.value.slice(0, 100).length,
+    });
   };
+
   return (
     <div className="w-full">
       <div
@@ -77,25 +83,36 @@ function ImageThumb({ file, filterFile }) {
           </div>
         ) : null}
       </div>
-      <GalleryPopup
-        closeModal={closeCommentModal}
-        showPopup={state.commentPopup}
-        className="w-2/4 px-6"
-      >
-        <BaseTextArea
-          name="comment"
-          placeholder="Comment"
-          value={state.comment}
-          onChange={onChange}
-        ></BaseTextArea>
-
-        <ButtonPrimary
-          onClick={() => setState({ ...state, commentPopup: false })}
-          className="mt-2 px-4 py-2 !rounded-md w-full"
+      <div className="px-6">
+        <GalleryPopup
+          closeModal={closeCommentModal}
+          showPopup={state.commentPopup}
+          className="sm:w-2/4 px-6"
         >
-          Add image comment
-        </ButtonPrimary>
-      </GalleryPopup>
+          <BaseTextArea
+            name="comment"
+            placeholder="Comment"
+            value={state.comment}
+            onChange={onChange}
+            className="mt-10"
+          ></BaseTextArea>
+
+          <p
+            className={
+              "font-bold " + (state.counter === 100 ? "text-red-500" : "")
+            }
+          >
+            {state.counter}/100
+          </p>
+
+          <ButtonPrimary
+            onClick={() => setState({ ...state, commentPopup: false })}
+            className="mt-2 px-4 py-2 !rounded-md w-full"
+          >
+            Add image comment
+          </ButtonPrimary>
+        </GalleryPopup>
+      </div>
     </div>
   );
 }

@@ -121,7 +121,7 @@ function ImageUpload() {
   ));
 
   return (
-    <div className="py-4 px-6">
+    <div className="py-4 sm:px-6 px-2">
       <div onClick={goBack} className="cursor-pointer flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ function ImageUpload() {
         </svg>
         <h3 className="font-bold text-purple-600">Go Back</h3>
       </div>
-      <div className="mx-auto mt-8 w-800 bg-white rounded-lg max-h-600 overflow-y-scroll shadow-xl px-12 py-8">
+      <div className="mx-auto mt-8 max-w-3xl bg-white rounded-lg max-h-600 overflow-y-scroll shadow-xl sm:px-12 px-6 py-8">
         <h1 className="font-bold text-center text-2xl text-gray-600">
           Upload your images
         </h1>

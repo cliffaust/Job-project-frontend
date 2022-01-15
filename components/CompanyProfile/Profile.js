@@ -8,6 +8,8 @@ import { useDropzone } from "react-dropzone";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import SwiperCore from "swiper";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import "swiper/css/effect-creative";
 import "swiper/css";
 import "react-quill/dist/quill.snow.css";
@@ -19,6 +21,7 @@ import ImageGallery from "./ImageGallery";
 import ImageGalleryPicker from "./ImageGalleryPicker";
 import GroupPopup from "./GalleryPopup";
 import BaseInput from "../DefaultComponents/BaseInput";
+import ButtonLoadingSpinner from "../DefaultComponents/ButtonLoadingSpinner";
 
 SwiperCore.use([Navigation]);
 
@@ -31,9 +34,9 @@ function Profile({ user_profile, company_profile, jobs }) {
     allowSlideNext: false,
     galleryPopup: false,
     jobPopup: false,
-    phone: "",
-    comment: "",
+    loading: false,
     jobData: {
+      slug: "",
       firstName: "",
       lastName: "",
       jobTitle: "",
@@ -54,6 +57,14 @@ function Profile({ user_profile, company_profile, jobs }) {
   const [file, setFile] = useState({
     image: null,
     profileImageProgress: 0,
+  });
+
+  const [cv, setCv] = useState({
+    file: null,
+  });
+
+  const [transcript, setTranscript] = useState({
+    file: null,
   });
 
   const jobsRef = useRef(null);
@@ -91,6 +102,7 @@ function Profile({ user_profile, company_profile, jobs }) {
       jobPopup: true,
       jobData: {
         ...state.jobData,
+        slug: data.slug,
         firstName: data.first_name,
         lastName: data.last_name,
         jobTitle: data.job_title,
@@ -106,6 +118,47 @@ function Profile({ user_profile, company_profile, jobs }) {
       },
     });
   };
+
+  const formik = useFormik({
+    initialValues: {
+      phone: "",
+      comment: "",
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("This field is required"),
+      phone: Yup.string().required("This field is required"),
+      comment: Yup.string(),
+    }),
+    onSubmit: async (values) => {
+      setState({ ...state, loading: true });
+
+      try {
+        const fd = new FormData();
+        fd.append("cv", cv.file, cv.file.name);
+        fd.append("transcript", transcript.file, transcript.file.name);
+        fd.append("phone_number", values.phone);
+        fd.append("email", values.email);
+        fd.append("other_comment", values.comment);
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_baseURL}/jobs/${state.jobData.slug}/create-seeker/`,
+          fd,
+          {
+            headers: {
+              Authorization: "Token " + Cookies.get("token"),
+            },
+          }
+        );
+        location.reload();
+      } catch (error) {
+        console.log(error.response.data);
+        setState({ ...state, loading: false });
+      }
+    },
+  });
+
   const openGalleryModal = (e) => {
     e.stopPropagation();
     setState({ ...state, galleryPopup: true });
@@ -147,8 +200,16 @@ function Profile({ user_profile, company_profile, jobs }) {
     }
   };
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = (event) => {
     setFile({ ...file, image: event.target.files[0] });
+  };
+
+  const handleCvChange = (event) => {
+    setCv({ ...cv, file: event.target.files[0] });
+  };
+
+  const handleTranscriptChange = (event) => {
+    setTranscript({ ...transcript, file: event.target.files[0] });
   };
 
   const onChange = (event) => {
@@ -516,9 +577,38 @@ function Profile({ user_profile, company_profile, jobs }) {
                     <h3 className="font-bold">Your CV&nbsp;</h3>
                     <span className="text-red-500 font-bold mt-2">*</span>
                   </div>
-                  <ButtonPrimary className="py-1 ml-2 px-6 !rounded-md font-bold">
-                    Upload
-                  </ButtonPrimary>
+                  <div className="flex gap-4 items-center">
+                    <label
+                      htmlFor="cv"
+                      className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
+                    >
+                      Upload
+                    </label>
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={handleCvChange}
+                      id="cv"
+                    />
+                    {cv.file && (
+                      <div className="truncate w-40">{cv.file.name}</div>
+                    )}
+                    {cv.file && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 cursor-pointer"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        onClick={() => setCv({ ...cv, file: null })}
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="mt-6">
@@ -526,10 +616,63 @@ function Profile({ user_profile, company_profile, jobs }) {
                   <div className="flex items-center mb-2">
                     <h3 className="font-bold">Transcript</h3>
                   </div>
-                  <ButtonPrimary className="py-1 ml-2 px-6 !rounded-md font-bold">
-                    Upload
-                  </ButtonPrimary>
+                  <div className="flex gap-4 items-center">
+                    <label
+                      htmlFor="transcript"
+                      className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
+                    >
+                      Upload
+                    </label>
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={handleTranscriptChange}
+                      id="transcript"
+                    />
+                    {transcript.file && (
+                      <div className="truncate w-40">
+                        {transcript.file.name}
+                      </div>
+                    )}
+                    {transcript.file && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 cursor-pointer"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        onClick={() =>
+                          setTranscript({ ...transcript, file: null })
+                        }
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
                 </div>
+              </div>
+              <div className="mt-6">
+                <div className="flex items-center mb-2">
+                  <h3 className="font-bold">Email&nbsp;</h3>
+                  <span className="text-red-500 font-bold mt-2">*</span>
+                </div>
+                <BaseInput
+                  name="email"
+                  type="email"
+                  errorStyle={
+                    formik.touched.email && formik.errors.email ? true : false
+                  }
+                  placeholder="Email"
+                  {...formik.getFieldProps("email")}
+                ></BaseInput>
+                {formik.touched.email && formik.errors.email ? (
+                  <span className="text-sm mt-3 font-bold text-red-400">
+                    {formik.errors.email}
+                  </span>
+                ) : null}
               </div>
               <div className="mt-6">
                 <div className="flex items-center mb-2">
@@ -540,25 +683,44 @@ function Profile({ user_profile, company_profile, jobs }) {
                   name="phone"
                   placeholder="Phone Number"
                   type="text"
-                  value={state.phone}
-                  onChange={onChange}
+                  errorStyle={
+                    formik.touched.phone && formik.errors.phone ? true : false
+                  }
+                  {...formik.getFieldProps("phone")}
                 ></BaseInput>
+                {formik.touched.phone && formik.errors.phone ? (
+                  <span className="text-sm mt-3 font-bold text-red-400">
+                    {formik.errors.phone}
+                  </span>
+                ) : null}
               </div>
               <div className="mt-6 comment">
                 <div className="flex items-center mb-2">
-                  <h3 className="font-bold">Other comment&nbsp;</h3>
-                  <span className="text-red-500 font-bold mt-2">*</span>
+                  <h3 className="font-bold">Other comment</h3>
                 </div>
                 <ReactQuill
                   theme="snow"
                   placeholder="Other comment"
-                  value={state.comment}
+                  value={formik.values.comment}
                   className=""
-                  onChange={handleComment}
+                  onChange={(value) => formik.setFieldValue("comment", value)}
                 ></ReactQuill>
               </div>
-              <ButtonPrimary className="py-1 mt-6 w-full px-6 !rounded-md font-bold">
-                Apply for this job
+              <ButtonPrimary
+                className={
+                  "py-1 mt-6 w-full px-6 !rounded-md font-bold " +
+                  (state.loading ? "opacity-60" : "")
+                }
+                onClick={formik.handleSubmit}
+              >
+                <div>
+                  {!state.loading ? <span>Apply</span> : ""}{" "}
+                  {state.loading ? (
+                    <ButtonLoadingSpinner></ButtonLoadingSpinner>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </ButtonPrimary>
             </div>
           </SwiperSlide>
@@ -572,7 +734,6 @@ function Profile({ user_profile, company_profile, jobs }) {
         <ImageGalleryPicker
           images={{
             images: company_profile.company_images,
-            showComment: false,
           }}
         ></ImageGalleryPicker>
       </GroupPopup>
