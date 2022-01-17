@@ -33,6 +33,7 @@ function Profile({ user_profile, company_profile, jobs }) {
     swiperIndex: 0,
     allowSlideNext: false,
     galleryPopup: false,
+    swiper: {},
     jobPopup: false,
     loading: false,
     jobData: {
@@ -51,6 +52,14 @@ function Profile({ user_profile, company_profile, jobs }) {
       date_posted: "",
     },
   });
+
+  const [seekers, setSeekers] = useState([]);
+
+  const [seekerLoading, setSeekerLoading] = useState(false);
+
+  const [seekerDetail, setSeekerDetail] = useState({});
+
+  const [seekerDetailLoading, setSeekerDetailLoading] = useState(false);
 
   const [showProfilePics, setShowProfilePics] = useState(false);
 
@@ -123,7 +132,7 @@ function Profile({ user_profile, company_profile, jobs }) {
     initialValues: {
       phone: "",
       comment: "",
-      email: "",
+      email: user_profile.email || "",
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -137,8 +146,12 @@ function Profile({ user_profile, company_profile, jobs }) {
 
       try {
         const fd = new FormData();
-        fd.append("cv", cv.file, cv.file.name);
-        fd.append("transcript", transcript.file, transcript.file.name);
+        fd.append("cv", cv.file, cv.file.name.slice(0, 70));
+        fd.append(
+          "transcript",
+          transcript.file,
+          transcript.file.name.slice(0, 70)
+        );
         fd.append("phone_number", values.phone);
         fd.append("email", values.email);
         fd.append("other_comment", values.comment);
@@ -221,6 +234,25 @@ function Profile({ user_profile, company_profile, jobs }) {
     setState({ ...state, jobPopup: false });
   };
 
+  const jobSeekers = async () => {
+    setSeekerLoading(true);
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_baseURL}/jobs/${state.jobData.slug}/seekers/`
+    );
+    setSeekers(data.results);
+    setSeekerLoading(false);
+  };
+
+  const jobSeekerDetail = async (slug) => {
+    state.swiper.slideNext();
+    setSeekerDetailLoading(true);
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_baseURL}/seekers/${slug}/`
+    );
+    setSeekerDetail(data);
+    setSeekerDetailLoading(false);
+  };
+
   return (
     <div onClick={() => setState({ ...state, galleryPopup: false })}>
       <NavBar user_profile={user_profile}></NavBar>
@@ -232,7 +264,7 @@ function Profile({ user_profile, company_profile, jobs }) {
             className="w-44 h-44 md:w-36 md:h-36 rounded-full relative cursor-pointer"
           >
             <img
-              src={user_profile.profile_pic}
+              src={company_profile.company_profile_image}
               alt="Image"
               className="h-full w-full object-cover rounded-full"
             />
@@ -363,7 +395,10 @@ function Profile({ user_profile, company_profile, jobs }) {
           <Swiper
             {...settings}
             onSwiper={(swiper) =>
-              setState({ ...state, allowSlideNext: swiper.allowSlideNext })
+              setState({
+                ...state,
+                allowSlideNext: swiper.allowSlideNext,
+              })
             }
             onSlideChange={(swiper) =>
               setState({ ...state, swiperIndex: swiper.realIndex })
@@ -466,6 +501,12 @@ function Profile({ user_profile, company_profile, jobs }) {
           preventInteractionOnTransition={true}
           allowTouchMove={false}
           autoHeight={true}
+          onSwiper={(swiper) =>
+            setState({
+              ...state,
+              swiper: swiper,
+            })
+          }
           pagination={{
             el: ".swiper-pagination",
             clickable: true,
@@ -474,18 +515,21 @@ function Profile({ user_profile, company_profile, jobs }) {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
+          // className="h-screen overflow-y-scroll"
         >
           <SwiperSlide>
             <div className="flex justify-center flex-col gap-4 items-center">
               <div className="w-36 h-36 rounded-full">
                 <img
-                  src={user_profile.profile_pic}
+                  src={company_profile.company_profile_image}
                   alt="Image"
                   className="h-full w-full object-cover rounded-full"
                 />
               </div>
               <div className="flex flex-col items-center gap-2">
-                <h1 className="text-4xl font-bold">{state.jobData.title}</h1>
+                <h1 className="lg:text-2xl text-xl font-bold">
+                  {state.jobData.jobTitle}
+                </h1>
                 <p className="truncate text-lg">
                   {state.jobData.remote && state.jobData.address
                     ? state.jobData.address + "(Remote)"
@@ -512,9 +556,18 @@ function Profile({ user_profile, company_profile, jobs }) {
             </div>
             <div className="flex gap-5 items-center w-full mt-6">
               <div className="w-3/4">
-                <ButtonPrimary className="swiper-pagination swiper-button-next px-6 py-2 !w-full !rounded-md">
-                  Apply for this job
-                </ButtonPrimary>
+                {company_profile.user === user_profile.email ? (
+                  <ButtonPrimary
+                    onClick={jobSeekers}
+                    className="swiper-pagination swiper-button-next px-6 py-2 !w-full !rounded-md"
+                  >
+                    View who has applied
+                  </ButtonPrimary>
+                ) : (
+                  <ButtonPrimary className="swiper-pagination swiper-button-next px-6 py-2 !w-full !rounded-md">
+                    Apply for this job
+                  </ButtonPrimary>
+                )}
               </div>
               <div className="w-1/5">
                 <ButtonPrimary className="!bg-gray-200 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
@@ -554,176 +607,344 @@ function Profile({ user_profile, company_profile, jobs }) {
               </span>
             </div>
           </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-pagination swiper-button-prev cursor-pointer flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-purple-600"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+          {company_profile.user === user_profile.email ? (
+            <SwiperSlide className="h-full">
+              <div className="swiper-pagination swiper-button-prev cursor-pointer flex items-center gap-2 mt-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-purple-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <h3 className="font-bold text-purple-600">Job Info</h3>
+              </div>
+              <div
+                className={
+                  "h-screen relative " + (!seekerLoading ? "hidden" : "")
+                }
               >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <h3 className="font-bold text-purple-600">Job Info</h3>
-            </div>
-            <div className="md:px-6 px-0">
-              <div className="mt-5">
-                <div className="mb-6">
+                <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+                  <ButtonLoadingSpinner
+                    width={40}
+                    height={40}
+                  ></ButtonLoadingSpinner>
+                </div>
+              </div>
+              <div
+                className={"mt-8 h-screen " + (seekerLoading ? "hidden" : "")}
+              >
+                {seekers.map((seeker) => (
+                  <div
+                    key={seeker.id}
+                    onClick={() => jobSeekerDetail(seeker.slug)}
+                    className="shadow-md flex gap-4 px-4 py-2 rounded-lg cursor-pointer swiper-pagination swiper-button-prev"
+                  >
+                    <div className="w-24 h-24">
+                      <img
+                        src={seeker.user_profile_image}
+                        className="w-full h-full rounded-full object-cover"
+                        alt=""
+                      />
+                    </div>
+                    <div>
+                      <h1 className="font-bold text-xl mb-2">{seeker.name}</h1>
+                      <p className="mb-1">{seeker.email}</p>
+                      <p className="text-base font-medium mb-2">
+                        Applied{" "}
+                        {moment(seeker.date_posted).startOf("hour").fromNow()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </SwiperSlide>
+          ) : (
+            <SwiperSlide>
+              <div className="swiper-pagination swiper-button-prev cursor-pointer flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-purple-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <h3 className="font-bold text-purple-600">Job Info</h3>
+              </div>
+              <div className="md:px-6 px-0">
+                <div className="mt-5">
+                  <div className="mb-6">
+                    <div className="flex items-center mb-2">
+                      <h3 className="font-bold">Your CV&nbsp;</h3>
+                      <span className="text-red-500 font-bold mt-2">*</span>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <label
+                        htmlFor="cv"
+                        className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
+                      >
+                        Upload
+                      </label>
+                      <input
+                        className="hidden"
+                        type="file"
+                        onChange={handleCvChange}
+                        id="cv"
+                      />
+                      {cv.file && (
+                        <div className="truncate w-40">{cv.file.name}</div>
+                      )}
+                      {cv.file && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 cursor-pointer"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          onClick={() => setCv({ ...cv, file: null })}
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <div className="mb-6">
+                    <div className="flex items-center mb-2">
+                      <h3 className="font-bold">Transcript</h3>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <label
+                        htmlFor="transcript"
+                        className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
+                      >
+                        Upload
+                      </label>
+                      <input
+                        className="hidden"
+                        type="file"
+                        onChange={handleTranscriptChange}
+                        id="transcript"
+                      />
+                      {transcript.file && (
+                        <div className="truncate w-40">
+                          {transcript.file.name}
+                        </div>
+                      )}
+                      {transcript.file && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 cursor-pointer"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          onClick={() =>
+                            setTranscript({ ...transcript, file: null })
+                          }
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6">
                   <div className="flex items-center mb-2">
-                    <h3 className="font-bold">Your CV&nbsp;</h3>
+                    <h3 className="font-bold">Email&nbsp;</h3>
                     <span className="text-red-500 font-bold mt-2">*</span>
                   </div>
-                  <div className="flex gap-4 items-center">
-                    <label
-                      htmlFor="cv"
-                      className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
-                    >
-                      Upload
-                    </label>
-                    <input
-                      className="hidden"
-                      type="file"
-                      onChange={handleCvChange}
-                      id="cv"
-                    />
-                    {cv.file && (
-                      <div className="truncate w-40">{cv.file.name}</div>
+                  <BaseInput
+                    name="email"
+                    type="email"
+                    errorStyle={
+                      formik.touched.email && formik.errors.email ? true : false
+                    }
+                    placeholder="Email"
+                    {...formik.getFieldProps("email")}
+                  ></BaseInput>
+                  {formik.touched.email && formik.errors.email ? (
+                    <span className="text-sm mt-3 font-bold text-red-400">
+                      {formik.errors.email}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="mt-6">
+                  <div className="flex items-center mb-2">
+                    <h3 className="font-bold">Phone number&nbsp;</h3>
+                    <span className="text-red-500 font-bold mt-2">*</span>
+                  </div>
+                  <BaseInput
+                    name="phone"
+                    placeholder="Phone Number"
+                    type="text"
+                    errorStyle={
+                      formik.touched.phone && formik.errors.phone ? true : false
+                    }
+                    {...formik.getFieldProps("phone")}
+                  ></BaseInput>
+                  {formik.touched.phone && formik.errors.phone ? (
+                    <span className="text-sm mt-3 font-bold text-red-400">
+                      {formik.errors.phone}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="mt-6 comment">
+                  <div className="flex items-center mb-2">
+                    <h3 className="font-bold">Other comment</h3>
+                  </div>
+                  <ReactQuill
+                    theme="snow"
+                    placeholder="Other comment"
+                    value={formik.values.comment}
+                    className=""
+                    onChange={(value) => formik.setFieldValue("comment", value)}
+                  ></ReactQuill>
+                </div>
+                <ButtonPrimary
+                  className={
+                    "py-1 mt-6 w-full px-6 !rounded-md font-bold " +
+                    (state.loading ? "opacity-60" : "")
+                  }
+                  onClick={formik.handleSubmit}
+                >
+                  <div>
+                    {!state.loading ? <span>Apply</span> : ""}{" "}
+                    {state.loading ? (
+                      <ButtonLoadingSpinner></ButtonLoadingSpinner>
+                    ) : (
+                      ""
                     )}
-                    {cv.file && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 cursor-pointer"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        onClick={() => setCv({ ...cv, file: null })}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
+                  </div>
+                </ButtonPrimary>
+              </div>
+            </SwiperSlide>
+          )}
+          {company_profile.user === user_profile.email ? (
+            <SwiperSlide>
+              <div className="swiper-pagination swiper-button-prev cursor-pointer flex items-center gap-2 mt-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-purple-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <h3 className="font-bold text-purple-600">Seekers</h3>
+              </div>
+              {seekerDetailLoading ? (
+                <div className="h-screen relative">
+                  <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+                    <ButtonLoadingSpinner
+                      width={40}
+                      height={40}
+                    ></ButtonLoadingSpinner>
                   </div>
                 </div>
-              </div>
-              <div className="mt-6">
-                <div className="mb-6">
-                  <div className="flex items-center mb-2">
-                    <h3 className="font-bold">Transcript</h3>
-                  </div>
-                  <div className="flex gap-4 items-center">
-                    <label
-                      htmlFor="transcript"
-                      className="cursor-pointer z-50 py-2 ml-2 px-6 !rounded-md font-bold bg-purple-600 text-white"
-                    >
-                      Upload
-                    </label>
-                    <input
-                      className="hidden"
-                      type="file"
-                      onChange={handleTranscriptChange}
-                      id="transcript"
-                    />
-                    {transcript.file && (
-                      <div className="truncate w-40">
-                        {transcript.file.name}
-                      </div>
-                    )}
-                    {transcript.file && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 cursor-pointer"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        onClick={() =>
-                          setTranscript({ ...transcript, file: null })
+              ) : (
+                <div className="mt-8 h-screen">
+                  <div className="flex justify-center flex-col items-center">
+                    <div className="w-36 h-36 rounded-full">
+                      <img
+                        src={seekerDetail.user_profile_image}
+                        alt="Image"
+                        className="h-full w-full object-cover rounded-full"
+                      />
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <h1 className="lg:text-2xl text-xl font-bold mt-4">
+                        {state.jobData.jobTitle}
+                      </h1>
+                      <p className="text-xl mb-1 mt-2">{seekerDetail.name}</p>
+                      <p className="mb-1">{seekerDetail.email}</p>
+                      <p className="text-base font-medium">
+                        Posted{" "}
+                        {moment(seekerDetail.date_posted)
+                          .startOf("hour")
+                          .fromNow()}
+                      </p>
+                    </div>
+                    <div className="flex gap-5 items-center justify-center w-full mt-6">
+                      <div
+                        className={
+                          "w-2/4 h-full " +
+                          (!seekerDetail.transcript ? "!w-full" : "")
                         }
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
+                        <ButtonPrimary className="swiper-pagination flex items-center justify-center gap-2 h-full swiper-button-next px-6 py-2 !w-full !rounded-md">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                            />
+                          </svg>{" "}
+                          <div>CV</div>
+                        </ButtonPrimary>
+                      </div>
+                      {seekerDetail.transcript ? (
+                        <div className="w-2/4">
+                          <ButtonPrimary className="!bg-gray-200 flex items-center justify-center gap-2 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                              />
+                            </svg>{" "}
+                            <div>Transcript</div>
+                          </ButtonPrimary>
+                        </div>
+                      ) : null}
+                    </div>
+                    <div>
+                      <h1 className="lg:text-2xl text-xl font-bold mt-6">
+                        Other Comment
+                      </h1>
+                      <p className="mt-4">
+                        {Parser(seekerDetail.other_comment)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-6">
-                <div className="flex items-center mb-2">
-                  <h3 className="font-bold">Email&nbsp;</h3>
-                  <span className="text-red-500 font-bold mt-2">*</span>
-                </div>
-                <BaseInput
-                  name="email"
-                  type="email"
-                  errorStyle={
-                    formik.touched.email && formik.errors.email ? true : false
-                  }
-                  placeholder="Email"
-                  {...formik.getFieldProps("email")}
-                ></BaseInput>
-                {formik.touched.email && formik.errors.email ? (
-                  <span className="text-sm mt-3 font-bold text-red-400">
-                    {formik.errors.email}
-                  </span>
-                ) : null}
-              </div>
-              <div className="mt-6">
-                <div className="flex items-center mb-2">
-                  <h3 className="font-bold">Phone number&nbsp;</h3>
-                  <span className="text-red-500 font-bold mt-2">*</span>
-                </div>
-                <BaseInput
-                  name="phone"
-                  placeholder="Phone Number"
-                  type="text"
-                  errorStyle={
-                    formik.touched.phone && formik.errors.phone ? true : false
-                  }
-                  {...formik.getFieldProps("phone")}
-                ></BaseInput>
-                {formik.touched.phone && formik.errors.phone ? (
-                  <span className="text-sm mt-3 font-bold text-red-400">
-                    {formik.errors.phone}
-                  </span>
-                ) : null}
-              </div>
-              <div className="mt-6 comment">
-                <div className="flex items-center mb-2">
-                  <h3 className="font-bold">Other comment</h3>
-                </div>
-                <ReactQuill
-                  theme="snow"
-                  placeholder="Other comment"
-                  value={formik.values.comment}
-                  className=""
-                  onChange={(value) => formik.setFieldValue("comment", value)}
-                ></ReactQuill>
-              </div>
-              <ButtonPrimary
-                className={
-                  "py-1 mt-6 w-full px-6 !rounded-md font-bold " +
-                  (state.loading ? "opacity-60" : "")
-                }
-                onClick={formik.handleSubmit}
-              >
-                <div>
-                  {!state.loading ? <span>Apply</span> : ""}{" "}
-                  {state.loading ? (
-                    <ButtonLoadingSpinner></ButtonLoadingSpinner>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </ButtonPrimary>
-            </div>
-          </SwiperSlide>
+              )}
+            </SwiperSlide>
+          ) : null}
         </Swiper>
       </GroupPopup>
       <GroupPopup

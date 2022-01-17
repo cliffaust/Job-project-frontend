@@ -7,21 +7,21 @@ import Burger from "../DefaultComponents/Burger";
 const Navbar = ({ user_profile }) => {
   const router = useRouter();
   const signin = () => {
-    router.push({
-      pathname: "signin",
-      query: {
-        redirect: `${router.pathname}`,
-      },
-    });
+    if (typeof window !== "undefined") {
+      router.push({
+        pathname: "/signin",
+        query: { redirect: `${router.asPath}` },
+      });
+    }
   };
 
   const signup = () => {
-    router.push({
-      pathname: "signup",
-      query: {
-        redirect: `${router.pathname}`,
-      },
-    });
+    if (typeof window !== "undefined") {
+      router.push({
+        pathname: "/signup",
+        query: { redirect: `${router.asPath}` },
+      });
+    }
   };
   return (
     <div className="flex px-5 md:px-20 py-4 justify-between items-center">
