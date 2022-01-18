@@ -15,7 +15,7 @@ export default function Home({ user_profile }) {
       <div className="flex bg-white md:bg-opacity-0 py-10 md:py-0 border-t border-b border-gray-200 md:border-none md:flex-row flex-col md:gap-6 gap-6 md:px-10 px-8 justify-between mt-16 md:mt-20 mb-10">
         <Section
           title="Profile Based Choice"
-          text="Lorem ipsum dolor sit amet. egestas urna vel ultrices risus, maecenas. Fames turpis morbi est sagittis nulla elementum dignissim tellus aenean."
+          text="We at job finder believe in the mentality of knowing a company before getting in, that's why we created an easy way of getting to know about a company before applying"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export default function Home({ user_profile }) {
         </Section>
         <Section
           title="Hire a student"
-          text="Lorem ipsum dolor sit amet. egestas urna vel ultrices risus, maecenas. Fames turpis morbi est sagittis nulla elementum dignissim tellus aenean."
+          text="Most companies are looking for students who are eager to learn more and want to grow their knowledge in a more pratical way; that is why we created job finder; to bring students like that to your company"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ export default function Home({ user_profile }) {
         </Section>
         <Section
           title="Make a change"
-          text="Lorem ipsum dolor sit amet. egestas urna vel ultrices risus, maecenas. Fames turpis morbi est sagittis nulla elementum dignissim tellus aenean."
+          text="There are a lot of young people in Ghana who are eager to grow their skills in a more practical way. The more we as a company give those young minds the opportunity the more we are building a better Ghana"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

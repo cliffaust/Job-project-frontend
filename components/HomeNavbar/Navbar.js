@@ -17,11 +17,29 @@ const NavbarComponent = ({ user_profile }) => {
         </a>
       </Link>
       <div className="flex items-center md:gap-8">
-        <Link href="/jobs">
-          <a className="text-base cursor-pointer hidden md:block">Find jobs</a>
-        </Link>
-        <div className="text-base cursor-pointer hidden md:block">About us</div>
-        <div className="text-base cursor-pointer hidden md:block">
+        {!user_profile.is_company ? (
+          <Link href="/jobs">
+            <a className="text-base cursor-pointer hidden md:block">
+              Find jobs
+            </a>
+          </Link>
+        ) : null}
+        {user_profile ? (
+          <Link href="/company-profile">
+            <a className="text-base cursor-pointer hidden md:block">
+              Company Profile
+            </a>
+          </Link>
+        ) : null}
+        <div
+          className={
+            "text-base cursor-pointer hidden lg:block " +
+            (user_profile.is_company ? "md:block" : "")
+          }
+        >
+          About us
+        </div>
+        <div className="text-base cursor-pointer hidden lg:block">
           Contact us
         </div>
         {user_profile ? (

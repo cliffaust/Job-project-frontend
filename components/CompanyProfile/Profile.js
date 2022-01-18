@@ -147,12 +147,17 @@ function Profile({ user_profile, company_profile, jobs }) {
       try {
         const fd = new FormData();
         fd.append("cv", cv.file, cv.file.name.slice(0, 70));
+        transcript.file
+          ? fd.append(
+              "transcript",
+              transcript.file,
+              transcript.file.name.slice(0, 70)
+            )
+          : null;
         fd.append(
-          "transcript",
-          transcript.file,
-          transcript.file.name.slice(0, 70)
+          "phone_number",
+          values.phone.startsWith("+233") ? values.phone : "+233" + values.phone
         );
-        fd.append("phone_number", values.phone);
         fd.append("email", values.email);
         fd.append("other_comment", values.comment);
         await axios.post(
@@ -251,6 +256,20 @@ function Profile({ user_profile, company_profile, jobs }) {
     );
     setSeekerDetail(data);
     setSeekerDetailLoading(false);
+  };
+
+  const downloadCv = (link) => {
+    if (typeof window !== "undefined") {
+      window.open(link, "_blank");
+      window.close();
+    }
+  };
+
+  const downloadTranscript = (link) => {
+    if (typeof window !== "undefined") {
+      window.open(link, "_blank");
+      window.close();
+    }
   };
 
   return (
@@ -643,7 +662,7 @@ function Profile({ user_profile, company_profile, jobs }) {
                   <div
                     key={seeker.id}
                     onClick={() => jobSeekerDetail(seeker.slug)}
-                    className="shadow-md flex gap-4 px-4 py-2 rounded-lg cursor-pointer swiper-pagination swiper-button-prev"
+                    className="shadow-sm border border-gray-100 mb-6 flex gap-4 px-4 py-2 rounded-lg cursor-pointer swiper-pagination swiper-button-prev"
                   >
                     <div className="w-24 h-24">
                       <img
@@ -818,6 +837,7 @@ function Profile({ user_profile, company_profile, jobs }) {
                   ></ReactQuill>
                 </div>
                 <ButtonPrimary
+                  type="submit"
                   className={
                     "py-1 mt-6 w-full px-6 !rounded-md font-bold " +
                     (state.loading ? "opacity-60" : "")
@@ -892,7 +912,10 @@ function Profile({ user_profile, company_profile, jobs }) {
                           (!seekerDetail.transcript ? "!w-full" : "")
                         }
                       >
-                        <ButtonPrimary className="swiper-pagination flex items-center justify-center gap-2 h-full swiper-button-next px-6 py-2 !w-full !rounded-md">
+                        <ButtonPrimary
+                          onClick={() => downloadCv(seekerDetail.cv)}
+                          className="swiper-pagination flex items-center justify-center gap-2 h-full swiper-button-next px-6 py-2 !w-full !rounded-md"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -912,7 +935,12 @@ function Profile({ user_profile, company_profile, jobs }) {
                       </div>
                       {seekerDetail.transcript ? (
                         <div className="w-2/4">
-                          <ButtonPrimary className="!bg-gray-200 flex items-center justify-center gap-2 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold">
+                          <ButtonPrimary
+                            onClick={() =>
+                              downloadTranscript(seekerDetail.transcript)
+                            }
+                            className="!bg-gray-200 flex items-center justify-center gap-2 !border-gray-200 !w-full py-2 px-2 !rounded-md !text-black font-bold"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-6 w-6"
@@ -936,9 +964,11 @@ function Profile({ user_profile, company_profile, jobs }) {
                       <h1 className="lg:text-2xl text-xl font-bold mt-6">
                         Other Comment
                       </h1>
-                      <p className="mt-4">
-                        {Parser(seekerDetail.other_comment)}
-                      </p>
+                      {seekerDetail.other_comment ? (
+                        <div className="mt-4">
+                          {Parser(seekerDetail.other_comment)}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>

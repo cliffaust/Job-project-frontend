@@ -173,8 +173,7 @@ function ProfileSetup() {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              We use this information for search and easy identification
             </div>
           </SwiperSlide>
           <SwiperSlide className="company-setup-slide">
@@ -198,8 +197,8 @@ function ProfileSetup() {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This informations helps the person who is looking into your
+              profile or jobs to know if the number of employees is suitable
             </div>
           </SwiperSlide>
           <SwiperSlide className="company-setup-slide">
@@ -223,8 +222,9 @@ function ProfileSetup() {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              We use this information to filter content based on what an
+              individual wants and also helps to give more insight about your
+              company
             </div>
           </SwiperSlide>
           <SwiperSlide className="company-setup-slide">
@@ -262,8 +262,9 @@ function ProfileSetup() {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This information is used in giving insight on your company. We
+              advice this should be broad and well explained on what your
+              company is about
             </div>
           </SwiperSlide>
           <SwiperSlide className="company-setup-slide">
@@ -286,8 +287,8 @@ function ProfileSetup() {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              Just like the about company, this information should contain the
+              value of your company and we highly recommend not leaving it out
             </div>
           </SwiperSlide>
         </Swiper>

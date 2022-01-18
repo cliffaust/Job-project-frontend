@@ -106,7 +106,9 @@ function PostJobForm({ children }) {
             job_title: values.jobTitle,
             work_email: values.workEmail,
             current_role: values.currentRole,
-            phone_number: values.phone,
+            phone_number: values.phone.startsWith("+233")
+              ? values.phone
+              : "+233" + values.phone,
             description: values.description,
             address: values.address,
             salary: values.salary,
@@ -225,8 +227,8 @@ function PostJobForm({ children }) {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This is important for identification of who placed the job on the
+              platform
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
@@ -248,10 +250,6 @@ function PostJobForm({ children }) {
                 {formik.errors.jobTitle}
               </span>
             ) : null}
-            <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
-            </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
             <div className="flex items-center mb-2">
@@ -275,8 +273,8 @@ function PostJobForm({ children }) {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This should be your work email and one that people who applied for
+              this job can reach you or the company
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
@@ -305,8 +303,10 @@ function PostJobForm({ children }) {
               {...formik.getFieldProps("remote")}
             ></BaseCheckBox>
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This should be where the work is located at. If it's only remote,
+              just check the remote box and leave the address field empty. If
+              it's both on-site and remote, type the address and check the
+              remote box
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
@@ -320,8 +320,8 @@ function PostJobForm({ children }) {
               {...formik.getFieldProps("salary")}
             ></BaseInput>
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This should be the salary that will be paid to the intern. If no
+              salary will be given, just leave this field empty
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
@@ -344,8 +344,8 @@ function PostJobForm({ children }) {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This should be your work phonenumber and one that people who
+              applied for this job can reach you or the company
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
@@ -370,14 +370,14 @@ function PostJobForm({ children }) {
               </span>
             ) : null}
             <div className="mt-4 font-medium">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This is important for identification of who placed the job on the
+              platform
             </div>
           </SwiperSlide>
           <SwiperSlide className="post-job-slide">
             <div className="font-medium mb-4">
-              Lorem ipsum dolor sit amet. egestas urna vel ultrices risus,
-              maecenas, egestas urna vel ultrices risus, maecenas
+              This information is for in giving insight on this. We advice this
+              should be broad and well explained on what the job is about
             </div>
             <div className="post-job-form">
               <ReactQuill

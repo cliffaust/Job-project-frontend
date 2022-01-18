@@ -22,10 +22,12 @@ const Hero = () => {
           <h3 className="text-white">Software engineers</h3>
           <h4 className="text-white font-bold">@Marco</h4>
           <p className="text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat risus
-            dapibus amet odio consectetur. Facilisis neque ultrices pretium
-            fusce lectus. Aliquet in dolor nibh amet, tellus. Pellentesque lorem
-            diam mollis tristique accumsan.
+            Came accross Job finder about 6 months ago and I decided to apply
+            for an internship in one of the many software companies in the
+            platform. Came accross Marco, read about the companies and the
+            values and saw some images on the company. Was very pleased on what
+            I saw so I applied. A week later I got the job. four months into
+            working as an intern, I am now a software engineer
           </p>
         </div>
       </div>

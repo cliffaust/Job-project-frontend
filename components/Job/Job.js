@@ -4,7 +4,7 @@ import moment from "moment";
 import ActiveJob from "../../components/JobActive/JobActive";
 import Popup from "../CompanyProfile/GalleryPopup";
 
-function Job({ jobs }) {
+function Job({ jobs, user_profile }) {
   const [state, setState] = useState({
     id: typeof jobs[0] !== "undefined" ? jobs[0].id : 0,
     firstName: typeof jobs[0] !== "undefined" ? jobs[0].first_name : "",
@@ -20,6 +20,8 @@ function Job({ jobs }) {
     num_applicants: typeof jobs[0] !== "undefined" ? jobs[0].num_applicants : 0,
     date_posted: typeof jobs[0] !== "undefined" ? jobs[0].date_posted : "",
     company_name: typeof jobs[0] !== "undefined" ? jobs[0].company_name : "",
+    company_slug: typeof jobs[0] !== "undefined" ? jobs[0].company_slug : "",
+    slug: typeof jobs[0] !== "undefined" ? jobs[0].slug : "",
     company_profile_image:
       typeof jobs[0] !== "undefined" ? jobs[0].company_profile_image : "",
   });
@@ -45,6 +47,8 @@ function Job({ jobs }) {
       date_posted: data.date_posted,
       company_name: data.company_name,
       company_profile_image: data.company_profile_image,
+      company_slug: data.company_slug,
+      slug: data.slug,
     });
     setJobPopup(true);
   };
@@ -52,7 +56,7 @@ function Job({ jobs }) {
     <div className="border-b border-gray-100">
       {jobs.length > 0 ? (
         <div className="md:px-20 px-5 flex justify-between mt-10">
-          <div className="lg:w-2/5 w-full flex flex-col gap-6 h-screen overflow-x-hidden overflow-y-scroll">
+          <div className="lg:w-2/5 w-full flex flex-col gap-6 mb-6 lg:h-screen overflow-x-hidden overflow-y-scroll">
             {jobs.map((job) => (
               <div
                 onClick={setJobActive(job)}
@@ -104,7 +108,7 @@ function Job({ jobs }) {
             ))}
           </div>
           <div className="w-2/4 lg:h-screen overflow-scroll hidden lg:block lg:mb-6">
-            <ActiveJob job={state}></ActiveJob>
+            <ActiveJob job={state} user_profile={user_profile}></ActiveJob>
           </div>
         </div>
       ) : (
@@ -118,7 +122,7 @@ function Job({ jobs }) {
         className="w-full md:w-11/12 lg:w-4/5 lg:hidden"
         backdropClassName="lg:hidden"
       >
-        <ActiveJob job={state}></ActiveJob>
+        <ActiveJob job={state} user_profile={user_profile}></ActiveJob>
       </Popup>
     </div>
   );

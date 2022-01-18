@@ -14,7 +14,7 @@ function CompanySearch() {
     <div>
       <h1 className="text-3xl font-bold">Find places to work</h1>
       <div className="mt-4">
-        <div className="flex items-center justify-center gap-10">
+        <div className="flex items-center justify-center gap-4">
           <div className="w-4/5">
             <BaseInput
               name="company_name"
@@ -25,7 +25,7 @@ function CompanySearch() {
             ></BaseInput>
           </div>
           <ButtonPrimary className="px-4 py-2 !rounded-md">
-            Find company
+            Search
           </ButtonPrimary>
         </div>
       </div>

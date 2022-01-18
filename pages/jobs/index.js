@@ -16,7 +16,7 @@ function Jobs({ jobs, user_profile }) {
     <div onClick={() => dispatch(cancelPopup())} className="">
       <Navbar user_profile={user_profile}></Navbar>
       <JobSearchFilter></JobSearchFilter>
-      <Job jobs={jobs}></Job>
+      <Job jobs={jobs} user_profile={user_profile}></Job>
       <Footer></Footer>
     </div>
   );
