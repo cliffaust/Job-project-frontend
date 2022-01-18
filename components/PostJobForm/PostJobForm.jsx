@@ -59,7 +59,7 @@ function PostJobForm({ children }) {
       jobTitle: "",
       address: "",
       remote: false,
-      salary: "",
+      salary: 0,
       workEmail: "",
       currentRole: "",
       phone: "",

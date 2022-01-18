@@ -897,7 +897,9 @@ function Profile({ user_profile, company_profile, jobs }) {
                         {state.jobData.jobTitle}
                       </h1>
                       <p className="text-xl mb-1 mt-2">{seekerDetail.name}</p>
-                      <p className="mb-1">{seekerDetail.email}</p>
+                      <p className="mb-1">
+                        {seekerDetail.email}({seekerDetail.phone_number})
+                      </p>
                       <p className="text-base font-medium">
                         Posted{" "}
                         {moment(seekerDetail.date_posted)
