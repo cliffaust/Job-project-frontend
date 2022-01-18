@@ -107,23 +107,26 @@ function Job({ jobs, user_profile }) {
               </div>
             ))}
           </div>
-          <div className="w-2/4 lg:h-screen overflow-scroll hidden lg:block lg:mb-6">
-            <ActiveJob job={state} user_profile={user_profile}></ActiveJob>
-          </div>
+          <ActiveJob
+            job={state}
+            user_profile={user_profile}
+            setJobPopup={setJobPopup}
+            jobPopup={jobPopup}
+          ></ActiveJob>
         </div>
       ) : (
         <div className="text-center text-2xl font-bold mt-6">
           Sorry, No jobs available right now
         </div>
       )}
-      <Popup
+      {/* <Popup
         closeModal={() => setJobPopup(false)}
         showPopup={jobPopup}
         className="w-full md:w-11/12 lg:w-4/5 lg:hidden"
         backdropClassName="lg:hidden"
       >
         <ActiveJob job={state} user_profile={user_profile}></ActiveJob>
-      </Popup>
+      </Popup> */}
     </div>
   );
 }
