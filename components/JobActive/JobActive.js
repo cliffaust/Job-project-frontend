@@ -100,7 +100,7 @@ function ActiveJob({ job, user_profile, jobPopup, setJobPopup }) {
   };
   return (
     <>
-      <div className="w-2/4 lg:min-h-full overflow-scroll hidden lg:block lg:mb-6">
+      <div className="h-screen w-2/4 lg:min-h-full overflow-scroll hidden lg:block lg:mb-6">
         <Swiper
           preventInteractionOnTransition={true}
           allowTouchMove={false}
